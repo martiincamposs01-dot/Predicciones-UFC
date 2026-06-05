@@ -7,9 +7,8 @@ import urllib.parse
 # --- CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(page_title="UFC Freedom 250", page_icon="🥊", layout="wide")
 
-# --- 📸 ENLACES DE IMÁGENES Y VIDEOS ---
+# --- 📸 DICCIONARIO DE IMÁGENES OFICIALES ---
 TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd"
-GIF_HYPE = "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=800&q=80" # Imagen de entrenamiento para hype
 
 FIGHTER_IMAGES = {
     "Ilia Topuria": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2024-10/TOPURIA_ILIA_L_BELT_10-26.png?itok=0ZnoiqvU",
@@ -63,8 +62,7 @@ st.markdown("""
     .weight-class { color: #DC2626; font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; font-weight: bold; }
     
     .stSelectbox > div > div > div { background-color: #27272a; color: white; border-radius: 6px; font-weight: bold; font-family: 'Roboto', sans-serif;}
-    .lobby-box { background-color: #18181b; border-radius: 12px; padding: 20px; text-align: center; border-bottom: 3px solid #DC2626; }
-    
+    .lobby-box { background-color: #18181b; border-radius: 12px; padding: 25px; text-align: center; border-bottom: 3px solid #DC2626; height: 100%; box-shadow: 0 4px 6px rgba(0,0,0,0.5); }
     .quote-box { background-color: #111; border-left: 4px solid #D4AF37; padding: 15px; font-style: italic; color: #ddd; margin-bottom: 10px; border-radius: 0 8px 8px 0; }
 </style>
 """, unsafe_allow_html=True)
@@ -173,15 +171,70 @@ st.markdown("""
 
 tab0, tab1, tab2, tab3, tab4 = st.tabs(["🏠 Lobby Oficial", "📊 Ránkings", "📝 Jugar (Cartelera)", "📺 Stats en Vivo", "🎙️ Bruce Buffer"])
 
-# --- PESTAÑA 0: LOBBY Y HYPE ROOM ---
+# --- PESTAÑA 0: LOBBY REPOTENCIADO ---
 with tab0:
+    # 1. BANNER DE INSTALACIÓN MÓVIL
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, #DC2626 0%, #7F1D1D 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px solid #ff4d4d; box-shadow: 0 8px 20px rgba(220, 38, 38, 0.4);">
+        <h3 style="margin-top: 0; color: white; display: flex; align-items: center; font-family: 'Oswald', sans-serif;">📲 ¡Lleva el Octágono en tu Bolsillo!</h3>
+        <p style="font-weight: 700; font-size: 1.05rem; margin-bottom: 12px;">Instala esta web como una App nativa para no perderte ningún resultado ni estadística:</p>
+        <ul style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0;">
+            <li><strong>🍏 iPhone (Safari):</strong> Toca 'Compartir' (📤) abajo ➔ <strong>➕ Agregar a inicio</strong>.</li>
+            <li><strong>🤖 Android (Chrome):</strong> Toca los 3 puntos (⋮) arriba ➔ <strong>📱 Agregar a la pantalla principal</strong>.</li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # 2. SECCIÓN DE INSTRUCCIONES "MANUAL DEL ORÁCULO"
+    st.markdown("<h2 style='text-align:center; color: #D4AF37; font-family: \"Oswald\", sans-serif; margin-bottom: 20px; font-size: 2.5rem;'>📜 MANUAL DEL ORÁCULO: ¿CÓMO SE JUEGA?</h2>", unsafe_allow_html=True)
+    
+    col_inst1, col_inst2, col_inst3 = st.columns(3)
+    with col_inst1:
+        st.markdown("""
+        <div class='lobby-box'>
+            <h1 style='font-size: 3rem; margin: 0;'>1️⃣</h1>
+            <h3 style='color: white; font-family: "Oswald", sans-serif;'>Elige tu Esquina</h3>
+            <p style='color: #A1A1AA;'>Ve a la pestaña <strong>JUGAR</strong>. Crea tu propio Gimnasio (Liga Privada) con contraseña para tus amigos, o únete a la guerra en el Ranking Global.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    with col_inst2:
+        st.markdown("""
+        <div class='lobby-box'>
+            <h1 style='font-size: 3rem; margin: 0;'>2️⃣</h1>
+            <h3 style='color: white; font-family: "Oswald", sans-serif;'>Sella tu Cartilla</h3>
+            <p style='color: #A1A1AA;'>Analiza el Face-off y predice 3 cosas por pelea: Quién será el <strong>Ganador</strong>, cuál será el <strong>Método</strong> y en qué <strong>Round</strong> terminará.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    with col_inst3:
+        st.markdown("""
+        <div class='lobby-box'>
+            <h1 style='font-size: 3rem; margin: 0;'>3️⃣</h1>
+            <h3 style='color: white; font-family: "Oswald", sans-serif;'>Cobra tus Puntos</h3>
+            <p style='color: #A1A1AA;'>Revisa la pestaña <strong>RÁNKINGS</strong> para ver tu posición. Escala desde "Peleador Preliminar" hasta convertirte en el "Campeón Indiscutido".</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+    # 3. BOLSA DE PUNTOS OFICIAL
+    st.markdown("""
+    <div style="background-color: #111; padding: 20px; border-radius: 12px; margin-top: 25px; margin-bottom: 30px; border: 2px dashed #D4AF37; text-align: center;">
+        <h3 style="color: #D4AF37; margin-top: 0; font-family: 'Oswald', sans-serif; text-transform: uppercase;">💰 Bolsa de Puntos (Cómo Ganar)</h3>
+        <p style="color: #ddd; font-size: 1.1rem; margin-bottom: 5px;"><strong>+10 pts:</strong> Acertar al ganador de la pelea.</p>
+        <p style="color: #ddd; font-size: 1.1rem; margin-bottom: 5px;"><strong>+5 pts extra:</strong> Acertar el Método de victoria (KO/TKO, Sumisión o Decisión).</p>
+        <p style="color: #ddd; font-size: 1.1rem; margin-bottom: 5px;"><strong>+5 pts extra:</strong> Acertar el Round exacto del final.</p>
+        <p style="color: #DC2626; font-size: 1.2rem; font-weight: bold; margin-top: 10px;">🏆 BONO PERFECTO (+5 pts): ¡Acierta TODO y llévate 25 PUNTOS POR PELEA!</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("---")
+
+    # 4. TRAILER Y HYPE ROOM
     col_vid, col_info = st.columns([2, 1])
     with col_vid:
         st.markdown("<h3 style='color: #D4AF37; margin-top: 0;'>🎬 Promo Oficial de la Velada</h3>", unsafe_allow_html=True)
         st.video(TRAILER_OFICIAL)
     with col_info:
         st.markdown("""
-        <div style="background-color: #18181b; padding: 25px; border-radius: 12px; border-left: 5px solid #DC2626; margin-bottom: 15px;">
+        <div style="background-color: #18181b; padding: 25px; border-radius: 12px; border-left: 5px solid #DC2626; height: 100%;">
             <h2 style="color: white; margin-top: 0;">🔥 Hype Room</h2>
             <div class='quote-box'>
                 "Voy a noquear a Justin Gaethje. No tiene ni la velocidad ni el IQ de pelea para aguantar mis manos."<br><strong>— Ilia Topuria</strong>
@@ -193,13 +246,13 @@ with tab0:
         """, unsafe_allow_html=True)
     
     st.markdown("---")
-    st.subheader("✅ Resultados de la Noche")
+    st.subheader("✅ Resultados Oficiales de la Noche")
     peleas_jugadas = df_peleas[df_peleas["jugado"] == True]
     if not peleas_jugadas.empty:
         for _, row in peleas_jugadas.iterrows():
             st.markdown(f"<div style='background-color:#18181b; padding:15px; border-radius:8px; margin-bottom:10px; border-left: 4px solid #D4AF37;'><p style='color:#A1A1AA; font-size:0.8rem; margin:0;'>{row['peso']}</p><p style='font-size:1.2rem; margin:5px 0; color:white;'>👑 <strong>{row['res_winner']}</strong> vence por <strong>{row['res_method']}</strong> (Round {row['res_round']})</p></div>", unsafe_allow_html=True)
     else:
-        st.info("⏱️ Aún no hay resultados. ¡El evento está por comenzar!")
+        st.info("⏱️ Aún no hay resultados. ¡Las luces del octágono recién se están encendiendo!")
 
 # --- PESTAÑA 1: RÁNKING ---
 with tab1:
