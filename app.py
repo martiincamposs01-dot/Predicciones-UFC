@@ -218,10 +218,21 @@ with tab0:
     st.markdown("""
     <div style="background: linear-gradient(135deg, #DC2626 0%, #7F1D1D 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px solid #ff4d4d; box-shadow: 0 8px 20px rgba(220, 38, 38, 0.4);">
         <h3 style="margin-top: 0; color: white; display: flex; align-items: center; font-family: 'Oswald', sans-serif;">📲 ¡Lleva el Octágono en tu Bolsillo!</h3>
-        <p style="font-weight: 700; font-size: 1.05rem; margin-bottom: 12px;">Instala esta web como una App nativa para no perderte ningún resultado ni estadística:</p>
+        <p style="font-weight: 700; font-size: 1.05rem; margin-bottom: 8px;">Instala esta web como una App nativa para no perderte nada:</p>
+        
+        <div style="background-color: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; margin-bottom: 15px; border-left: 3px solid #D4AF37;">
+            <span style="font-size: 0.9rem; color: #fbbf24; font-weight: bold;">⚠️ ¿Atrapado en el navegador de TikTok/Instagram?</span><br>
+            <span style="font-size: 0.85rem; color: #ddd;">Las redes sociales bloquean la instalación de apps. Para solucionarlo:</span><br>
+            <ol style="font-size: 0.85rem; color: #ddd; margin-top: 5px; margin-bottom: 0; padding-left: 20px;">
+                <li>Toca la barra superior blanca que dice <em>"Estás en..."</em> o busca los 3 puntitos.</li>
+                <li>Copia el enlace de la página.</li>
+                <li>Abre <strong>Safari</strong> (iPhone) o <strong>Chrome</strong> (Android) y pega el enlace ahí.</li>
+            </ol>
+        </div>
+        
         <ul style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0;">
-            <li><strong>🍏 iPhone (Safari):</strong> Toca 'Compartir' (📤) abajo ➔ <strong>➕ Agregar a inicio</strong>.</li>
-            <li><strong>🤖 Android (Chrome):</strong> Toca los 3 puntos (⋮) arriba ➔ <strong>📱 Agregar a la pantalla principal</strong>.</li>
+            <li><strong>🍏 Una vez en Safari:</strong> Toca 'Compartir' (📤) abajo ➔ <strong>➕ Agregar a inicio</strong>.</li>
+            <li><strong>🤖 Una vez en Chrome:</strong> Toca los 3 puntos (⋮) arriba ➔ <strong>📱 Agregar a la pantalla principal</strong>.</li>
         </ul>
     </div>
     """, unsafe_allow_html=True)
