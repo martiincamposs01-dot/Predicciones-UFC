@@ -104,7 +104,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --- BASES DE DATOS ---
+# --- BASES DE DATOS (NUEVOS NOMBRES PARA REINICIAR LAS PRUEBAS) ---
 PELEAS_FILE = "ufc_peleas_oficial.csv"
 PREDICCONES_FILE = "ufc_preds_oficial.csv"
 LIGAS_FILE = "ufc_ligas_oficial.csv" 
