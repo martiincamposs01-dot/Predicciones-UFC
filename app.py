@@ -27,25 +27,25 @@ FIGHTER_IMAGES = {
     "Steve Garcia": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-10/GARCIA_STEVE_L_11-01.png?itok=C9aRxxhd"
 }
 
-# Base de datos de Stats Reales para el Tale of the Tape
+# Base de datos de Stats ACTUALIZADAS (Récords, Medidas y Momios Reales)
 FIGHTER_STATS = {
-    "Ilia Topuria": {"record": "15-0-0", "altura": "1.70 m", "alcance": "1.75 m", "odds": "-150"},
-    "Justin Gaethje": {"record": "25-5-0", "altura": "1.80 m", "alcance": "1.80 m", "odds": "+125"},
-    "Alex Pereira": {"record": "10-2-0", "altura": "1.93 m", "alcance": "2.00 m", "odds": "-130"},
-    "Ciryl Gane": {"record": "12-2-0", "altura": "1.93 m", "alcance": "2.06 m", "odds": "+110"},
-    "Sean O'Malley": {"record": "18-1-0", "altura": "1.80 m", "alcance": "1.83 m", "odds": "-200"},
-    "Aiemann Zahabi": {"record": "11-2-0", "altura": "1.73 m", "alcance": "1.73 m", "odds": "+170"},
-    "Josh Hokit": {"record": "8-1-0", "altura": "1.85 m", "alcance": "1.88 m", "odds": "-110"},
-    "Derrick Lewis": {"record": "27-12-0", "altura": "1.91 m", "alcance": "2.01 m", "odds": "-110"},
-    "Mauricio Ruffy": {"record": "10-1-0", "altura": "1.80 m", "alcance": "1.83 m", "odds": "-140"},
-    "Michael Chandler": {"record": "23-8-0", "altura": "1.73 m", "alcance": "1.80 m", "odds": "+120"},
-    "Bo Nickal": {"record": "6-0-0", "altura": "1.85 m", "alcance": "1.93 m", "odds": "-450"},
-    "Kyle Daukaus": {"record": "13-4-0", "altura": "1.91 m", "alcance": "1.93 m", "odds": "+320"},
-    "Diego Lopes": {"record": "24-6-0", "altura": "1.80 m", "alcance": "1.84 m", "odds": "-160"},
-    "Steve Garcia": {"record": "16-5-0", "altura": "1.83 m", "alcance": "1.91 m", "odds": "+135"}
+    "Ilia Topuria": {"record": "17-0-0", "altura": "1.70 m", "alcance": "1.75 m", "odds": "-720"},
+    "Justin Gaethje": {"record": "27-5-0", "altura": "1.81 m", "alcance": "1.78 m", "odds": "+450"},
+    "Alex Pereira": {"record": "13-3-0", "altura": "1.93 m", "alcance": "2.01 m", "odds": "-113"},
+    "Ciryl Gane": {"record": "13-2-0", "altura": "1.93 m", "alcance": "2.06 m", "odds": "-113"},
+    "Sean O'Malley": {"record": "19-3-0 (1 NC)", "altura": "1.80 m", "alcance": "1.83 m", "odds": "-430"},
+    "Aiemann Zahabi": {"record": "14-2-0", "altura": "1.73 m", "alcance": "1.74 m", "odds": "+300"},
+    "Josh Hokit": {"record": "9-0-0", "altura": "1.85 m", "alcance": "1.87 m", "odds": "-340"},
+    "Derrick Lewis": {"record": "29-13-0 (1 NC)", "altura": "1.88 m", "alcance": "2.01 m", "odds": "+250"},
+    "Mauricio Ruffy": {"record": "13-2-0", "altura": "1.80 m", "alcance": "1.91 m", "odds": "-670"},
+    "Michael Chandler": {"record": "23-10-0", "altura": "1.73 m", "alcance": "1.82 m", "odds": "+430"},
+    "Bo Nickal": {"record": "8-1-0", "altura": "1.85 m", "alcance": "1.93 m", "odds": "-330"},
+    "Kyle Daukaus": {"record": "17-4-0 (1 NC)", "altura": "1.88 m", "alcance": "1.93 m", "odds": "+240"},
+    "Diego Lopes": {"record": "27-8-0", "altura": "1.80 m", "alcance": "1.84 m", "odds": "-192"},
+    "Steve Garcia": {"record": "19-5-0", "altura": "1.83 m", "alcance": "1.91 m", "odds": "+148"}
 }
 
-# --- ESTILOS CSS ---
+# --- ESTILOS CSS (CON OPTIMIZACIÓN EXTREMA PARA CELULARES) ---
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700;900&family=Roboto:wght@400;700&display=swap');
@@ -85,13 +85,29 @@ st.markdown("""
     .odds-box { background-color: #111; border: 2px solid #333; border-radius: 10px; padding: 15px; text-align: center; }
     .odds-fav { color: #10B981; font-weight: bold; font-size: 1.8rem; font-family: 'Oswald', sans-serif;}
     .odds-dog { color: #EF4444; font-weight: bold; font-size: 1.8rem; font-family: 'Oswald', sans-serif;}
+
+    /* REGLAS EXCLUSIVAS PARA CELULARES (RESPONSIVE) */
+    @media (max-width: 768px) {
+        .fighter-img { width: 100px; height: 100px; border-width: 2px; }
+        .fighter-name { font-size: 1.2rem; margin-top: 5px; }
+        .vs-text { font-size: 2rem; margin-top: 25px; }
+        .weight-class { font-size: 0.8rem; letter-spacing: 1px; }
+        .fight-card { padding: 15px; }
+        .banner-h1 { font-size: 2.5rem !important; letter-spacing: 2px !important; }
+        .banner-h2 { font-size: 1.5rem !important; }
+        button[data-baseweb="tab"] { font-size: 0.9rem !important; padding: 10px 5px !important; }
+        .lobby-box h1 { font-size: 2rem !important; }
+        .lobby-box h3 { font-size: 1.2rem !important; }
+        table { font-size: 0.75rem !important; }
+        td { padding: 5px !important; }
+    }
 </style>
 """, unsafe_allow_html=True)
 
-# --- BASES DE DATOS ---
-PELEAS_FILE = "ufc_peleas_final.csv"
-PREDICCONES_FILE = "ufc_preds_final.csv"
-LIGAS_FILE = "ufc_ligas_final.csv" 
+# --- BASES DE DATOS (NUEVOS NOMBRES PARA REINICIAR LAS PRUEBAS) ---
+PELEAS_FILE = "ufc_peleas_oficial.csv"
+PREDICCONES_FILE = "ufc_preds_oficial.csv"
+LIGAS_FILE = "ufc_ligas_oficial.csv" 
 PASSWORD_ADMIN = "dana2050"
 
 # --- INICIALIZACIÓN ---
@@ -100,10 +116,10 @@ if not os.path.exists(PELEAS_FILE):
         {"id": 1, "orden": "MAIN EVENT - 5 ROUNDS", "peso": "UFC Lightweight Championship", "fighter_a": "Ilia Topuria", "fighter_b": "Justin Gaethje", "rondas_max": 5, "res_winner": "-", "res_method": "-", "res_round": "-", "jugado": False},
         {"id": 2, "orden": "CO-MAIN EVENT - 5 ROUNDS", "peso": "Interim Heavyweight Championship", "fighter_a": "Alex Pereira", "fighter_b": "Ciryl Gane", "rondas_max": 5, "res_winner": "-", "res_method": "-", "res_round": "-", "jugado": False},
         {"id": 3, "orden": "MAIN CARD - 3 ROUNDS", "peso": "Bantamweight Bout", "fighter_a": "Sean O'Malley", "fighter_b": "Aiemann Zahabi", "rondas_max": 3, "res_winner": "-", "res_method": "-", "res_round": "-", "jugado": False},
-        {"id": 4, "orden": "MAIN CARD - 3 ROUNDS", "peso": "Heavyweight Bout", "fighter_a": "Josh Hokit", "fighter_b": "Derrick Lewis", "rondas_max": 3, "res_winner": "-", "res_method": "-", "res_round": "-", "jugado": False},
-        {"id": 5, "orden": "MAIN CARD - 3 ROUNDS", "peso": "Lightweight Bout", "fighter_a": "Mauricio Ruffy", "fighter_b": "Michael Chandler", "rondas_max": 3, "res_winner": "-", "res_method": "-", "res_round": "-", "jugado": False},
-        {"id": 6, "orden": "PRELIMS - 3 ROUNDS", "peso": "Middleweight Bout", "fighter_a": "Bo Nickal", "fighter_b": "Kyle Daukaus", "rondas_max": 3, "res_winner": "-", "res_method": "-", "res_round": "-", "jugado": False},
-        {"id": 7, "orden": "PRELIMS - 3 ROUNDS", "peso": "Featherweight Bout", "fighter_a": "Diego Lopes", "fighter_b": "Steve Garcia", "rondas_max": 3, "res_winner": "-", "res_method": "-", "res_round": "-", "jugado": False},
+        {"id": 4, "orden": "MAIN CARD - 3 ROUNDS", "peso": "Lightweight Bout", "fighter_a": "Mauricio Ruffy", "fighter_b": "Michael Chandler", "rondas_max": 3, "res_winner": "-", "res_method": "-", "res_round": "-", "jugado": False},
+        {"id": 5, "orden": "PRELIMS - 3 ROUNDS", "peso": "Middleweight Bout", "fighter_a": "Bo Nickal", "fighter_b": "Kyle Daukaus", "rondas_max": 3, "res_winner": "-", "res_method": "-", "res_round": "-", "jugado": False},
+        {"id": 6, "orden": "PRELIMS - 3 ROUNDS", "peso": "Featherweight Bout", "fighter_a": "Diego Lopes", "fighter_b": "Steve Garcia", "rondas_max": 3, "res_winner": "-", "res_method": "-", "res_round": "-", "jugado": False},
+        {"id": 7, "orden": "PRELIMS - 3 ROUNDS", "peso": "Heavyweight Bout", "fighter_a": "Josh Hokit", "fighter_b": "Derrick Lewis", "rondas_max": 3, "res_winner": "-", "res_method": "-", "res_round": "-", "jugado": False},
     ]
     pd.DataFrame(cartelera_inicial).to_csv(PELEAS_FILE, index=False)
 
@@ -189,12 +205,12 @@ with st.sidebar:
 # --- BANNER PRINCIPAL ---
 st.markdown("""
 <div style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)), url('https://aulanews.uao.es/wp-content/uploads/2020/05/ufc-octagono.jpg'); background-size: cover; background-position: center; padding: 60px 20px; border-radius: 15px; text-align: center; margin-bottom: 35px; border: 2px solid #DC2626; box-shadow: 0 0 40px rgba(220, 38, 38, 0.4);">
-    <h1 style="color: #ffffff; font-size: 4.5rem; margin:0; text-transform: uppercase; letter-spacing: 6px; text-shadow: 3px 3px 15px #DC2626; font-family: 'Oswald', sans-serif;">UFC FREEDOM 250</h1>
-    <h2 style="color: #D4AF37; font-size: 2.5rem; margin-top: 5px; font-weight: 900; letter-spacing: 4px; font-family: 'Oswald', sans-serif;">TOPURIA <span style="color:white; font-size: 1.5rem;">VS</span> GAETHJE</h2>
+    <h1 class="banner-h1" style="color: #ffffff; font-size: 4.5rem; margin:0; text-transform: uppercase; letter-spacing: 6px; text-shadow: 3px 3px 15px #DC2626; font-family: 'Oswald', sans-serif;">UFC FREEDOM 250</h1>
+    <h2 class="banner-h2" style="color: #D4AF37; font-size: 2.5rem; margin-top: 5px; font-weight: 900; letter-spacing: 4px; font-family: 'Oswald', sans-serif;">TOPURIA <span style="color:white; font-size: 1.5rem;">VS</span> GAETHJE</h2>
 </div>
 """, unsafe_allow_html=True)
 
-# --- PESTAÑAS (AHORA SON 6) ---
+# --- PESTAÑAS ---
 tab0, tab1, tab2, tab3, tab4, tab5 = st.tabs(["🏠 Lobby", "📊 Ránkings", "📝 Jugar", "🎲 Momios", "📺 Stats", "🎙️ Bruce"])
 
 # --- PESTAÑA 0: LOBBY ---
@@ -344,7 +360,7 @@ with tab2:
                     time.sleep(1.5)
                     st.rerun()
 
-# --- PESTAÑA 3: NUEVO CENTRO DE ANÁLISIS Y MOMIOS ---
+# --- PESTAÑA 3: CENTRO DE ANÁLISIS Y MOMIOS ---
 with tab3:
     st.markdown("<h2 class='stat-title'>🎲 Centro de Apuestas & Análisis (Las Vegas)</h2>", unsafe_allow_html=True)
     st.markdown("Revisa los datos de los peleadores y los momios oficiales antes de lanzar tus predicciones.")
