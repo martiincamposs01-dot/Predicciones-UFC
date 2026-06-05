@@ -193,7 +193,7 @@ with st.sidebar:
     """, unsafe_allow_html=True)
     st.markdown("---")
     st.markdown("<h3 style='text-align: center; color: white;'>🔗 Invita a tus amigos</h3>", unsafe_allow_html=True)
-    url_de_tu_app = "https://predicciones-ufc-87c5opnpg9pmnfjm9qqrkr.streamlit.app"
+    url_de_tu_app = "https://predicciones-ufc-87c5opnpg9pmnfjm9qqrkr.streamlit.app/#momios-de-las-vegas"
     st.code(url_de_tu_app, language="text")
     mensaje_whatsapp = f"🥊 ¡Únete a nuestra liga de pronósticos para UFC FREEDOM 250! Deja tus predicciones aquí: {url_de_tu_app}"
     url_whatsapp = f"https://api.whatsapp.com/send?text={urllib.parse.quote(mensaje_whatsapp)}"
