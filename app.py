@@ -7,11 +7,25 @@ import urllib.parse
 # --- CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(page_title="UFC Freedom 250", page_icon="🥊", layout="wide")
 
-# --- 📸 ENLACES DE IMÁGENES Y VIDEOS (INTEGRADOS) ---
-TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd" 
+# --- 📸 DICCIONARIO DE IMÁGENES OFICIALES ---
+TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd"
 
-URL_FOTO_TOPURIA = "https://ufc.com/images/styles/athlete_bio_full_body/s3/2024-10/TOPURIA_ILIA_L_BELT_10-26.png?itok=0ZnoiqvU" 
-URL_FOTO_GAETHJE = "https://ufc.com/images/styles/athlete_bio_full_body/s3/2026-01/GAETHJE_JUSTIN_L_BELTMOCK.png?itok=Ec57vAPj"
+FIGHTER_IMAGES = {
+    "Ilia Topuria": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2024-10/TOPURIA_ILIA_L_BELT_10-26.png?itok=0ZnoiqvU",
+    "Justin Gaethje": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2026-01/GAETHJE_JUSTIN_L_BELTMOCK.png?itok=Ec57vAPj",
+    "Alex Pereira": "https://gidstats.com/img/fighters/0/0/1-824.png",
+    "Ciryl Gane": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/GANE_CIRYL_L_12-07.png?itok=RtxXOv1m",
+    "Sean O'Malley": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2026-01/OMALLEY_SEAN_L_01-24.png?itok=GKNy0vLH",
+    "Aiemann Zahabi": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/ZAHABI_AIEMANN_L_11-02.png?itok=7oV3Lazp",
+    "Josh Hokit": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2026-01/HOKIT_JOSH_L_01-24.png?itok=q4AaxC15",
+    "Derrick Lewis": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-07/LEWIS_DERRICK_L_07-12.png?itok=NW56kLpV",
+    "Mauricio Ruffy": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2026-02/RUFFY_MAURICIO_L_01-31.png?itok=I_xrL9e4",
+    "Michael Chandler": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-04/CHANDLER_MICHAEL_L_04-12.png?itok=a63uTG7H",
+    "Bo Nickal": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-11/NICKAL_BO_L_11-15.png?itok=H_KDgWwL",
+    "Kyle Daukaus": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-11/DAUKAUS_KYLE_L_11-15.png?itok=9rQVeQfZ",
+    "Diego Lopes": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2026-02/LOPES_DIEGO_L_01-31.png?itok=m_ex383n",
+    "Steve Garcia": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-10/GARCIA_STEVE_L_11-01.png?itok=C9aRxxhd"
+}
 
 # --- ESTILOS CSS (MODO PPV EXTREMO CON BORDES DE CAMPEONATO) ---
 st.markdown("""
@@ -57,7 +71,7 @@ st.markdown("""
     }
     .fight-card::before { content: '🤼‍♂️'; position: absolute; font-size: 10rem; opacity: 0.03; right: -20px; bottom: -40px; }
     
-    /* ESTILO DE FOTOS DE PELEADORES */
+    /* ESTILO DE FOTOS DE PELEADORES (Ajustado para PNG transparentes de UFC) */
     .fighter-img { 
         width: 170px; 
         height: 170px; 
@@ -149,8 +163,10 @@ def calcular_tabla_ufc(df_p, df_preds, liga_filtro=None):
     df_tabla = pd.DataFrame(tabla_data, columns=["Peleador", "Cinturón 🎖️", "Puntos Totales", "Plenos (25pts)", "Aciertos Ganador"])
     return df_tabla.sort_values(by=["Puntos Totales", "Plenos (25pts)"], ascending=[False, False]).reset_index(drop=True)
 
-def get_fighter_img(name, url_personalizada=""):
-    if url_personalizada: return url_personalizada
+def get_fighter_img(name):
+    if name in FIGHTER_IMAGES:
+        return FIGHTER_IMAGES[name]
+    # Imagen por defecto si un peleador no está en el diccionario
     return f"https://ui-avatars.com/api/?name={name.replace(' ', '+')}&background=18181b&color=DC2626&size=200&font-size=0.33&bold=true"
 
 # --- PANEL LATERAL ---
@@ -172,7 +188,7 @@ with st.sidebar:
             📲 Enviar por WhatsApp
         </div></a>""", unsafe_allow_html=True)
 
-# --- BANNER PRINCIPAL (NUEVO OCTÁGONO CLARITO) ---
+# --- BANNER PRINCIPAL (OCTÁGONO UFC) ---
 st.markdown("""
 <div style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)), url('https://aulanews.uao.es/wp-content/uploads/2020/05/ufc-octagono.jpg'); background-size: cover; background-position: center; padding: 60px 20px; border-radius: 15px; text-align: center; margin-bottom: 35px; border: 2px solid #DC2626; box-shadow: 0 0 40px rgba(220, 38, 38, 0.4);">
     <h1 style="color: #ffffff; font-size: 4.5rem; margin:0; text-transform: uppercase; letter-spacing: 6px; text-shadow: 3px 3px 15px #DC2626; font-family: 'Oswald', sans-serif;">UFC FREEDOM 250</h1>
@@ -216,7 +232,7 @@ with tab1:
 
 # --- PESTAÑA 2: CARTELERA (PREDICCIONES CON FACE-OFF) ---
 with tab2:
-    usuario_input = st.text_input("👤 Nombre del Peleador (Tu Apodo):", placeholder="Ej. Tesla Jr.")
+    usuario_input = st.text_input("👤 Nombre del Peleador (Tu Apodo):", placeholder="Ej. The Specialist")
     usuario_limpio = usuario_input.strip().title()
     opcion_liga = st.selectbox("🤝 Modalidad:", ["🌍 Ranking Global", "➕ Crear Liga Privada", "🔐 Unirse a Liga Existente"])
     liga_limpia, clave_ingresada, clave_creada, liga_nueva = "GLOBAL", "", "", ""
@@ -250,9 +266,9 @@ with tab2:
                 ops_r = get_opciones_round(row["rondas_max"])
                 idx_r = ops_r.index(def_r) if def_r in ops_r else len(ops_r)-1
                 
-                # Sistema de Fotos Face-off
-                img_a = get_fighter_img(row["fighter_a"], URL_FOTO_TOPURIA if row["id"]==1 else "")
-                img_b = get_fighter_img(row["fighter_b"], URL_FOTO_GAETHJE if row["id"]==1 else "")
+                # Sistema de Fotos Face-off conectadas al diccionario
+                img_a = get_fighter_img(row["fighter_a"])
+                img_b = get_fighter_img(row["fighter_b"])
 
                 st.markdown(f"""
                 <div class='fight-card'>
