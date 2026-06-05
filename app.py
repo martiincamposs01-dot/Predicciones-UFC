@@ -7,7 +7,7 @@ import urllib.parse
 # --- CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(page_title="UFC Freedom 250", page_icon="🥊", layout="wide")
 
-# --- 📸 DICCIONARIO DE IMÁGENES OFICIALES ---
+# --- 📸 DICCIONARIO DE IMÁGENES Y DATOS OFICIALES ---
 TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd"
 
 FIGHTER_IMAGES = {
@@ -27,6 +27,24 @@ FIGHTER_IMAGES = {
     "Steve Garcia": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-10/GARCIA_STEVE_L_11-01.png?itok=C9aRxxhd"
 }
 
+# Base de datos de Stats Reales para el Tale of the Tape
+FIGHTER_STATS = {
+    "Ilia Topuria": {"record": "15-0-0", "altura": "1.70 m", "alcance": "1.75 m", "odds": "-150"},
+    "Justin Gaethje": {"record": "25-5-0", "altura": "1.80 m", "alcance": "1.80 m", "odds": "+125"},
+    "Alex Pereira": {"record": "10-2-0", "altura": "1.93 m", "alcance": "2.00 m", "odds": "-130"},
+    "Ciryl Gane": {"record": "12-2-0", "altura": "1.93 m", "alcance": "2.06 m", "odds": "+110"},
+    "Sean O'Malley": {"record": "18-1-0", "altura": "1.80 m", "alcance": "1.83 m", "odds": "-200"},
+    "Aiemann Zahabi": {"record": "11-2-0", "altura": "1.73 m", "alcance": "1.73 m", "odds": "+170"},
+    "Josh Hokit": {"record": "8-1-0", "altura": "1.85 m", "alcance": "1.88 m", "odds": "-110"},
+    "Derrick Lewis": {"record": "27-12-0", "altura": "1.91 m", "alcance": "2.01 m", "odds": "-110"},
+    "Mauricio Ruffy": {"record": "10-1-0", "altura": "1.80 m", "alcance": "1.83 m", "odds": "-140"},
+    "Michael Chandler": {"record": "23-8-0", "altura": "1.73 m", "alcance": "1.80 m", "odds": "+120"},
+    "Bo Nickal": {"record": "6-0-0", "altura": "1.85 m", "alcance": "1.93 m", "odds": "-450"},
+    "Kyle Daukaus": {"record": "13-4-0", "altura": "1.91 m", "alcance": "1.93 m", "odds": "+320"},
+    "Diego Lopes": {"record": "24-6-0", "altura": "1.80 m", "alcance": "1.84 m", "odds": "-160"},
+    "Steve Garcia": {"record": "16-5-0", "altura": "1.83 m", "alcance": "1.91 m", "odds": "+135"}
+}
+
 # --- ESTILOS CSS ---
 st.markdown("""
 <style>
@@ -36,8 +54,8 @@ st.markdown("""
     h1, h2, h3, .fighter-name, .vs-text, .weight-class, .stat-title { font-family: 'Oswald', sans-serif !important; }
     
     button[data-baseweb="tab"] {
-        font-size: 1.5rem !important; font-family: 'Oswald', sans-serif !important; text-transform: uppercase;
-        padding: 15px 30px !important; background-color: #18181b; border: 1px solid #333; border-bottom: none;
+        font-size: 1.3rem !important; font-family: 'Oswald', sans-serif !important; text-transform: uppercase;
+        padding: 12px 20px !important; background-color: #18181b; border: 1px solid #333; border-bottom: none;
         border-radius: 10px 10px 0 0; color: #71717A !important; letter-spacing: 1px;
     }
     button[data-baseweb="tab"][aria-selected="true"] {
@@ -54,7 +72,6 @@ st.markdown("""
         background: linear-gradient(180deg, #1f1f1f 0%, #0a0a0a 100%); padding: 30px; border-radius: 15px; text-align: center; 
         border-top: 5px solid #D4AF37; margin-bottom: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.8); position: relative; overflow: hidden; border-bottom: 1px solid #333;
     }
-    .fight-card::before { content: '🤼‍♂️'; position: absolute; font-size: 10rem; opacity: 0.03; right: -20px; bottom: -40px; }
     
     .fighter-img { width: 170px; height: 170px; object-fit: cover; object-position: top; border-radius: 50%; border: 4px solid #D4AF37; box-shadow: 0 0 25px rgba(212,175,55,0.5); background-color: #000000; }
     .fighter-name { font-size: 2.2rem; font-weight: 900; color: #ffffff; text-transform: uppercase; margin-top: 15px; line-height: 1.1;}
@@ -64,6 +81,10 @@ st.markdown("""
     .stSelectbox > div > div > div { background-color: #27272a; color: white; border-radius: 6px; font-weight: bold; font-family: 'Roboto', sans-serif;}
     .lobby-box { background-color: #18181b; border-radius: 12px; padding: 25px; text-align: center; border-bottom: 3px solid #DC2626; height: 100%; box-shadow: 0 4px 6px rgba(0,0,0,0.5); }
     .quote-box { background-color: #111; border-left: 4px solid #D4AF37; padding: 15px; font-style: italic; color: #ddd; margin-bottom: 10px; border-radius: 0 8px 8px 0; }
+    
+    .odds-box { background-color: #111; border: 2px solid #333; border-radius: 10px; padding: 15px; text-align: center; }
+    .odds-fav { color: #10B981; font-weight: bold; font-size: 1.8rem; font-family: 'Oswald', sans-serif;}
+    .odds-dog { color: #EF4444; font-weight: bold; font-size: 1.8rem; font-family: 'Oswald', sans-serif;}
 </style>
 """, unsafe_allow_html=True)
 
@@ -142,6 +163,10 @@ def get_fighter_img(name):
     if name in FIGHTER_IMAGES: return FIGHTER_IMAGES[name]
     return f"https://ui-avatars.com/api/?name={name.replace(' ', '+')}&background=18181b&color=DC2626&size=200&font-size=0.33&bold=true"
 
+def get_stat(name, stat_key):
+    if name in FIGHTER_STATS: return FIGHTER_STATS[name].get(stat_key, "N/A")
+    return "N/A"
+
 # --- PANEL LATERAL ---
 with st.sidebar:
     st.markdown("""
@@ -169,11 +194,11 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-tab0, tab1, tab2, tab3, tab4 = st.tabs(["🏠 Lobby Oficial", "📊 Ránkings", "📝 Jugar (Cartelera)", "📺 Stats en Vivo", "🎙️ Bruce Buffer"])
+# --- PESTAÑAS (AHORA SON 6) ---
+tab0, tab1, tab2, tab3, tab4, tab5 = st.tabs(["🏠 Lobby", "📊 Ránkings", "📝 Jugar", "🎲 Momios", "📺 Stats", "🎙️ Bruce"])
 
-# --- PESTAÑA 0: LOBBY REPOTENCIADO ---
+# --- PESTAÑA 0: LOBBY ---
 with tab0:
-    # 1. BANNER DE INSTALACIÓN MÓVIL
     st.markdown("""
     <div style="background: linear-gradient(135deg, #DC2626 0%, #7F1D1D 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px solid #ff4d4d; box-shadow: 0 8px 20px rgba(220, 38, 38, 0.4);">
         <h3 style="margin-top: 0; color: white; display: flex; align-items: center; font-family: 'Oswald', sans-serif;">📲 ¡Lleva el Octágono en tu Bolsillo!</h3>
@@ -185,49 +210,27 @@ with tab0:
     </div>
     """, unsafe_allow_html=True)
 
-    # 2. SECCIÓN DE INSTRUCCIONES "MANUAL DEL ORÁCULO"
     st.markdown("<h2 style='text-align:center; color: #D4AF37; font-family: \"Oswald\", sans-serif; margin-bottom: 20px; font-size: 2.5rem;'>📜 MANUAL DEL ORÁCULO: ¿CÓMO SE JUEGA?</h2>", unsafe_allow_html=True)
     
     col_inst1, col_inst2, col_inst3 = st.columns(3)
     with col_inst1:
-        st.markdown("""
-        <div class='lobby-box'>
-            <h1 style='font-size: 3rem; margin: 0;'>1️⃣</h1>
-            <h3 style='color: white; font-family: "Oswald", sans-serif;'>Elige tu Esquina</h3>
-            <p style='color: #A1A1AA;'>Ve a la pestaña <strong>JUGAR</strong>. Crea tu propio Gimnasio (Liga Privada) con contraseña para tus amigos, o únete a la guerra en el Ranking Global.</p>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("<div class='lobby-box'><h1 style='font-size: 3rem; margin: 0;'>1️⃣</h1><h3 style='color: white; font-family: \"Oswald\", sans-serif;'>Elige tu Esquina</h3><p style='color: #A1A1AA;'>Ve a la pestaña <strong>JUGAR</strong>. Crea tu propio Gimnasio (Liga Privada) o únete al Ranking Global.</p></div>", unsafe_allow_html=True)
     with col_inst2:
-        st.markdown("""
-        <div class='lobby-box'>
-            <h1 style='font-size: 3rem; margin: 0;'>2️⃣</h1>
-            <h3 style='color: white; font-family: "Oswald", sans-serif;'>Sella tu Cartilla</h3>
-            <p style='color: #A1A1AA;'>Analiza el Face-off y predice 3 cosas por pelea: Quién será el <strong>Ganador</strong>, cuál será el <strong>Método</strong> y en qué <strong>Round</strong> terminará.</p>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("<div class='lobby-box'><h1 style='font-size: 3rem; margin: 0;'>2️⃣</h1><h3 style='color: white; font-family: \"Oswald\", sans-serif;'>Sella tu Cartilla</h3><p style='color: #A1A1AA;'>Predice 3 cosas por pelea: <strong>Ganador</strong>, <strong>Método</strong> y el <strong>Round</strong> exacto.</p></div>", unsafe_allow_html=True)
     with col_inst3:
-        st.markdown("""
-        <div class='lobby-box'>
-            <h1 style='font-size: 3rem; margin: 0;'>3️⃣</h1>
-            <h3 style='color: white; font-family: "Oswald", sans-serif;'>Cobra tus Puntos</h3>
-            <p style='color: #A1A1AA;'>Revisa la pestaña <strong>RÁNKINGS</strong> para ver tu posición. Escala desde "Peleador Preliminar" hasta convertirte en el "Campeón Indiscutido".</p>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("<div class='lobby-box'><h1 style='font-size: 3rem; margin: 0;'>3️⃣</h1><h3 style='color: white; font-family: \"Oswald\", sans-serif;'>Cobra tus Puntos</h3><p style='color: #A1A1AA;'>Revisa la pestaña <strong>RÁNKINGS</strong> para ver tu posición. Demuestra quién sabe más de MMA.</p></div>", unsafe_allow_html=True)
         
-    # 3. BOLSA DE PUNTOS OFICIAL
     st.markdown("""
     <div style="background-color: #111; padding: 20px; border-radius: 12px; margin-top: 25px; margin-bottom: 30px; border: 2px dashed #D4AF37; text-align: center;">
         <h3 style="color: #D4AF37; margin-top: 0; font-family: 'Oswald', sans-serif; text-transform: uppercase;">💰 Bolsa de Puntos (Cómo Ganar)</h3>
-        <p style="color: #ddd; font-size: 1.1rem; margin-bottom: 5px;"><strong>+10 pts:</strong> Acertar al ganador de la pelea.</p>
-        <p style="color: #ddd; font-size: 1.1rem; margin-bottom: 5px;"><strong>+5 pts extra:</strong> Acertar el Método de victoria (KO/TKO, Sumisión o Decisión).</p>
-        <p style="color: #ddd; font-size: 1.1rem; margin-bottom: 5px;"><strong>+5 pts extra:</strong> Acertar el Round exacto del final.</p>
+        <p style="color: #ddd; font-size: 1.1rem; margin-bottom: 5px;"><strong>+10 pts:</strong> Acertar al ganador.</p>
+        <p style="color: #ddd; font-size: 1.1rem; margin-bottom: 5px;"><strong>+5 pts extra:</strong> Acertar el Método.</p>
+        <p style="color: #ddd; font-size: 1.1rem; margin-bottom: 5px;"><strong>+5 pts extra:</strong> Acertar el Round.</p>
         <p style="color: #DC2626; font-size: 1.2rem; font-weight: bold; margin-top: 10px;">🏆 BONO PERFECTO (+5 pts): ¡Acierta TODO y llévate 25 PUNTOS POR PELEA!</p>
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown("---")
-
-    # 4. TRAILER Y HYPE ROOM
     col_vid, col_info = st.columns([2, 1])
     with col_vid:
         st.markdown("<h3 style='color: #D4AF37; margin-top: 0;'>🎬 Promo Oficial de la Velada</h3>", unsafe_allow_html=True)
@@ -237,22 +240,13 @@ with tab0:
         <div style="background-color: #18181b; padding: 25px; border-radius: 12px; border-left: 5px solid #DC2626; height: 100%;">
             <h2 style="color: white; margin-top: 0;">🔥 Hype Room</h2>
             <div class='quote-box'>
-                "Voy a noquear a Justin Gaethje. No tiene ni la velocidad ni el IQ de pelea para aguantar mis manos."<br><strong>— Ilia Topuria</strong>
+                "Voy a noquear a Justin Gaethje. No tiene ni la velocidad ni el IQ de pelea para aguantarme."<br><strong>— Ilia Topuria</strong>
             </div>
             <div class='quote-box' style='border-left-color: #DC2626;'>
-                "Me encanta cuando hablan mucho. Lo hace caer más duro cuando le apague las luces en el centro del octágono."<br><strong>— Justin Gaethje</strong>
+                "Me encanta cuando hablan mucho. Cae más duro cuando le apague las luces en el octágono."<br><strong>— Justin Gaethje</strong>
             </div>
         </div>
         """, unsafe_allow_html=True)
-    
-    st.markdown("---")
-    st.subheader("✅ Resultados Oficiales de la Noche")
-    peleas_jugadas = df_peleas[df_peleas["jugado"] == True]
-    if not peleas_jugadas.empty:
-        for _, row in peleas_jugadas.iterrows():
-            st.markdown(f"<div style='background-color:#18181b; padding:15px; border-radius:8px; margin-bottom:10px; border-left: 4px solid #D4AF37;'><p style='color:#A1A1AA; font-size:0.8rem; margin:0;'>{row['peso']}</p><p style='font-size:1.2rem; margin:5px 0; color:white;'>👑 <strong>{row['res_winner']}</strong> vence por <strong>{row['res_method']}</strong> (Round {row['res_round']})</p></div>", unsafe_allow_html=True)
-    else:
-        st.info("⏱️ Aún no hay resultados. ¡Las luces del octágono recién se están encendiendo!")
 
 # --- PESTAÑA 1: RÁNKING ---
 with tab1:
@@ -319,17 +313,6 @@ with tab2:
                 </div>
                 """, unsafe_allow_html=True)
                 
-                if row["id"] == 1:
-                    with st.expander("📊 Ver Tale of the Tape (Estadísticas)"):
-                        st.markdown("""
-                        | Estadística | Ilia Topuria | Justin Gaethje |
-                        | :--- | :---: | :---: |
-                        | **Récord** | 15 - 0 - 0 | 25 - 5 - 0 |
-                        | **Altura** | 1.70 m | 1.80 m |
-                        | **Alcance** | 1.75 m | 1.80 m |
-                        | **Estilo** | Lucha / Boxeo | Wrestling / Kickboxing |
-                        """)
-                
                 esta_bloqueado = bool(row["jugado"])
                 if esta_bloqueado: st.markdown("<p style='text-align:center; color:#DC2626; font-weight:bold;'>🛑 PELEA FINALIZADA</p>", unsafe_allow_html=True)
                 
@@ -361,8 +344,60 @@ with tab2:
                     time.sleep(1.5)
                     st.rerun()
 
-# --- PESTAÑA 3: STATS EN VIVO (GRÁFICOS DE TRANSMISIÓN) ---
+# --- PESTAÑA 3: NUEVO CENTRO DE ANÁLISIS Y MOMIOS ---
 with tab3:
+    st.markdown("<h2 class='stat-title'>🎲 Centro de Apuestas & Análisis (Las Vegas)</h2>", unsafe_allow_html=True)
+    st.markdown("Revisa los datos de los peleadores y los momios oficiales antes de lanzar tus predicciones.")
+    
+    lista_combates = [f"{row['fighter_a']} vs {row['fighter_b']}" for _, row in df_peleas.iterrows()]
+    pelea_seleccionada = st.selectbox("🔍 Selecciona un Combate para Analizar:", lista_combates)
+    
+    if pelea_seleccionada:
+        f_a = pelea_seleccionada.split(" vs ")[0]
+        f_b = pelea_seleccionada.split(" vs ")[1]
+        
+        col_img1, col_vs, col_img2 = st.columns([2, 1, 2])
+        with col_img1: st.markdown(f"<div style='text-align:center;'><img src='{get_fighter_img(f_a)}' class='fighter-img' style='width:120px; height:120px;'><h3 style='color:white; margin-top:10px;'>{f_a}</h3></div>", unsafe_allow_html=True)
+        with col_vs: st.markdown("<h1 style='text-align:center; color:#D4AF37; margin-top: 30px;'>VS</h1>", unsafe_allow_html=True)
+        with col_img2: st.markdown(f"<div style='text-align:center;'><img src='{get_fighter_img(f_b)}' class='fighter-img' style='width:120px; height:120px;'><h3 style='color:white; margin-top:10px;'>{f_b}</h3></div>", unsafe_allow_html=True)
+        
+        st.markdown("<h3 style='text-align:center; color:#DC2626; margin-top:20px;'>📊 TALE OF THE TAPE</h3>", unsafe_allow_html=True)
+        
+        st.markdown(f"""
+        <table style="width:100%; text-align:center; background-color:#18181b; border-radius:10px; overflow:hidden;">
+            <tr style="background-color:#333; color:#D4AF37; font-weight:bold;">
+                <td style="padding:10px; width:33%; font-size:1.2rem;">{get_stat(f_a, 'record')}</td>
+                <td style="padding:10px; width:33%; font-size:1.1rem; text-transform:uppercase;">Récord</td>
+                <td style="padding:10px; width:33%; font-size:1.2rem;">{get_stat(f_b, 'record')}</td>
+            </tr>
+            <tr>
+                <td style="padding:10px; border-bottom:1px solid #333;">{get_stat(f_a, 'altura')}</td>
+                <td style="padding:10px; border-bottom:1px solid #333; color:#A1A1AA;">Estatura</td>
+                <td style="padding:10px; border-bottom:1px solid #333;">{get_stat(f_b, 'altura')}</td>
+            </tr>
+            <tr>
+                <td style="padding:10px;">{get_stat(f_a, 'alcance')}</td>
+                <td style="padding:10px; color:#A1A1AA;">Alcance</td>
+                <td style="padding:10px;">{get_stat(f_b, 'alcance')}</td>
+            </tr>
+        </table>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("<h3 style='text-align:center; color:#10B981; margin-top:30px;'>💰 MOMIOS DE LAS VEGAS</h3>", unsafe_allow_html=True)
+        
+        odds_a = get_stat(f_a, 'odds')
+        odds_b = get_stat(f_b, 'odds')
+        color_a = "odds-fav" if "-" in odds_a else "odds-dog"
+        color_b = "odds-fav" if "-" in odds_b else "odds-dog"
+        
+        col_odds1, col_odds2 = st.columns(2)
+        with col_odds1:
+            st.markdown(f"<div class='odds-box'><p style='color:#A1A1AA; margin:0;'>Apuesta por {f_a}</p><p class='{color_a}' style='margin:0;'>{odds_a}</p></div>", unsafe_allow_html=True)
+        with col_odds2:
+            st.markdown(f"<div class='odds-box'><p style='color:#A1A1AA; margin:0;'>Apuesta por {f_b}</p><p class='{color_b}' style='margin:0;'>{odds_b}</p></div>", unsafe_allow_html=True)
+
+# --- PESTAÑA 4: STATS EN VIVO (GRÁFICOS DE TRANSMISIÓN) ---
+with tab4:
     st.markdown("<h2 class='stat-title'>📊 Tendencias de la Audiencia</h2>", unsafe_allow_html=True)
     st.markdown("Así se están inclinando las apuestas globales en tiempo real. ¿Con quién va la mayoría?")
     st.markdown("---")
@@ -383,7 +418,6 @@ with tab3:
                 pct_a = int((votos_a / total_votos) * 100) if total_votos > 0 else 0
                 pct_b = 100 - pct_a if total_votos > 0 else 0
                 
-                # Gráfico de barras estilo Televisión UFC
                 st.markdown(f"""
                 <div style="background-color: #111; padding: 20px; border-radius: 12px; margin-bottom: 15px; border-left: 4px solid #D4AF37;">
                     <p style="color: #A1A1AA; font-size: 0.9rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;">{row['peso']}</p>
@@ -399,8 +433,8 @@ with tab3:
                 </div>
                 """, unsafe_allow_html=True)
 
-# --- PESTAÑA 4: ADMIN ---
-with tab4:
+# --- PESTAÑA 5: ADMIN ---
+with tab5:
     st.markdown("### 🎙️ Panel Oficial de Resultados")
     if st.text_input("Contraseña de Dana White:", type="password") == PASSWORD_ADMIN:
         with st.form("admin_form"):
