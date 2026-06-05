@@ -57,16 +57,16 @@ st.markdown("""
     }
     .fight-card::before { content: '🤼‍♂️'; position: absolute; font-size: 10rem; opacity: 0.03; right: -20px; bottom: -40px; }
     
-    /* ESTILO DE FOTOS DE PELEADORES (Ajustado para PNG transparentes de UFC) */
+    /* ESTILO DE FOTOS DE PELEADORES */
     .fighter-img { 
         width: 170px; 
         height: 170px; 
         object-fit: cover; 
-        object-position: top; /* Enfoca la cabeza y el cinturón */
+        object-position: top;
         border-radius: 50%; 
-        border: 4px solid #D4AF37; /* Borde de Campeonato */
+        border: 4px solid #D4AF37; 
         box-shadow: 0 0 25px rgba(212,175,55,0.5); 
-        background-color: #000000; /* Fondo negro para que resalte el PNG */
+        background-color: #000000;
     }
     
     .fighter-name { font-size: 2.2rem; font-weight: 900; color: #ffffff; text-transform: uppercase; margin-top: 15px; line-height: 1.1;}
@@ -172,9 +172,9 @@ with st.sidebar:
             📲 Enviar por WhatsApp
         </div></a>""", unsafe_allow_html=True)
 
-# --- BANNER PRINCIPAL (NUEVO OCTÁGONO) ---
+# --- BANNER PRINCIPAL (NUEVO OCTÁGONO CLARITO) ---
 st.markdown("""
-<div style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.95)), url('https://images.unsplash.com/photo-1614081325785-35db209e5309?auto=format&fit=crop&w=1200&q=80'); background-size: cover; background-position: center; padding: 60px 20px; border-radius: 15px; text-align: center; margin-bottom: 35px; border: 2px solid #DC2626; box-shadow: 0 0 40px rgba(220, 38, 38, 0.4);">
+<div style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)), url('https://aulanews.uao.es/wp-content/uploads/2020/05/ufc-octagono.jpg'); background-size: cover; background-position: center; padding: 60px 20px; border-radius: 15px; text-align: center; margin-bottom: 35px; border: 2px solid #DC2626; box-shadow: 0 0 40px rgba(220, 38, 38, 0.4);">
     <h1 style="color: #ffffff; font-size: 4.5rem; margin:0; text-transform: uppercase; letter-spacing: 6px; text-shadow: 3px 3px 15px #DC2626; font-family: 'Oswald', sans-serif;">UFC FREEDOM 250</h1>
     <h2 style="color: #D4AF37; font-size: 2.5rem; margin-top: 5px; font-weight: 900; letter-spacing: 4px; font-family: 'Oswald', sans-serif;">TOPURIA <span style="color:white; font-size: 1.5rem;">VS</span> GAETHJE</h2>
 </div>
@@ -250,7 +250,7 @@ with tab2:
                 ops_r = get_opciones_round(row["rondas_max"])
                 idx_r = ops_r.index(def_r) if def_r in ops_r else len(ops_r)-1
                 
-                # Sistema de Fotos Face-off (Si es el Main Event carga las fotos de UFC)
+                # Sistema de Fotos Face-off
                 img_a = get_fighter_img(row["fighter_a"], URL_FOTO_TOPURIA if row["id"]==1 else "")
                 img_b = get_fighter_img(row["fighter_b"], URL_FOTO_GAETHJE if row["id"]==1 else "")
 
