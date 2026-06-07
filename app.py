@@ -9,7 +9,7 @@ st.set_page_config(page_title="UFC Freedom 250 | Cokemma Edition", page_icon="�
 
 # --- 📸 DICCIONARIO DE IMÁGENES Y DATOS OFICIALES ---
 TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd"
-# 🔥 NUEVO BANNER APLICADO AQUÍ
+# 🔥 BANNER DEFINITIVO - IMAGEN ENCUADRADA
 BANNER_PRINCIPAL = "https://objetos-xlk.estaticos-marca.com/uploads/2026/04/12/69daeaf5a9090.jpeg"
 URL_APP = "https://predicciones-ufc-87c5opnpg9pmnfjm9qqrkr.streamlit.app"
 
@@ -264,11 +264,11 @@ button[data-baseweb="tab"]:hover {
     font-size: 1.1rem !important;
 }
 
-/* 🥊 BANNER CONTAINER FIX (CORREGIDO PARA NO CORTAR LA IMAGEN) 🥊 */
+/* 🥊 BANNER CONTAINER FIX (ENFOQUE SUPERIOR Y TAMAÑO COMPLETO) 🥊 */
 .banner-container {
     background-size: cover; 
     background-position: top center; /* Evita que se corten las cabezas */
-    min-height: 550px; /* Mas grande para PC */
+    min-height: 480px; /* Altura ideal para encuadrar las caras */
     display: flex; 
     flex-direction: column; 
     justify-content: flex-end; 
@@ -280,7 +280,22 @@ button[data-baseweb="tab"]:hover {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
 }
 
-/* Responsivo para celulares (Mantiene compatibilidad) */
+/* Animación de vibración para el BOOM */
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+/* Responsivo para celulares */
 @media (max-width: 768px) {
     .fighter-img { width: 110px; height: 110px; }
     .fighter-name { font-size: 1.8rem; }
@@ -425,7 +440,7 @@ with st.sidebar:
     </div>
     """, unsafe_allow_html=True)
 
-# --- BANNER PRINCIPAL ANIMADO Y CORREGIDO ---
+# --- BANNER PRINCIPAL ANIMADO Y CORREGIDO PARA PC ---
 st.markdown(f"""
 <div class="banner-container" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(5, 5, 5, 0.95) 100%), url('{BANNER_PRINCIPAL}');">
     <h3 class="banner-sub" style="color: #D4AF37; margin:0; text-transform: uppercase; letter-spacing: 4px; font-family: 'Bebas Neue', sans-serif; text-shadow: 2px 2px 10px black; z-index: 2; font-size: 1.8rem;">🎙️ TRANSMISIÓN OFICIAL - COKEMMA DIRECTO</h3>
@@ -441,8 +456,8 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# --- PESTAÑAS NOMBRADAS EXPLÍCITAMENTE ---
-t_lobby, t_jugar, t_stats, t_rankings, t_momios, t_admin = st.tabs(["🏠 LOBBY PRINCIPAL", "📝 SELLAR CARTILLA", "📊 STATS EN VIVO", "🏆 RÁNKINGS", "🎲 MOMIOS & ANÁLISIS", "🔒 PANEL ADMIN"])
+# --- PESTAÑAS NOMBRADAS EXPLÍCITAMENTE (CON NUEVO NOMBRE) ---
+t_lobby, t_jugar, t_stats, t_rankings, t_momios, t_admin = st.tabs(["🏠 LOBBY PRINCIPAL", "📝 PREDICCIONES 🥊", "📊 STATS EN VIVO", "🏆 RÁNKINGS", "🎲 MOMIOS & ANÁLISIS", "🔒 PANEL ADMIN"])
 
 # --- PESTAÑA 0: LOBBY ---
 with t_lobby:
@@ -537,10 +552,9 @@ with t_lobby:
         </div>
         """, unsafe_allow_html=True)
 
-# --- PESTAÑA 1: JUGAR ---
+# --- PESTAÑA 1: JUGAR (PREDICCIONES) ---
 with t_jugar:
-    # 🔥 CAMBIO DE TÍTULO AQUÍ
-    st.markdown("<h2 style='color: #ffffff; text-align:center; font-size: 3.5rem;'>🔥 PREDICCIONES</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color: #ffffff; text-align:center; font-size: 3.5rem;'>🔥 PREDICCIONES OFICIALES</h2>", unsafe_allow_html=True)
     
     usuario_input = st.text_input("👤 INGRESA TU APODO PARA EL STREAM:", placeholder="Ej. El Especialista")
     usuario_limpio = usuario_input.strip().title()
@@ -572,7 +586,7 @@ with t_jugar:
             m_main = pred_main.iloc[0]["pred_method"]
             r_main = pred_main.iloc[0]["pred_round"]
             
-            texto_wa = f"🥊 ¡Selle mi cartilla para el UFC Freedom 250! Mi pronóstico estelar: {w_main} gana por {m_main} (Round {r_main}). 🔥 ¿Crees que sabes más que yo? Entra al directo de Cokemma y supérame aquí: {URL_APP}"
+            texto_wa = f"🥊 ¡Sellé mi cartilla para el UFC Freedom 250! Mi pronóstico estelar: {w_main} gana por {m_main} (Round {r_main}). 🔥 ¿Crees que sabes más que yo? Entra al directo de Cokemma y supérame aquí: {URL_APP}"
             link_wa = f"https://api.whatsapp.com/send?text={urllib.parse.quote(texto_wa)}"
             
             st.markdown(f"""
@@ -653,21 +667,6 @@ with t_jugar:
                         <h1 style="color: #DC2626; font-size: 6rem; font-family: 'Bebas Neue', sans-serif;">¡BOOM! 💥</h1>
                         <p style="font-size: 1.8rem; color:white; font-family:'Bebas Neue', sans-serif; letter-spacing:2px;">¡CARTILLA OFICIAL EN LA JAULA!</p>
                     </div>
-                    <style>
-                        @keyframes shake {
-                            0% { transform: translate(1px, 1px) rotate(0deg); }
-                            10% { transform: translate(-1px, -2px) rotate(-1deg); }
-                            20% { transform: translate(-3px, 0px) rotate(1deg); }
-                            30% { transform: translate(3px, 2px) rotate(0deg); }
-                            40% { transform: translate(1px, -1px) rotate(1deg); }
-                            50% { transform: translate(-1px, 2px) rotate(-1deg); }
-                            60% { transform: translate(-3px, 1px) rotate(0deg); }
-                            70% { transform: translate(3px, 1px) rotate(-1deg); }
-                            80% { transform: translate(-1px, -1px) rotate(1deg); }
-                            90% { transform: translate(1px, 2px) rotate(0deg); }
-                            100% { transform: translate(1px, -2px) rotate(-1deg); }
-                        }
-                    </style>
                     """, unsafe_allow_html=True)
                     st.snow()
                     time.sleep(2)
