@@ -9,13 +9,14 @@ st.set_page_config(page_title="UFC Freedom 250 | Cokemma Edition", page_icon="�
 
 # --- 📸 DICCIONARIO DE IMÁGENES Y DATOS OFICIALES ---
 TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd"
-BANNER_PRINCIPAL = "https://objetos-xlk.estaticos-marca.com/uploads/2025/09/20/68ce9330a4c93.jpeg"
+# NUEVA IMAGEN DE BANNER ACTUALIZADA AQUÍ 👇
+BANNER_PRINCIPAL = "https://objetos-xlk.estaticos-marca.com/uploads/2026/04/12/69daeb2f4572e.jpeg"
 
 FIGHTER_IMAGES = {
     "Ilia Topuria": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2024-10/TOPURIA_ILIA_L_BELT_10-26.png?itok=0ZnoiqvU",
     "Justin Gaethje": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2026-01/GAETHJE_JUSTIN_L_BELTMOCK.png?itok=Ec57vAPj",
     "Alex Pereira": "https://gidstats.com/img/fighters/0/0/1-824.png",
-    "Ciryl Gane": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/GANE_CIRYL_L_12-07.png?itok=RtxXOv1m",
+    "Ciryl Gane": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/GANE_CIRYL_L_12-07.png?itok=RtxXOm1m",
     "Sean O'Malley": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2026-01/OMALLEY_SEAN_L_01-24.png?itok=GKNy0vLH",
     "Aiemann Zahabi": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/ZAHABI_AIEMANN_L_11-02.png?itok=7oV3Lazp",
     "Josh Hokit": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2026-01/HOKIT_JOSH_L_01-24.png?itok=q4AaxC15",
@@ -209,11 +210,31 @@ button[data-baseweb="tab"][aria-selected="true"] {
     margin-bottom: 20px; 
     box-shadow: 0 8px 20px rgba(0,0,0,0.5); 
 }
+.quote-card {
+    background-color: #111;
+    border-left: 4px solid #DC2626;
+    padding: 20px;
+    border-radius: 8px;
+    height: 100%;
+}
+.quote-text {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #ddd;
+    margin-bottom: 10px;
+}
+.quote-author {
+    color: #D4AF37;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+/* Tablas y Cajas UI */
 .odds-box { background-color: #111; border: 2px solid #333; border-radius: 10px; padding: 15px; text-align: center; }
 .odds-fav { color: #10B981; font-weight: bold; font-size: 2rem; font-family: 'Bebas Neue', sans-serif;}
 .odds-dog { color: #EF4444; font-weight: bold; font-size: 2rem; font-family: 'Bebas Neue', sans-serif;}
-
-/* Cajas de Formulario UI */
 .stTextInput input, .stSelectbox div[data-baseweb="select"] {
     background-color: #111111 !important;
     border: 1px solid #333333 !important;
@@ -234,7 +255,7 @@ button[data-baseweb="tab"][aria-selected="true"] {
 </style>
 """, unsafe_allow_html=True)
 
-# --- BASES DE DATOS (NOMBRES NUEVOS PARA REINICIO TOTAL) ---
+# --- BASES DE DATOS ---
 PELEAS_FILE = "ufc_peleas_broadcast.csv"
 PREDICCONES_FILE = "ufc_preds_broadcast.csv"
 LIGAS_FILE = "ufc_ligas_broadcast.csv" 
@@ -380,25 +401,11 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# --- PESTAÑAS ---
-tab0, tab1, tab2, tab3, tab4, tab5 = st.tabs(["🏠 Lobby Principal", "📝 Sellar Cartilla", "📊 Stats en Vivo", "🏆 Ránkings", "🎲 Momios & Análisis", "🔒 Panel Admin"])
+# --- PESTAÑAS NOMBRADAS EXPLÍCITAMENTE ---
+t_lobby, t_jugar, t_stats, t_rankings, t_momios, t_admin = st.tabs(["🏠 LOBBY PRINCIPAL", "📝 SELLAR CARTILLA", "📊 STATS EN VIVO", "🏆 RÁNKINGS", "🎲 MOMIOS & ANÁLISIS", "🔒 PANEL ADMIN"])
 
 # --- PESTAÑA 0: LOBBY ---
-with tab0:
-    st.markdown("""
-<div style="background: linear-gradient(135deg, #DC2626 0%, #7F1D1D 100%); color: white; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 8px 20px rgba(220, 38, 38, 0.4); border: 1px solid #ff4d4d;">
-<h3 style="margin-top: 0; color: white; font-size: 2rem; font-family: 'Bebas Neue', sans-serif;">📲 ¡LLEVA LA APP AL DIRECTO!</h3>
-<p style="font-weight: 600; font-size: 1.05rem; margin-bottom: 15px;">Instala esta web como una App nativa para no perderte nada y votar más rápido:</p>
-<div style="background-color: rgba(0,0,0,0.4); padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #D4AF37;">
-<span style="font-size: 1rem; color: #fbbf24; font-weight: bold;">⚠️ ¿Atrapado en el navegador de TikTok o Instagram?</span><br>
-<span style="font-size: 0.9rem; color: #ddd;">Las redes sociales bloquean la instalación. Para solucionarlo, toca los 3 puntitos arriba y pon "Abrir en el Navegador" (Safari o Chrome).</span>
-</div>
-<ul style="font-size: 1rem; font-weight: 600; margin-bottom: 0;">
-<li><strong>🍏 En Safari (iPhone):</strong> Toca 'Compartir' (📤) abajo ➔ <strong>➕ Agregar a inicio</strong>.</li>
-<li><strong>🤖 En Chrome (Android):</strong> Toca los 3 puntos (⋮) arriba ➔ <strong>📱 Agregar a la pantalla principal</strong>.</li>
-</ul>
-</div>
-    """, unsafe_allow_html=True)
+with t_lobby:
     
     st.markdown("""
     <div class="custom-box">
@@ -409,7 +416,7 @@ with tab0:
     </div>
     """, unsafe_allow_html=True)
 
-    # 📰 PORTADA CON NOTICIAS REQUERIDAS
+    # 📰 PORTADA DE NOTICIAS
     st.markdown("<h2 style='color: #ffffff; margin-top:30px; margin-bottom: 20px; font-size: 2.5rem;'><span style='color:#DC2626;'>📰</span> RUMBO A LA CASA BLANCA</h2>", unsafe_allow_html=True)
     
     col_n1, col_n2, col_n3 = st.columns(3)
@@ -440,6 +447,7 @@ with tab0:
 
     st.markdown("<br><hr style='border-color: #333;'><br>", unsafe_allow_html=True)
     
+    # REGLAS Y TRAILER
     col_reglas, col_trailer = st.columns([1, 1])
     with col_reglas:
         st.markdown("""
@@ -459,9 +467,39 @@ with tab0:
     with col_trailer:
         st.markdown("<h2 style='color: #ffffff; font-size: 2.2rem;'>🎬 TRAILER OFICIAL (HYPE)</h2>", unsafe_allow_html=True)
         st.video(TRAILER_OFICIAL)
+        
+    st.markdown("<br><hr style='border-color: #333;'><br>", unsafe_allow_html=True)
+    
+    # HYPE ROOM (DECLARACIONES Y DATOS)
+    st.markdown("<h2 style='color: #ffffff; font-size: 2.5rem;'><span style='color:#D4AF37;'>🎙️</span> HYPE ROOM: LA PREVIA</h2>", unsafe_allow_html=True)
+    col_h1, col_h2 = st.columns(2)
+    with col_h1:
+        st.markdown("""
+        <div class="quote-card">
+            <p class="quote-text">"Le voy a apagar las luces en el primer asalto. El estilo de Justin está hecho a la medida para que yo brille. No está a mi nivel de boxeo."</p>
+            <p class="quote-author">— Ilia Topuria</p>
+        </div>
+        <br>
+        <div class="quote-card" style="border-left-color: #10B981;">
+            <p class="quote-text">"He roto a los mejores de esta división. Topuria no sabe lo que es estar en aguas profundas y sentir que te quitan el alma a patadas."</p>
+            <p class="quote-author">— Justin Gaethje</p>
+        </div>
+        """, unsafe_allow_html=True)
+    with col_h2:
+        st.markdown("""
+        <div class="custom-box" style="border-left-color: #60EFFF; height: 100%;">
+            <h3 style="color: #60EFFF; font-size: 1.8rem; margin-top:0;">🧠 DATOS CURIOSOS DEL EVENTO</h3>
+            <ul style="font-size: 1rem; color: #ddd; line-height: 1.8;">
+                <li><strong>Haciendo Historia:</strong> Freedom 250 es el primer evento numerado en la historia de la UFC celebrado en los terrenos de la Casa Blanca.</li>
+                <li><strong>El Rey del Bono:</strong> Justin Gaethje posee la mayor cantidad de bonos por 'Pelea de la Noche' en la historia de los pesos ligeros.</li>
+                <li><strong>El Matador Invicto:</strong> Ilia Topuria llega con un récord inmaculado de 17-0, buscando defender su título por segunda vez.</li>
+                <li><strong>Chama en Heavyweight:</strong> Alex Pereira busca cimentar su legado debutando oficialmente en el Peso Pesado ante el peligroso Ciryl Gane.</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
 
-# --- PESTAÑA 2: JUGAR ---
-with tab2:
+# --- PESTAÑA 1: JUGAR ---
+with t_jugar:
     st.markdown("<h2 style='color: #ffffff; text-align:center; font-size: 3rem;'>🔥 SELLA TU CARTILLA OFICIAL</h2>", unsafe_allow_html=True)
     
     usuario_input = st.text_input("👤 INGRESA TU APODO PARA EL STREAM:", placeholder="Ej. El Especialista")
@@ -550,8 +588,8 @@ with tab2:
                     time.sleep(1.5)
                     st.rerun()
 
-# --- PESTAÑA 3: STATS EN VIVO (BARÓMETRO DEL CHAT) ---
-with tab3:
+# --- PESTAÑA 2: STATS EN VIVO ---
+with t_stats:
     st.markdown("<h2 class='stat-title' style='font-size: 3rem;'>📊 EL TERMÓMETRO DEL DIRECTO</h2>", unsafe_allow_html=True)
     st.markdown("Así se están inclinando las predicciones de todos los jugadores en vivo. ¡Perfecto para debatir en el stream!")
     
@@ -591,8 +629,8 @@ with tab3:
                 </div>
                 """, unsafe_allow_html=True)
 
-# --- PESTAÑA 4: RÁNKING ---
-with tab4:
+# --- PESTAÑA 3: RÁNKINGS ---
+with t_rankings:
     st.markdown("<h2 style='color: #D4AF37; font-size: 3rem;'>🏅 TABLA DE POSICIONES OFICIAL</h2>", unsafe_allow_html=True)
     opciones_ligas = ["GLOBAL"]
     if not df_ligas.empty: opciones_ligas.extend(sorted(df_ligas["nombre_liga"].unique().tolist()))
@@ -604,15 +642,10 @@ with tab4:
     else: 
         st.info("Aún no hay peleadores registrados en esta categoría.")
 
-# --- PESTAÑA 5: MOMIOS ---
-with tab4:
-    # Aclaración: Como moví los Momios para ajustar el espacio, los integro aquí al fondo o como pestaña extra.
-    # En este caso lo agregué a tab 4. Vamos a crear la sección.
-    pass
-
-with tab4:
-    st.markdown("<hr style='border-color:#333; margin: 40px 0;'>", unsafe_allow_html=True)
+# --- PESTAÑA 4: MOMIOS ---
+with t_momios:
     st.markdown("<h2 style='color: #ffffff; font-size: 3rem;'><span style='color:#10B981;'>🎲</span> MOMIOS Y TALE OF THE TAPE</h2>", unsafe_allow_html=True)
+    st.markdown("Estudia los números fríos antes de lanzar tus predicciones.")
     
     lista_combates = [f"{row['fighter_a']} vs {row['fighter_b']}" for _, row in df_peleas.iterrows()]
     pelea_seleccionada = st.selectbox("🔍 Combate a analizar en Las Vegas:", lista_combates)
@@ -661,7 +694,7 @@ with tab4:
             st.markdown(f"<div class='odds-box'><p style='color:#A1A1AA; margin:0; font-weight:600; text-transform:uppercase;'>{f_b}</p><p class='{color_b}' style='margin:0; font-size:2.5rem;'>{odds_b}</p></div>", unsafe_allow_html=True)
 
 # --- PESTAÑA 5: ADMIN ---
-with tab5:
+with t_admin:
     st.markdown("<h2 style='color: #DC2626; font-size: 3rem;'>🔒 MESA DE CONTROL (OFFICIALS ONLY)</h2>", unsafe_allow_html=True)
     if st.text_input("Ingresa la credencial de acceso:", type="password") == PASSWORD_ADMIN:
         with st.form("admin_form"):
@@ -682,6 +715,7 @@ with tab5:
                 time.sleep(1)
                 st.rerun()
 
+# --- PIE DE PÁGINA ---
 st.markdown("""
 <div style="text-align: center; margin-top: 60px; padding: 25px; border-top: 1px solid #333;">
     <p style="color: #666; font-size: 1rem; font-weight:600;">UFC Freedom 250 Predictions © 2026 | Desarrollado por <a href="https://tiktok.com/@martincampos.mma" target="_blank" style="color:#D4AF37; text-decoration:none; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px;">@martincampos.mma</a></p>
