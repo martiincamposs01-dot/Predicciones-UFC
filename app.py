@@ -9,14 +9,14 @@ st.set_page_config(page_title="UFC Freedom 250 | Cokemma Edition", page_icon="�
 
 # --- 📸 DICCIONARIO DE IMÁGENES Y DATOS OFICIALES ---
 TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd"
-# NUEVA IMAGEN DE BANNER ACTUALIZADA AQUÍ 👇
 BANNER_PRINCIPAL = "https://objetos-xlk.estaticos-marca.com/uploads/2026/04/12/69daeb2f4572e.jpeg"
+URL_APP = "https://predicciones-ufc-87c5opnpg9pmnfjm9qqrkr.streamlit.app"
 
 FIGHTER_IMAGES = {
     "Ilia Topuria": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2024-10/TOPURIA_ILIA_L_BELT_10-26.png?itok=0ZnoiqvU",
     "Justin Gaethje": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2026-01/GAETHJE_JUSTIN_L_BELTMOCK.png?itok=Ec57vAPj",
     "Alex Pereira": "https://gidstats.com/img/fighters/0/0/1-824.png",
-    "Ciryl Gane": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/GANE_CIRYL_L_12-07.png?itok=RtxXOm1m",
+    "Ciryl Gane": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/GANE_CIRYL_L_12-07.png?itok=RtxXOv1m",
     "Sean O'Malley": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2026-01/OMALLEY_SEAN_L_01-24.png?itok=GKNy0vLH",
     "Aiemann Zahabi": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/5/ZAHABI_AIEMANN_L_11-02.png?itok=7oV3Lazp",
     "Josh Hokit": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2026-01/HOKIT_JOSH_L_01-24.png?itok=q4AaxC15",
@@ -364,9 +364,8 @@ with st.sidebar:
         
     st.markdown("---")
     st.markdown("<h3 style='text-align: center; color: white;'>🔗 Invita a tus amigos</h3>", unsafe_allow_html=True)
-    url_de_tu_app = "https://predicciones-ufc-87c5opnpg9pmnfjm9qqrkr.streamlit.app"
-    st.code(url_de_tu_app, language="text")
-    mensaje_whatsapp = f"🥊 ¡Únete al directo y compite en la liga de pronósticos para UFC FREEDOM 250! Deja tus predicciones aquí: {url_de_tu_app}"
+    st.code(URL_APP, language="text")
+    mensaje_whatsapp = f"🥊 ¡Únete al directo y compite en la liga de pronósticos para UFC FREEDOM 250! Deja tus predicciones aquí: {URL_APP}"
     url_whatsapp = f"https://api.whatsapp.com/send?text={urllib.parse.quote(mensaje_whatsapp)}"
     st.markdown(f"""<a href="{url_whatsapp}" target="_blank" style="text-decoration: none;">
         <div style="background-color: #25D366; color: white; text-align: center; padding: 12px; border-radius: 8px; font-weight: bold; margin-top: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
@@ -524,6 +523,27 @@ with t_jugar:
 
     if usuario_limpio:
         st.markdown("---")
+        
+        # --- BOTÓN DE ALARDEAR (WHATSAPP) SI YA TIENE PREDICCIONES ---
+        pred_main = df_predicciones[(df_predicciones["usuario"] == usuario_limpio) & (df_predicciones["pelea_id"] == 1)]
+        if not pred_main.empty:
+            w_main = pred_main.iloc[0]["pred_winner"]
+            m_main = pred_main.iloc[0]["pred_method"]
+            r_main = pred_main.iloc[0]["pred_round"]
+            
+            texto_wa = f"🥊 ¡Selle mi cartilla para el UFC Freedom 250! Mi pronóstico estelar: {w_main} gana por {m_main} (Round {r_main}). 🔥 ¿Crees que sabes más que yo? Entra al directo de Cokemma y supérame aquí: {URL_APP}"
+            link_wa = f"https://api.whatsapp.com/send?text={urllib.parse.quote(texto_wa)}"
+            
+            st.markdown(f"""
+            <div style="background: linear-gradient(135deg, #10B981 0%, #047857 100%); padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 25px; border: 2px solid #34D399; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);">
+                <h3 style="color: white; margin-top: 0; font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 1px;">✅ ¡CARTILLA GUARDADA CON ÉXITO!</h3>
+                <p style="color: #ecfdf5; font-size: 1.1rem; margin-bottom: 15px; font-family: 'Montserrat', sans-serif;">Tus predicciones ya están en el sistema. ¡Desafía a tus amigos por WhatsApp y que arda el chat!</p>
+                <a href="{link_wa}" target="_blank" style="text-decoration: none; display: inline-block; background-color: #ffffff; color: #047857; padding: 12px 25px; border-radius: 8px; font-weight: 800; font-family: 'Montserrat', sans-serif; font-size: 1rem; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.2s;">
+                    📲 ALARDEAR MI PRONÓSTICO EN WHATSAPP
+                </a>
+            </div>
+            """, unsafe_allow_html=True)
+        
         with st.form("form_preds_ufc"):
             for _, row in df_peleas.iterrows():
                 pred_existente = df_predicciones[(df_predicciones["usuario"] == usuario_limpio) & (df_predicciones["pelea_id"] == row["id"])]
@@ -588,7 +608,7 @@ with t_jugar:
                     time.sleep(1.5)
                     st.rerun()
 
-# --- PESTAÑA 2: STATS EN VIVO ---
+# --- PESTAÑA 2: STATS EN VIVO (BARÓMETRO DEL DIRECTO) ---
 with t_stats:
     st.markdown("<h2 class='stat-title' style='font-size: 3rem;'>📊 EL TERMÓMETRO DEL DIRECTO</h2>", unsafe_allow_html=True)
     st.markdown("Así se están inclinando las predicciones de todos los jugadores en vivo. ¡Perfecto para debatir en el stream!")
@@ -642,7 +662,7 @@ with t_rankings:
     else: 
         st.info("Aún no hay peleadores registrados en esta categoría.")
 
-# --- PESTAÑA 4: MOMIOS ---
+# --- PESTAÑA 4: MOMIOS Y TALE OF THE TAPE ---
 with t_momios:
     st.markdown("<h2 style='color: #ffffff; font-size: 3rem;'><span style='color:#10B981;'>🎲</span> MOMIOS Y TALE OF THE TAPE</h2>", unsafe_allow_html=True)
     st.markdown("Estudia los números fríos antes de lanzar tus predicciones.")
