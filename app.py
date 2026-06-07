@@ -5,7 +5,7 @@ import time
 import urllib.parse
 
 # --- CONFIGURACIÓN DE PÁGINA ---
-st.set_page_config(page_title="UFC Freedom 250", page_icon="🥊", layout="wide")
+st.set_page_config(page_title="UFC Freedom 250 - Cokemma", page_icon="🥊", layout="wide")
 
 # --- 📸 DICCIONARIO DE IMÁGENES Y DATOS OFICIALES ---
 TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd"
@@ -27,7 +27,6 @@ FIGHTER_IMAGES = {
     "Steve Garcia": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-10/GARCIA_STEVE_L_11-01.png?itok=C9aRxxhd"
 }
 
-# Base de datos de Stats ACTUALIZADAS (Récords, Medidas y Momios Reales)
 FIGHTER_STATS = {
     "Ilia Topuria": {"record": "17-0-0", "altura": "1.70 m", "alcance": "1.75 m", "odds": "-720"},
     "Justin Gaethje": {"record": "27-5-0", "altura": "1.81 m", "alcance": "1.78 m", "odds": "+450"},
@@ -45,7 +44,7 @@ FIGHTER_STATS = {
     "Steve Garcia": {"record": "19-5-0", "altura": "1.83 m", "alcance": "1.91 m", "odds": "+148"}
 }
 
-# --- ESTILOS CSS (CON OPTIMIZACIÓN EXTREMA PARA CELULARES) ---
+# --- ESTILOS CSS ---
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700;900&family=Roboto:wght@400;700&display=swap');
@@ -85,8 +84,10 @@ st.markdown("""
     .odds-box { background-color: #111; border: 2px solid #333; border-radius: 10px; padding: 15px; text-align: center; }
     .odds-fav { color: #10B981; font-weight: bold; font-size: 1.8rem; font-family: 'Oswald', sans-serif;}
     .odds-dog { color: #EF4444; font-weight: bold; font-size: 1.8rem; font-family: 'Oswald', sans-serif;}
+    
+    .ticker-wrap { width: 100%; background-color: #DC2626; color: white; padding: 8px 0; font-family: 'Oswald', sans-serif; font-size: 1.3rem; font-weight: bold; letter-spacing: 2px; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(220, 38, 38, 0.4); text-transform: uppercase;}
 
-    /* REGLAS EXCLUSIVAS PARA CELULARES (RESPONSIVE) */
+    /* REGLAS EXCLUSIVAS PARA CELULARES */
     @media (max-width: 768px) {
         .fighter-img { width: 100px; height: 100px; border-width: 2px; }
         .fighter-name { font-size: 1.2rem; margin-top: 5px; }
@@ -104,10 +105,43 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --- BASES DE DATOS (NUEVOS NOMBRES PARA EMPEZAR 100% LIMPIO) ---
-PELEAS_FILE = "ufc_peleas_definitivo.csv"
-PREDICCONES_FILE = "ufc_preds_definitivo.csv"
-LIGAS_FILE = "ufc_ligas_definitivo.csv" 
+# --- PANEL LATERAL Y MODO STREAMER ---
+with st.sidebar:
+    st.markdown("""
+    <div style="text-align: center; padding: 10px;">
+        <h1 style="font-size: 4rem; margin: 0; filter: drop-shadow(0px 0px 10px rgba(220,38,38,0.8));">🥊</h1>
+        <h2 style="color: #DC2626; margin-top: 10px; text-transform: uppercase; letter-spacing: 2px;">Fight Week</h2>
+    </div>
+    """, unsafe_allow_html=True)
+    st.markdown("---")
+    
+    # Checkbox MODO DIRECTO COKEMMA
+    modo_directo = st.checkbox("🎥 Activar Modo Directo (OBS)", value=False, help="Oculta los bordes de la app para que se vea a pantalla completa en la transmisión de YouTube.")
+    if modo_directo:
+        st.markdown("""
+        <style>
+            header {visibility: hidden;}
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            .block-container {padding-top: 1rem; padding-bottom: 0rem; max-width: 95%;}
+        </style>
+        """, unsafe_allow_html=True)
+
+    st.markdown("---")
+    st.markdown("<h3 style='text-align: center; color: white;'>🔗 Invita a tus amigos</h3>", unsafe_allow_html=True)
+    url_de_tu_app = "https://predicciones-ufc-87c5opnpg9pmnfjm9qqrkr.streamlit.app/#momios-de-las-vegas"
+    st.code(url_de_tu_app, language="text")
+    mensaje_whatsapp = f"🥊 ¡Únete a la liga oficial del directo! Deja tus predicciones aquí: {url_de_tu_app}"
+    url_whatsapp = f"https://api.whatsapp.com/send?text={urllib.parse.quote(mensaje_whatsapp)}"
+    st.markdown(f"""<a href="{url_whatsapp}" target="_blank" style="text-decoration: none;">
+        <div style="background-color: #25D366; color: white; text-align: center; padding: 12px; border-radius: 8px; font-weight: bold; margin-top: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+            📲 Enviar por WhatsApp
+        </div></a>""", unsafe_allow_html=True)
+
+# --- BASES DE DATOS (NOMBRES NUEVOS PARA EL DIRECTO) ---
+PELEAS_FILE = "ufc_peleas_cokemma.csv"
+PREDICCONES_FILE = "ufc_preds_cokemma.csv"
+LIGAS_FILE = "ufc_ligas_cokemma.csv" 
 PASSWORD_ADMIN = "dana2050"
 
 # --- INICIALIZACIÓN ---
@@ -158,7 +192,7 @@ def calcular_tabla_ufc(df_p, df_preds, liga_filtro=None):
             if real_m == pred_m: puntos_pelea += 5
             if real_r == pred_r: puntos_pelea += 5
             if real_m == pred_m and real_r == pred_r:
-                puntos_pelea += 5 # Bono Pleno
+                puntos_pelea += 5 
                 puntajes[user]["plenos"] += 1
             puntajes[user]["puntos"] += puntos_pelea
 
@@ -175,50 +209,46 @@ def calcular_tabla_ufc(df_p, df_preds, liga_filtro=None):
     df_tabla = pd.DataFrame(tabla_data, columns=["Peleador", "Cinturón 🎖️", "Puntos Totales", "Plenos (25pts)", "Aciertos Ganador"])
     return df_tabla.sort_values(by=["Puntos Totales", "Plenos (25pts)"], ascending=[False, False]).reset_index(drop=True)
 
+# 🛠️ SOLUCIÓN ANTI-HOTLINK PARA LAS IMÁGENES DE UFC
 def get_fighter_img(name):
-    if name in FIGHTER_IMAGES: return FIGHTER_IMAGES[name]
+    if name in FIGHTER_IMAGES: 
+        url = FIGHTER_IMAGES[name]
+        # Si la imagen viene de UFC, usamos el proxy wsrv.nl para saltarnos el bloqueo
+        if "ufc.com" in url:
+            url_encoded = urllib.parse.quote(url)
+            return f"https://wsrv.nl/?url={url_encoded}"
+        return url
     return f"https://ui-avatars.com/api/?name={name.replace(' ', '+')}&background=18181b&color=DC2626&size=200&font-size=0.33&bold=true"
 
 def get_stat(name, stat_key):
     if name in FIGHTER_STATS: return FIGHTER_STATS[name].get(stat_key, "N/A")
     return "N/A"
 
-# --- PANEL LATERAL ---
-with st.sidebar:
-    st.markdown("""
-    <div style="text-align: center; padding: 10px;">
-        <h1 style="font-size: 4rem; margin: 0; filter: drop-shadow(0px 0px 10px rgba(220,38,38,0.8));">🥊</h1>
-        <h2 style="color: #DC2626; margin-top: 10px; text-transform: uppercase; letter-spacing: 2px;">Fight Week</h2>
-    </div>
-    """, unsafe_allow_html=True)
-    st.markdown("---")
-    st.markdown("<h3 style='text-align: center; color: white;'>🔗 Invita a tus amigos</h3>", unsafe_allow_html=True)
-    url_de_tu_app = "https://predicciones-ufc-87c5opnpg9pmnfjm9qqrkr.streamlit.app/#momios-de-las-vegas"
-    st.code(url_de_tu_app, language="text")
-    mensaje_whatsapp = f"🥊 ¡Únete a nuestra liga de pronósticos para UFC FREEDOM 250! Deja tus predicciones aquí: {url_de_tu_app}"
-    url_whatsapp = f"https://api.whatsapp.com/send?text={urllib.parse.quote(mensaje_whatsapp)}"
-    st.markdown(f"""<a href="{url_whatsapp}" target="_blank" style="text-decoration: none;">
-        <div style="background-color: #25D366; color: white; text-align: center; padding: 12px; border-radius: 8px; font-weight: bold; margin-top: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
-            📲 Enviar por WhatsApp
-        </div></a>""", unsafe_allow_html=True)
-
-# --- BANNER PRINCIPAL ---
+# --- BANNER PRINCIPAL (COKEMMA EDITION) ---
 st.markdown("""
-<div style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)), url('https://aulanews.uao.es/wp-content/uploads/2020/05/ufc-octagono.jpg'); background-size: cover; background-position: center; padding: 60px 20px; border-radius: 15px; text-align: center; margin-bottom: 35px; border: 2px solid #DC2626; box-shadow: 0 0 40px rgba(220, 38, 38, 0.4);">
-    <h1 class="banner-h1" style="color: #ffffff; font-size: 4.5rem; margin:0; text-transform: uppercase; letter-spacing: 6px; text-shadow: 3px 3px 15px #DC2626; font-family: 'Oswald', sans-serif;">UFC FREEDOM 250</h1>
+<div style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.95)), url('https://aulanews.uao.es/wp-content/uploads/2020/05/ufc-octagono.jpg'); background-size: cover; background-position: center; padding: 50px 20px; border-radius: 15px; text-align: center; margin-bottom: 15px; border: 2px solid #D4AF37; box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);">
+    <h3 style="color: #DC2626; margin:0; text-transform: uppercase; letter-spacing: 3px; font-family: 'Oswald', sans-serif;">🎙️ Predicciones Oficiales - Cokemma</h3>
+    <h1 class="banner-h1" style="color: #ffffff; font-size: 4.5rem; margin-top:10px; text-transform: uppercase; letter-spacing: 6px; text-shadow: 3px 3px 15px #DC2626; font-family: 'Oswald', sans-serif;">UFC FREEDOM 250</h1>
     <h2 class="banner-h2" style="color: #D4AF37; font-size: 2.5rem; margin-top: 5px; font-weight: 900; letter-spacing: 4px; font-family: 'Oswald', sans-serif;">TOPURIA <span style="color:white; font-size: 1.5rem;">VS</span> GAETHJE</h2>
 </div>
 """, unsafe_allow_html=True)
 
+# TICKER DE NOTICIAS
+st.markdown("""
+<div class="ticker-wrap">
+    <marquee scrollamount="8">🔥 TRANSMISIÓN OFICIAL COKEMMA | 🥊 ÚLTIMA HORA: Topuria promete un KO brutal en el 1er Round... 💰 MOMIOS: Gaethje paga +450 en Las Vegas, ¿habrá sorpresa?... 🏆 Alex Pereira busca hacer historia en su debut en Peso Pesado... 📊 ¡Sella tu cartilla ahora mismo y compite en el chat!</marquee>
+</div>
+""", unsafe_allow_html=True)
+
 # --- PESTAÑAS ---
-tab0, tab1, tab2, tab3, tab4, tab5 = st.tabs(["🏠 Lobby", "📊 Ránkings", "📝 Jugar", "🎲 Momios", "📺 Stats", "🎙️ Bruce"])
+tab0, tab1, tab2, tab3, tab4, tab5 = st.tabs(["🏠 Lobby", "📊 Ránkings", "📝 Jugar", "🎲 Momios", "📺 Stats en Vivo", "🎙️ Bruce"])
 
 # --- PESTAÑA 0: LOBBY ---
 with tab0:
     st.markdown("""
 <div style="background: linear-gradient(135deg, #DC2626 0%, #7F1D1D 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px solid #ff4d4d; box-shadow: 0 8px 20px rgba(220, 38, 38, 0.4);">
 <h3 style="margin-top: 0; color: white; display: flex; align-items: center; font-family: 'Oswald', sans-serif;">📲 ¡Lleva el Octágono en tu Bolsillo!</h3>
-<p style="font-weight: 700; font-size: 1.05rem; margin-bottom: 8px;">Instala esta web como una App nativa para no perderte nada:</p>
+<p style="font-weight: 700; font-size: 1.05rem; margin-bottom: 8px;">Instala esta web como una App nativa para no perderte nada del directo:</p>
 <div style="background-color: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; margin-bottom: 15px; border-left: 3px solid #D4AF37;">
 <span style="font-size: 0.9rem; color: #fbbf24; font-weight: bold;">⚠️ ¿Atrapado en el navegador de TikTok o Instagram?</span><br>
 <span style="font-size: 0.85rem; color: #ddd;">Las redes sociales bloquean la instalación de apps. Para solucionarlo:</span><br>
@@ -284,7 +314,7 @@ with tab1:
 
 # --- PESTAÑA 2: CARTELERA ---
 with tab2:
-    usuario_input = st.text_input("👤 Nombre del Peleador (Tu Apodo):", placeholder="Ej. The Specialist")
+    usuario_input = st.text_input("👤 Nombre del Peleador (Tu Apodo):", placeholder="Ej. Cokemma Jr.")
     usuario_limpio = usuario_input.strip().title()
     opcion_liga = st.selectbox("🤝 Modalidad:", ["🌍 Ranking Global", "➕ Crear Liga Privada", "🔐 Unirse a Liga Existente"])
     liga_limpia, clave_ingresada, clave_creada, liga_nueva = "GLOBAL", "", "", ""
@@ -423,8 +453,13 @@ with tab3:
 
 # --- PESTAÑA 4: STATS EN VIVO (GRÁFICOS DE TRANSMISIÓN) ---
 with tab4:
-    st.markdown("<h2 class='stat-title'>📊 Tendencias de la Audiencia</h2>", unsafe_allow_html=True)
-    st.markdown("Así se están inclinando las apuestas globales en tiempo real. ¿Con quién va la mayoría?")
+    st.markdown("<h2 class='stat-title'>📊 Tendencias en Directo</h2>", unsafe_allow_html=True)
+    st.markdown("Así se están inclinando las apuestas globales en tiempo real. Perfecto para analizar en la transmisión.")
+    
+    # BOTÓN PARA ACTUALIZAR AL AIRE SIN RECARGAR LA PÁGINA
+    if st.button("🔄 ACTUALIZAR PORCENTAJES EN VIVO"):
+        st.rerun()
+        
     st.markdown("---")
     
     if df_predicciones.empty:
@@ -450,11 +485,11 @@ with tab4:
                         <span style="font-size: 1.2rem; font-weight: bold; font-family: 'Oswald', sans-serif;">{f_a} <span style="color:#DC2626;">({pct_a}%)</span></span>
                         <span style="font-size: 1.2rem; font-weight: bold; font-family: 'Oswald', sans-serif;"><span style="color:#D4AF37;">({pct_b}%)</span> {f_b}</span>
                     </div>
-                    <div style="width: 100%; background-color: #333; height: 18px; border-radius: 10px; display: flex; overflow: hidden; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);">
+                    <div style="width: 100%; background-color: #333; height: 22px; border-radius: 10px; display: flex; overflow: hidden; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);">
                         <div style="width: {pct_a}%; background-color: #DC2626; transition: width 0.5s;"></div>
                         <div style="width: {pct_b}%; background-color: #D4AF37; transition: width 0.5s;"></div>
                     </div>
-                    <p style="text-align: center; color: #777; font-size: 0.8rem; margin-top: 5px; margin-bottom: 0;">Basado en {total_votos} apuestas</p>
+                    <p style="text-align: center; color: #777; font-size: 0.8rem; margin-top: 5px; margin-bottom: 0;">Basado en {total_votos} apuestas de la comunidad</p>
                 </div>
                 """, unsafe_allow_html=True)
 
