@@ -9,7 +9,8 @@ st.set_page_config(page_title="UFC Freedom 250 | Cokemma Edition", page_icon="�
 
 # --- 📸 DICCIONARIO DE IMÁGENES Y DATOS OFICIALES ---
 TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd"
-BANNER_PRINCIPAL = "https://objetos-xlk.estaticos-marca.com/uploads/2026/04/12/69daeb2f4572e.jpeg"
+# 🔥 BANNER CORREGIDO AQUÍ CON LA IMAGEN DE DAZN
+BANNER_PRINCIPAL = "https://images.daznservices.com/di/library/DAZN_News/38/dc/ufc-casa-blanca-ilia-topuria-vs-justin-gaethje_1lpqgt419yykc17egde0t8b3g1.jpg?t=-828957604"
 URL_APP = "https://predicciones-ufc-87c5opnpg9pmnfjm9qqrkr.streamlit.app"
 
 FIGHTER_IMAGES = {
@@ -46,7 +47,7 @@ FIGHTER_STATS = {
     "Steve Garcia": {"record": "16-5-0", "altura": "1.83 m", "alcance": "1.91 m", "odds": "+135"}
 }
 
-# --- ESTILOS CSS (DISEÑO PARA PC Y DIRECTOS) ---
+# --- ESTILOS CSS (DISEÑO PREMIUM OPTIMIZADO PARA PC) ---
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;800&display=swap');
@@ -263,11 +264,11 @@ button[data-baseweb="tab"]:hover {
     font-size: 1.1rem !important;
 }
 
-/* Banner Container Fix para PC */
+/* Banner Container Fix para PC - Enfoque Superior */
 .banner-container {
     background-size: cover; 
-    background-position: top center; 
-    min-height: 500px; 
+    background-position: top center; /* Asegura que se vean las caras */
+    min-height: 500px; /* Altura majestuosa para PC */
     display: flex; 
     flex-direction: column; 
     justify-content: flex-end; 
@@ -287,7 +288,7 @@ button[data-baseweb="tab"]:hover {
     .weight-class { font-size: 0.9rem; }
     .fight-card { padding: 15px; }
     button[data-baseweb="tab"] { font-size: 1.1rem !important; padding: 10px 5px !important; }
-    .banner-container { min-height: 300px; justify-content: flex-end; padding-bottom: 20px; }
+    .banner-container { min-height: 300px; background-position: top center; justify-content: flex-end; padding-bottom: 20px; }
     .banner-h1 { font-size: 3.5rem !important; }
     .banner-h2 { font-size: 1.8rem !important; }
     .banner-sub { font-size: 1.2rem !important; }
@@ -486,7 +487,6 @@ with t_lobby:
 
     st.markdown("<br><hr style='border-color: #333;'><br>", unsafe_allow_html=True)
     
-    # REGLAS Y TRAILER
     col_reglas, col_trailer = st.columns([1, 1])
     with col_reglas:
         st.markdown("""
