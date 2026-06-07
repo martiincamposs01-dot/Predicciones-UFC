@@ -9,8 +9,8 @@ st.set_page_config(page_title="UFC Freedom 250 | Cokemma Edition", page_icon="�
 
 # --- 📸 DICCIONARIO DE IMÁGENES Y DATOS OFICIALES ---
 TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd"
-# 🔥 BANNER CORREGIDO AQUÍ CON LA IMAGEN DE DAZN
-BANNER_PRINCIPAL = "https://images.daznservices.com/di/library/DAZN_News/38/dc/ufc-casa-blanca-ilia-topuria-vs-justin-gaethje_1lpqgt419yykc17egde0t8b3g1.jpg?t=-828957604"
+# 🔥 NUEVO BANNER APLICADO AQUÍ
+BANNER_PRINCIPAL = "https://objetos-xlk.estaticos-marca.com/uploads/2026/04/12/69daeaf5a9090.jpeg"
 URL_APP = "https://predicciones-ufc-87c5opnpg9pmnfjm9qqrkr.streamlit.app"
 
 FIGHTER_IMAGES = {
@@ -99,10 +99,10 @@ button[data-baseweb="tab"] {
     font-family: 'Bebas Neue', sans-serif !important; 
     text-transform: uppercase;
     padding: 15px 35px !important; 
-    background-color: #111111 !important; /* Fondo gris oscuro para inactivas */
-    border: 2px solid #333333 !important; /* Borde visible */
+    background-color: #111111 !important; 
+    border: 2px solid #333333 !important; 
     border-bottom: none !important;
-    border-radius: 12px 12px 0 0 !important; /* Bordes redondeados solo arriba */
+    border-radius: 12px 12px 0 0 !important; 
     color: #888888 !important; 
     letter-spacing: 2px;
     transition: all 0.3s ease;
@@ -264,11 +264,11 @@ button[data-baseweb="tab"]:hover {
     font-size: 1.1rem !important;
 }
 
-/* Banner Container Fix para PC - Enfoque Superior */
+/* 🥊 BANNER CONTAINER FIX (CORREGIDO PARA NO CORTAR LA IMAGEN) 🥊 */
 .banner-container {
     background-size: cover; 
-    background-position: top center; /* Asegura que se vean las caras */
-    min-height: 500px; /* Altura majestuosa para PC */
+    background-position: top center; /* Evita que se corten las cabezas */
+    min-height: 550px; /* Mas grande para PC */
     display: flex; 
     flex-direction: column; 
     justify-content: flex-end; 
@@ -385,7 +385,7 @@ def get_stat(name, stat_key):
 with st.sidebar:
     st.markdown("""
     <div style="text-align: center; padding: 10px;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/UFC_logo.svg/1024px-UFC_logo.svg.png" width="150" style="margin-bottom:15px; filter: drop-shadow(0px 0px 10px rgba(220,38,38,0.8));">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/UFC_logo.svg/1024px-UFC_logo.svg.png" width="130" style="margin-bottom:15px; filter: drop-shadow(0px 0px 10px rgba(220,38,38,0.8));">
         <h2 style="color: #DC2626; margin-top: 0px; text-transform: uppercase; letter-spacing: 2px;">FIGHT WEEK</h2>
     </div>
     """, unsafe_allow_html=True)
@@ -409,23 +409,23 @@ with st.sidebar:
     mensaje_whatsapp = f"🥊 ¡Únete al directo y compite en la liga de pronósticos para UFC FREEDOM 250! Deja tus predicciones aquí: {URL_APP}"
     url_whatsapp = f"https://api.whatsapp.com/send?text={urllib.parse.quote(mensaje_whatsapp)}"
     st.markdown(f"""<a href="{url_whatsapp}" target="_blank" style="text-decoration: none;">
-        <div style="background-color: #25D366; color: white; text-align: center; padding: 15px; border-radius: 8px; font-weight: bold; margin-top: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); font-size: 1.1rem;">
-            📲 COMPARTIR EN WHATSAPP
+        <div style="background-color: #25D366; color: white; text-align: center; padding: 12px; border-radius: 8px; font-weight: bold; margin-top: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+            📲 Compartir en WhatsApp
         </div></a>""", unsafe_allow_html=True)
         
     st.markdown("<br><br>", unsafe_allow_html=True)
     
     # 📱 TIKTOK BADGE
     st.markdown("""
-    <div style="text-align:center; padding: 20px; border-radius: 12px; background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);">
-        <p style="color: #000; font-weight: 800; margin: 0; font-size: 1rem; text-transform: uppercase;">Desarrollador Oficial</p>
-        <a href="https://tiktok.com/@martincampos.mma" target="_blank" style="color: #000; text-decoration: none; font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; display: block; margin-top: 5px; text-shadow: 1px 1px 2px rgba(255,255,255,0.5);">
-            @martincampos.mma <span style="font-size:1.5rem;">🎵</span>
+    <div style="text-align:center; padding: 15px; border-radius: 12px; background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);">
+        <p style="color: #000; font-weight: 800; margin: 0; font-size: 0.9rem; text-transform: uppercase;">Desarrollador Oficial</p>
+        <a href="https://tiktok.com/@martincampos.mma" target="_blank" style="color: #000; text-decoration: none; font-family: 'Bebas Neue', sans-serif; font-size: 2rem; display: block; margin-top: 5px; text-shadow: 1px 1px 2px rgba(255,255,255,0.5);">
+            @martincampos.mma <span style="font-size:1.2rem;">🎵</span>
         </a>
     </div>
     """, unsafe_allow_html=True)
 
-# --- BANNER PRINCIPAL ANIMADO Y CORREGIDO PARA PC ---
+# --- BANNER PRINCIPAL ANIMADO Y CORREGIDO ---
 st.markdown(f"""
 <div class="banner-container" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(5, 5, 5, 0.95) 100%), url('{BANNER_PRINCIPAL}');">
     <h3 class="banner-sub" style="color: #D4AF37; margin:0; text-transform: uppercase; letter-spacing: 4px; font-family: 'Bebas Neue', sans-serif; text-shadow: 2px 2px 10px black; z-index: 2; font-size: 1.8rem;">🎙️ TRANSMISIÓN OFICIAL - COKEMMA DIRECTO</h3>
@@ -434,7 +434,7 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# --- TICKER DE NOTICIAS (ESTILO ESPN PARA PC) ---
+# --- TICKER DE NOTICIAS (ESTILO ESPN) ---
 st.markdown("""
 <div class="ticker-wrap">
     <marquee scrollamount="12">🚨 EN VIVO: DIRECTO ESPECIAL COKEMMA | 🥊 ÚLTIMA HORA: Topuria promete un KO brutal en el 1er Round... 💰 MOMIOS: Gaethje paga +450 en Las Vegas, ¿habrá sorpresa hoy?... 🏆 Alex Pereira busca hacer historia en su debut en Peso Pesado... 📊 ¡Sella tu cartilla ahora mismo y compite contra el chat en el Ránking Global!</marquee>
@@ -539,7 +539,8 @@ with t_lobby:
 
 # --- PESTAÑA 1: JUGAR ---
 with t_jugar:
-    st.markdown("<h2 style='color: #ffffff; text-align:center; font-size: 3.5rem;'>🔥 SELLA TU CARTILLA OFICIAL</h2>", unsafe_allow_html=True)
+    # 🔥 CAMBIO DE TÍTULO AQUÍ
+    st.markdown("<h2 style='color: #ffffff; text-align:center; font-size: 3.5rem;'>🔥 PREDICCIONES</h2>", unsafe_allow_html=True)
     
     usuario_input = st.text_input("👤 INGRESA TU APODO PARA EL STREAM:", placeholder="Ej. El Especialista")
     usuario_limpio = usuario_input.strip().title()
