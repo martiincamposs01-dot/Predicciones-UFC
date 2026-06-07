@@ -9,7 +9,7 @@ st.set_page_config(page_title="UFC Freedom 250 | Cokemma Edition", page_icon="�
 
 # --- 📸 DICCIONARIO DE IMÁGENES Y DATOS OFICIALES ---
 TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd"
-BANNER_PRINCIPAL = "https://images.daznservices.com/di/library/DAZN_News/38/dc/ufc-casa-blanca-ilia-topuria-vs-justin-gaethje_1lpqgt419yykc17egde0t8b3g1.jpg?t=-828957604"
+BANNER_PRINCIPAL = "https://objetos-xlk.estaticos-marca.com/uploads/2026/04/12/69daeb2f4572e.jpeg"
 URL_APP = "https://predicciones-ufc-87c5opnpg9pmnfjm9qqrkr.streamlit.app"
 
 FIGHTER_IMAGES = {
@@ -46,7 +46,7 @@ FIGHTER_STATS = {
     "Steve Garcia": {"record": "16-5-0", "altura": "1.83 m", "alcance": "1.91 m", "odds": "+135"}
 }
 
-# --- ESTILOS CSS (OVERHAUL VISUAL PREMIUM) ---
+# --- ESTILOS CSS (DISEÑO PARA PC Y DIRECTOS) ---
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;800&display=swap');
@@ -69,50 +69,69 @@ h1, h2, h3, .fighter-name, .vs-text, .weight-class, .stat-title {
 header {visibility: hidden;}
 footer {visibility: hidden;}
 
-/* Ticker ESPN Style */
+/* Ticker ESPN Style Mejorado para PC */
 .ticker-wrap { 
     width: 100%; 
     background-color: #DC2626; 
     color: white; 
-    padding: 10px 0; 
+    padding: 12px 0; 
     font-family: 'Bebas Neue', sans-serif; 
-    font-size: 1.6rem; 
+    font-size: 1.8rem; 
     letter-spacing: 2px; 
     border-radius: 8px; 
-    margin-bottom: 25px; 
-    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.5); 
+    margin-bottom: 30px; 
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.6); 
     text-transform: uppercase;
 }
 
-/* Pestañas (Tabs) */
+/* ---------------------------------------------------
+   Pestañas (Tabs) ULTRA VISIBLES PARA PC
+--------------------------------------------------- */
+div[data-baseweb="tab-list"] {
+    gap: 12px; /* Separación entre botones */
+    border-bottom: 3px solid #DC2626; /* Línea roja base */
+    padding-bottom: 0px;
+}
+
 button[data-baseweb="tab"] {
-    font-size: 1.5rem !important; 
+    font-size: 1.6rem !important; 
     font-family: 'Bebas Neue', sans-serif !important; 
     text-transform: uppercase;
-    padding: 10px 25px !important; 
-    background-color: transparent !important;
-    border: none !important;
-    border-bottom: 3px solid transparent !important;
-    color: #71717A !important; 
+    padding: 15px 35px !important; 
+    background-color: #111111 !important; /* Fondo gris oscuro para inactivas */
+    border: 2px solid #333333 !important; /* Borde visible */
+    border-bottom: none !important;
+    border-radius: 12px 12px 0 0 !important; /* Bordes redondeados solo arriba */
+    color: #888888 !important; 
     letter-spacing: 2px;
     transition: all 0.3s ease;
 }
+
+/* Pestaña Activa (Seleccionada) */
 button[data-baseweb="tab"][aria-selected="true"] {
-    color: #DC2626 !important; 
-    border-bottom: 3px solid #DC2626 !important;
-    text-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
+    background: linear-gradient(180deg, #DC2626 0%, #8b0000 100%) !important;
+    color: #ffffff !important; 
+    border: 2px solid #ff4d4d !important;
+    border-bottom: none !important;
+    box-shadow: 0 -5px 20px rgba(220, 38, 38, 0.5);
+    transform: translateY(-2px);
 }
 
-/* Botones de Acción */
+button[data-baseweb="tab"]:hover {
+    background-color: #222222 !important;
+    color: #ffffff !important;
+}
+
+/* Botones de Acción (Guardar, etc) */
 .stButton > button {
     background: linear-gradient(90deg, #DC2626 0%, #991B1B 100%); 
     color: #ffffff; 
     font-weight: 800; 
     font-family: 'Montserrat', sans-serif; 
-    font-size: 1.1rem; 
+    font-size: 1.2rem; 
     border: 1px solid #ff4d4d; 
     border-radius: 8px; 
-    padding: 15px 30px; 
+    padding: 18px 30px; 
     text-transform: uppercase; 
     letter-spacing: 1px; 
     width: 100%;
@@ -130,7 +149,7 @@ button[data-baseweb="tab"][aria-selected="true"] {
     display: block;
     background-size: cover;
     background-position: center;
-    height: 220px;
+    height: 250px;
     border-radius: 12px;
     text-decoration: none;
     position: relative;
@@ -148,12 +167,12 @@ button[data-baseweb="tab"][aria-selected="true"] {
     position: absolute;
     bottom: 0; left: 0; right: 0;
     background: linear-gradient(to top, rgba(0,0,0,1), transparent);
-    padding: 30px 15px 10px 15px;
+    padding: 30px 15px 15px 15px;
 }
 .news-title {
     color: white;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     margin: 0;
     text-shadow: 2px 2px 5px black;
     letter-spacing: 1px;
@@ -161,10 +180,10 @@ button[data-baseweb="tab"][aria-selected="true"] {
 
 /* Tarjetas de Pelea */
 .fight-card { 
-    background: rgba(26, 26, 26, 0.7); 
+    background: rgba(26, 26, 26, 0.8); 
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    padding: 30px; 
+    padding: 35px; 
     border-radius: 16px; 
     text-align: center; 
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -177,13 +196,13 @@ button[data-baseweb="tab"][aria-selected="true"] {
 }
 .fight-card:hover {
     transform: scale(1.01);
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    border: 1px solid rgba(212, 175, 55, 0.4);
 }
 
 /* Imágenes de Peleadores */
 .fighter-img { 
-    width: 180px; 
-    height: 180px; 
+    width: 200px; 
+    height: 200px; 
     object-fit: cover; 
     object-position: top; 
     border-radius: 50%; 
@@ -197,57 +216,58 @@ button[data-baseweb="tab"][aria-selected="true"] {
     box-shadow: 0 0 30px rgba(212,175,55,0.8);
 }
 
-.fighter-name { font-size: 2.8rem; font-weight: 400; color: #ffffff; text-transform: uppercase; margin-top: 15px; line-height: 1;}
-.vs-text { font-size: 4rem; color: #DC2626; font-weight: 400; font-style: italic; text-shadow: 0 0 15px rgba(220,38,38,0.6); margin-top: 50px; }
-.weight-class { color: #A1A1AA; font-size: 1.2rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 25px; font-weight: 600; font-family: 'Montserrat', sans-serif;}
+.fighter-name { font-size: 3rem; font-weight: 400; color: #ffffff; text-transform: uppercase; margin-top: 15px; line-height: 1;}
+.vs-text { font-size: 4.5rem; color: #DC2626; font-weight: 400; font-style: italic; text-shadow: 0 0 15px rgba(220,38,38,0.6); margin-top: 50px; }
+.weight-class { color: #A1A1AA; font-size: 1.3rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 25px; font-weight: 600; font-family: 'Montserrat', sans-serif;}
 
-/* Cajas personalizadas */
+/* Cajas personalizadas (Reglas, Datos) */
 .custom-box { 
     background: rgba(20, 20, 20, 0.8); 
     border-radius: 12px; 
-    padding: 25px; 
-    border-left: 4px solid #D4AF37; 
+    padding: 30px; 
+    border-left: 5px solid #D4AF37; 
     margin-bottom: 20px; 
     box-shadow: 0 8px 20px rgba(0,0,0,0.5); 
 }
 .quote-card {
     background-color: #111;
-    border-left: 4px solid #DC2626;
-    padding: 20px;
+    border-left: 5px solid #DC2626;
+    padding: 25px;
     border-radius: 8px;
     height: 100%;
 }
 .quote-text {
     font-style: italic;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: #ddd;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 .quote-author {
     color: #D4AF37;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     letter-spacing: 1px;
     margin: 0;
 }
 
-/* Tablas y Cajas UI */
-.odds-box { background-color: #111; border: 2px solid #333; border-radius: 10px; padding: 15px; text-align: center; }
-.odds-fav { color: #10B981; font-weight: bold; font-size: 2rem; font-family: 'Bebas Neue', sans-serif;}
-.odds-dog { color: #EF4444; font-weight: bold; font-size: 2rem; font-family: 'Bebas Neue', sans-serif;}
+/* Tablas y Momios */
+.odds-box { background-color: #111; border: 2px solid #333; border-radius: 10px; padding: 20px; text-align: center; }
+.odds-fav { color: #10B981; font-weight: bold; font-size: 2.5rem; font-family: 'Bebas Neue', sans-serif;}
+.odds-dog { color: #EF4444; font-weight: bold; font-size: 2.5rem; font-family: 'Bebas Neue', sans-serif;}
 .stTextInput input, .stSelectbox div[data-baseweb="select"] {
     background-color: #111111 !important;
     border: 1px solid #333333 !important;
     color: #ffffff !important;
     border-radius: 8px !important;
     font-family: 'Montserrat', sans-serif !important;
+    font-size: 1.1rem !important;
 }
 
-/* Banner Container Fix */
+/* Banner Container Fix para PC */
 .banner-container {
     background-size: cover; 
     background-position: top center; 
-    min-height: 450px; 
+    min-height: 500px; 
     display: flex; 
     flex-direction: column; 
     justify-content: flex-end; 
@@ -259,7 +279,7 @@ button[data-baseweb="tab"][aria-selected="true"] {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
 }
 
-/* Responsivo */
+/* Responsivo para celulares (Mantiene compatibilidad) */
 @media (max-width: 768px) {
     .fighter-img { width: 110px; height: 110px; }
     .fighter-name { font-size: 1.8rem; }
@@ -364,7 +384,7 @@ def get_stat(name, stat_key):
 with st.sidebar:
     st.markdown("""
     <div style="text-align: center; padding: 10px;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/UFC_logo.svg/1024px-UFC_logo.svg.png" width="130" style="margin-bottom:15px; filter: drop-shadow(0px 0px 10px rgba(220,38,38,0.8));">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/UFC_logo.svg/1024px-UFC_logo.svg.png" width="150" style="margin-bottom:15px; filter: drop-shadow(0px 0px 10px rgba(220,38,38,0.8));">
         <h2 style="color: #DC2626; margin-top: 0px; text-transform: uppercase; letter-spacing: 2px;">FIGHT WEEK</h2>
     </div>
     """, unsafe_allow_html=True)
@@ -388,35 +408,35 @@ with st.sidebar:
     mensaje_whatsapp = f"🥊 ¡Únete al directo y compite en la liga de pronósticos para UFC FREEDOM 250! Deja tus predicciones aquí: {URL_APP}"
     url_whatsapp = f"https://api.whatsapp.com/send?text={urllib.parse.quote(mensaje_whatsapp)}"
     st.markdown(f"""<a href="{url_whatsapp}" target="_blank" style="text-decoration: none;">
-        <div style="background-color: #25D366; color: white; text-align: center; padding: 12px; border-radius: 8px; font-weight: bold; margin-top: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
-            📲 Compartir en WhatsApp
+        <div style="background-color: #25D366; color: white; text-align: center; padding: 15px; border-radius: 8px; font-weight: bold; margin-top: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); font-size: 1.1rem;">
+            📲 COMPARTIR EN WHATSAPP
         </div></a>""", unsafe_allow_html=True)
         
     st.markdown("<br><br>", unsafe_allow_html=True)
     
     # 📱 TIKTOK BADGE
     st.markdown("""
-    <div style="text-align:center; padding: 15px; border-radius: 12px; background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);">
-        <p style="color: #000; font-weight: 800; margin: 0; font-size: 0.9rem; text-transform: uppercase;">Desarrollador Oficial</p>
-        <a href="https://tiktok.com/@martincampos.mma" target="_blank" style="color: #000; text-decoration: none; font-family: 'Bebas Neue', sans-serif; font-size: 2rem; display: block; margin-top: 5px; text-shadow: 1px 1px 2px rgba(255,255,255,0.5);">
-            @martincampos.mma <span style="font-size:1.2rem;">🎵</span>
+    <div style="text-align:center; padding: 20px; border-radius: 12px; background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);">
+        <p style="color: #000; font-weight: 800; margin: 0; font-size: 1rem; text-transform: uppercase;">Desarrollador Oficial</p>
+        <a href="https://tiktok.com/@martincampos.mma" target="_blank" style="color: #000; text-decoration: none; font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; display: block; margin-top: 5px; text-shadow: 1px 1px 2px rgba(255,255,255,0.5);">
+            @martincampos.mma <span style="font-size:1.5rem;">🎵</span>
         </a>
     </div>
     """, unsafe_allow_html=True)
 
-# --- BANNER PRINCIPAL ANIMADO Y CORREGIDO ---
+# --- BANNER PRINCIPAL ANIMADO Y CORREGIDO PARA PC ---
 st.markdown(f"""
 <div class="banner-container" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(5, 5, 5, 0.95) 100%), url('{BANNER_PRINCIPAL}');">
-    <h3 class="banner-sub" style="color: #D4AF37; margin:0; text-transform: uppercase; letter-spacing: 4px; font-family: 'Bebas Neue', sans-serif; text-shadow: 2px 2px 10px black; z-index: 2;">🎙️ TRANSMISIÓN OFICIAL - COKEMMA DIRECTO</h3>
-    <h1 class="banner-h1" style="color: #ffffff; font-size: 6rem; margin-top:10px; margin-bottom:0px; line-height: 1; text-transform: uppercase; letter-spacing: 6px; text-shadow: 4px 4px 15px rgba(220, 38, 38, 0.9); font-family: 'Bebas Neue', sans-serif; z-index: 2;">UFC FREEDOM <span style="color:#DC2626;">250</span></h1>
-    <h2 class="banner-h2" style="color: #ffffff; font-size: 3rem; margin-top: 10px; font-weight: 400; letter-spacing: 4px; font-family: 'Bebas Neue', sans-serif; text-shadow: 2px 2px 10px black; z-index: 2;">TOPURIA <span style="color:#D4AF37; font-size: 2rem; font-family:'Montserrat', sans-serif; font-weight:800;">VS</span> GAETHJE</h2>
+    <h3 class="banner-sub" style="color: #D4AF37; margin:0; text-transform: uppercase; letter-spacing: 4px; font-family: 'Bebas Neue', sans-serif; text-shadow: 2px 2px 10px black; z-index: 2; font-size: 1.8rem;">🎙️ TRANSMISIÓN OFICIAL - COKEMMA DIRECTO</h3>
+    <h1 class="banner-h1" style="color: #ffffff; font-size: 7rem; margin-top:10px; margin-bottom:0px; line-height: 1; text-transform: uppercase; letter-spacing: 6px; text-shadow: 4px 4px 15px rgba(220, 38, 38, 0.9); font-family: 'Bebas Neue', sans-serif; z-index: 2;">UFC FREEDOM <span style="color:#DC2626;">250</span></h1>
+    <h2 class="banner-h2" style="color: #ffffff; font-size: 3.5rem; margin-top: 10px; font-weight: 400; letter-spacing: 4px; font-family: 'Bebas Neue', sans-serif; text-shadow: 2px 2px 10px black; z-index: 2;">TOPURIA <span style="color:#D4AF37; font-size: 2.5rem; font-family:'Montserrat', sans-serif; font-weight:800;">VS</span> GAETHJE</h2>
 </div>
 """, unsafe_allow_html=True)
 
-# --- TICKER DE NOTICIAS (ESTILO ESPN) ---
+# --- TICKER DE NOTICIAS (ESTILO ESPN PARA PC) ---
 st.markdown("""
 <div class="ticker-wrap">
-    <marquee scrollamount="10">🚨 EN VIVO: DIRECTO ESPECIAL COKEMMA | 🥊 ÚLTIMA HORA: Topuria promete un KO brutal en el 1er Round... 💰 MOMIOS: Gaethje paga +450 en Las Vegas, ¿habrá sorpresa hoy?... 🏆 Alex Pereira busca hacer historia en su debut en Peso Pesado... 📊 ¡Sella tu cartilla ahora mismo y compite contra el chat en el Ránking Global!</marquee>
+    <marquee scrollamount="12">🚨 EN VIVO: DIRECTO ESPECIAL COKEMMA | 🥊 ÚLTIMA HORA: Topuria promete un KO brutal en el 1er Round... 💰 MOMIOS: Gaethje paga +450 en Las Vegas, ¿habrá sorpresa hoy?... 🏆 Alex Pereira busca hacer historia en su debut en Peso Pesado... 📊 ¡Sella tu cartilla ahora mismo y compite contra el chat en el Ránking Global!</marquee>
 </div>
 """, unsafe_allow_html=True)
 
@@ -425,17 +445,18 @@ t_lobby, t_jugar, t_stats, t_rankings, t_momios, t_admin = st.tabs(["🏠 LOBBY 
 
 # --- PESTAÑA 0: LOBBY ---
 with t_lobby:
+    
     st.markdown("""
     <div class="custom-box">
-        <h2 style="margin: 0; color: #D4AF37; font-size: 2.2rem;">¿CÓMO FUNCIONA ESTO? 🌍</h2>
-        <p style="font-size: 1.1rem; color: #e4e4e7; line-height: 1.6; margin-top: 10px;">
+        <h2 style="margin: 0; color: #D4AF37; font-size: 2.8rem;">¿CÓMO FUNCIONA ESTO? 🌍</h2>
+        <p style="font-size: 1.2rem; color: #e4e4e7; line-height: 1.6; margin-top: 10px;">
             Esta es la <strong>Plataforma Oficial de Predicciones de la Comunidad MMA</strong>. Un espacio interactivo donde puedes predecir, competir y vivir la adrenalina de las mejores carteleras junto al stream. Crea tu liga privada con amigos o mídete contra el mismísimo Cokemma en el Ranking Global.
         </p>
     </div>
     """, unsafe_allow_html=True)
 
     # 📰 PORTADA DE NOTICIAS
-    st.markdown("<h2 style='color: #ffffff; margin-top:30px; margin-bottom: 20px; font-size: 2.5rem;'><span style='color:#DC2626;'>📰</span> RUMBO A LA CASA BLANCA</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color: #ffffff; margin-top:40px; margin-bottom: 25px; font-size: 3rem;'><span style='color:#DC2626;'>📰</span> RUMBO A LA CASA BLANCA</h2>", unsafe_allow_html=True)
     
     col_n1, col_n2, col_n3 = st.columns(3)
     with col_n1:
@@ -465,29 +486,31 @@ with t_lobby:
 
     st.markdown("<br><hr style='border-color: #333;'><br>", unsafe_allow_html=True)
     
+    # REGLAS Y TRAILER
     col_reglas, col_trailer = st.columns([1, 1])
     with col_reglas:
         st.markdown("""
         <div class="custom-box" style="border-left-color: #DC2626;">
-            <h2 style="color: #DC2626; font-size: 2.2rem; margin-top:0;">📝 REGLAS DE PUNTUACIÓN</h2>
-            <ul style="font-size: 1.1rem; color: #ddd; line-height: 1.8;">
+            <h2 style="color: #DC2626; font-size: 2.8rem; margin-top:0;">📝 REGLAS DE PUNTUACIÓN</h2>
+            <ul style="font-size: 1.2rem; color: #ddd; line-height: 1.8;">
                 <li><strong style="color: #10B981;">+10 Puntos:</strong> Acertar al ganador de la pelea.</li>
                 <li><strong style="color: #60EFFF;">+5 Puntos:</strong> Acertar el método (KO, Sumisión, Decisión).</li>
                 <li><strong style="color: #FBBF24;">+5 Puntos:</strong> Acertar el Round exacto.</li>
             </ul>
-            <div style="background-color: #111; padding: 10px; border-radius: 8px; border: 1px solid #D4AF37; text-align: center; margin-top: 15px;">
-                <p style="margin:0; font-weight:bold; color: #D4AF37;">🏆 BONO PERFECTO (+5 PTS EXTRA)</p>
-                <p style="margin:0; font-size: 0.9rem; color: #aaa;">Si aciertas los 3 resultados exactos te llevas 25 pts por pelea.</p>
+            <div style="background-color: #111; padding: 15px; border-radius: 8px; border: 1px solid #D4AF37; text-align: center; margin-top: 20px;">
+                <p style="margin:0; font-weight:bold; color: #D4AF37; font-size: 1.2rem;">🏆 BONO PERFECTO (+5 PTS EXTRA)</p>
+                <p style="margin:0; font-size: 1rem; color: #aaa;">Si aciertas los 3 resultados exactos te llevas 25 pts por pelea.</p>
             </div>
         </div>
         """, unsafe_allow_html=True)
     with col_trailer:
-        st.markdown("<h2 style='color: #ffffff; font-size: 2.2rem;'>🎬 TRAILER OFICIAL (HYPE)</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #ffffff; font-size: 2.8rem;'>🎬 TRAILER OFICIAL (HYPE)</h2>", unsafe_allow_html=True)
         st.video(TRAILER_OFICIAL)
         
     st.markdown("<br><hr style='border-color: #333;'><br>", unsafe_allow_html=True)
     
-    st.markdown("<h2 style='color: #ffffff; font-size: 2.5rem;'><span style='color:#D4AF37;'>🎙️</span> HYPE ROOM: LA PREVIA</h2>", unsafe_allow_html=True)
+    # HYPE ROOM (DECLARACIONES Y DATOS)
+    st.markdown("<h2 style='color: #ffffff; font-size: 3rem;'><span style='color:#D4AF37;'>🎙️</span> HYPE ROOM: LA PREVIA</h2>", unsafe_allow_html=True)
     col_h1, col_h2 = st.columns(2)
     with col_h1:
         st.markdown("""
@@ -504,8 +527,8 @@ with t_lobby:
     with col_h2:
         st.markdown("""
         <div class="custom-box" style="border-left-color: #60EFFF; height: 100%;">
-            <h3 style="color: #60EFFF; font-size: 1.8rem; margin-top:0;">🧠 DATOS CURIOSOS DEL EVENTO</h3>
-            <ul style="font-size: 1rem; color: #ddd; line-height: 1.8;">
+            <h3 style="color: #60EFFF; font-size: 2.2rem; margin-top:0;">🧠 DATOS CURIOSOS DEL EVENTO</h3>
+            <ul style="font-size: 1.1rem; color: #ddd; line-height: 1.8;">
                 <li><strong>Haciendo Historia:</strong> Freedom 250 es el primer evento numerado en la historia de la UFC celebrado en los terrenos de la Casa Blanca.</li>
                 <li><strong>El Rey del Bono:</strong> Justin Gaethje posee la mayor cantidad de bonos por 'Pelea de la Noche' en la historia de los pesos ligeros.</li>
                 <li><strong>El Matador Invicto:</strong> Ilia Topuria llega con un récord inmaculado de 17-0, buscando defender su título por segunda vez.</li>
@@ -516,7 +539,7 @@ with t_lobby:
 
 # --- PESTAÑA 1: JUGAR ---
 with t_jugar:
-    st.markdown("<h2 style='color: #ffffff; text-align:center; font-size: 3rem;'>🔥 SELLA TU CARTILLA OFICIAL</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color: #ffffff; text-align:center; font-size: 3.5rem;'>🔥 SELLA TU CARTILLA OFICIAL</h2>", unsafe_allow_html=True)
     
     usuario_input = st.text_input("👤 INGRESA TU APODO PARA EL STREAM:", placeholder="Ej. El Especialista")
     usuario_limpio = usuario_input.strip().title()
@@ -552,10 +575,10 @@ with t_jugar:
             link_wa = f"https://api.whatsapp.com/send?text={urllib.parse.quote(texto_wa)}"
             
             st.markdown(f"""
-            <div style="background: linear-gradient(135deg, #10B981 0%, #047857 100%); padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 25px; border: 2px solid #34D399; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);">
-                <h3 style="color: white; margin-top: 0; font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 1px;">✅ ¡CARTILLA GUARDADA CON ÉXITO!</h3>
-                <p style="color: #ecfdf5; font-size: 1.1rem; margin-bottom: 15px; font-family: 'Montserrat', sans-serif;">Tus predicciones ya están en el sistema. ¡Desafía a tus amigos por WhatsApp y que arda el chat!</p>
-                <a href="{link_wa}" target="_blank" style="text-decoration: none; display: inline-block; background-color: #ffffff; color: #047857; padding: 12px 25px; border-radius: 8px; font-weight: 800; font-family: 'Montserrat', sans-serif; font-size: 1rem; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.2s;">
+            <div style="background: linear-gradient(135deg, #10B981 0%, #047857 100%); padding: 25px; border-radius: 12px; text-align: center; margin-bottom: 30px; border: 2px solid #34D399; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);">
+                <h3 style="color: white; margin-top: 0; font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; letter-spacing: 1px;">✅ ¡CARTILLA GUARDADA CON ÉXITO!</h3>
+                <p style="color: #ecfdf5; font-size: 1.2rem; margin-bottom: 20px; font-family: 'Montserrat', sans-serif;">Tus predicciones ya están en el sistema. ¡Desafía a tus amigos por WhatsApp y que arda el chat!</p>
+                <a href="{link_wa}" target="_blank" style="text-decoration: none; display: inline-block; background-color: #ffffff; color: #047857; padding: 15px 30px; border-radius: 8px; font-weight: 800; font-family: 'Montserrat', sans-serif; font-size: 1.1rem; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.2s;">
                     📲 ALARDEAR MI PRONÓSTICO EN WHATSAPP
                 </a>
             </div>
@@ -595,7 +618,7 @@ with t_jugar:
                 """, unsafe_allow_html=True)
                 
                 esta_bloqueado = bool(row["jugado"])
-                if esta_bloqueado: st.markdown("<p style='text-align:center; color:#DC2626; font-weight:bold;'>🛑 PELEA FINALIZADA</p>", unsafe_allow_html=True)
+                if esta_bloqueado: st.markdown("<p style='text-align:center; color:#DC2626; font-weight:bold; font-size:1.2rem;'>🛑 PELEA FINALIZADA</p>", unsafe_allow_html=True)
                 
                 col1, col2, col3 = st.columns(3)
                 with col1: st.selectbox("GANADOR", ops_w, index=idx_w, key=f"w_{row['id']}", disabled=esta_bloqueado)
@@ -626,8 +649,8 @@ with t_jugar:
                     st.toast('¡Cartilla asegurada en la base de datos!', icon='🏆')
                     st.markdown("""
                     <div style="text-align:center; animation: shake 0.5s;">
-                        <h1 style="color: #DC2626; font-size: 5rem; font-family: 'Bebas Neue', sans-serif;">¡BOOM! 💥</h1>
-                        <p style="font-size: 1.5rem; color:white;">¡Cartilla Oficial en la Jaula!</p>
+                        <h1 style="color: #DC2626; font-size: 6rem; font-family: 'Bebas Neue', sans-serif;">¡BOOM! 💥</h1>
+                        <p style="font-size: 1.8rem; color:white; font-family:'Bebas Neue', sans-serif; letter-spacing:2px;">¡CARTILLA OFICIAL EN LA JAULA!</p>
                     </div>
                     <style>
                         @keyframes shake {
@@ -651,8 +674,8 @@ with t_jugar:
 
 # --- PESTAÑA 2: STATS EN VIVO (BARÓMETRO DEL DIRECTO) ---
 with t_stats:
-    st.markdown("<h2 class='stat-title' style='font-size: 3rem;'>📊 EL TERMÓMETRO DEL DIRECTO</h2>", unsafe_allow_html=True)
-    st.markdown("Así se están inclinando las predicciones de todos los jugadores en vivo. ¡Perfecto para debatir en el stream!")
+    st.markdown("<h2 class='stat-title' style='font-size: 3.5rem;'>📊 EL TERMÓMETRO DEL DIRECTO</h2>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size: 1.2rem; color: #ddd;'>Así se están inclinando las predicciones de todos los jugadores en vivo. ¡Perfecto para debatir en el stream!</p>", unsafe_allow_html=True)
     
     if st.button("🔄 ACTUALIZAR GRÁFICOS AHORA"):
         st.rerun()
@@ -677,22 +700,22 @@ with t_stats:
                 
                 st.markdown(f"""
                 <div style="background-color: #111; padding: 25px; border-radius: 12px; margin-bottom: 20px; border-left: 5px solid #D4AF37; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
-                    <p style="color: #A1A1AA; font-size: 1rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; font-family: 'Bebas Neue', sans-serif;">{row['peso']}</p>
+                    <p style="color: #A1A1AA; font-size: 1.1rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; font-family: 'Bebas Neue', sans-serif;">{row['peso']}</p>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-                        <span style="font-size: 1.5rem; font-weight: bold; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px;">{f_a} <span style="color:#DC2626;">({pct_a}%)</span></span>
-                        <span style="font-size: 1.5rem; font-weight: bold; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px;"><span style="color:#D4AF37;">({pct_b}%)</span> {f_b}</span>
+                        <span style="font-size: 1.8rem; font-weight: bold; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px;">{f_a} <span style="color:#DC2626;">({pct_a}%)</span></span>
+                        <span style="font-size: 1.8rem; font-weight: bold; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px;"><span style="color:#D4AF37;">({pct_b}%)</span> {f_b}</span>
                     </div>
-                    <div style="width: 100%; background-color: #333; height: 26px; border-radius: 13px; display: flex; overflow: hidden; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);">
+                    <div style="width: 100%; background-color: #333; height: 30px; border-radius: 15px; display: flex; overflow: hidden; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);">
                         <div style="width: {pct_a}%; background-color: #DC2626; transition: width 0.5s;"></div>
                         <div style="width: {pct_b}%; background-color: #D4AF37; transition: width 0.5s;"></div>
                     </div>
-                    <p style="text-align: center; color: #777; font-size: 0.9rem; margin-top: 10px; margin-bottom: 0;">Basado en {total_votos} predicciones de la comunidad</p>
+                    <p style="text-align: center; color: #777; font-size: 1rem; margin-top: 10px; margin-bottom: 0;">Basado en {total_votos} predicciones de la comunidad</p>
                 </div>
                 """, unsafe_allow_html=True)
 
 # --- PESTAÑA 3: RÁNKINGS ---
 with t_rankings:
-    st.markdown("<h2 style='color: #D4AF37; font-size: 3rem;'>🏅 TABLA DE POSICIONES OFICIAL</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color: #D4AF37; font-size: 3.5rem;'>🏅 TABLA DE POSICIONES OFICIAL</h2>", unsafe_allow_html=True)
     opciones_ligas = ["GLOBAL"]
     if not df_ligas.empty: opciones_ligas.extend(sorted(df_ligas["nombre_liga"].unique().tolist()))
     liga_busqueda = st.selectbox("🔍 Filtrar por Gimnasio (Liga):", opciones_ligas).strip().upper()
@@ -705,8 +728,8 @@ with t_rankings:
 
 # --- PESTAÑA 4: MOMIOS Y TALE OF THE TAPE ---
 with t_momios:
-    st.markdown("<h2 style='color: #ffffff; font-size: 3rem;'><span style='color:#10B981;'>🎲</span> MOMIOS Y TALE OF THE TAPE</h2>", unsafe_allow_html=True)
-    st.markdown("Estudia los números fríos antes de lanzar tus predicciones.")
+    st.markdown("<h2 style='color: #ffffff; font-size: 3.5rem;'><span style='color:#10B981;'>🎲</span> MOMIOS Y TALE OF THE TAPE</h2>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size: 1.2rem; color: #ddd;'>Estudia los números fríos antes de lanzar tus predicciones.</p>", unsafe_allow_html=True)
     
     lista_combates = [f"{row['fighter_a']} vs {row['fighter_b']}" for _, row in df_peleas.iterrows()]
     pelea_seleccionada = st.selectbox("🔍 Combate a analizar en Las Vegas:", lista_combates)
@@ -716,28 +739,28 @@ with t_momios:
         f_b = pelea_seleccionada.split(" vs ")[1]
         
         col_img1, col_vs, col_img2 = st.columns([2, 1, 2])
-        with col_img1: st.markdown(f"<div style='text-align:center;'><img src='{get_fighter_img(f_a)}' class='fighter-img' style='width:140px; height:140px; border-color:#333;'><h3 style='color:white; margin-top:10px; font-size: 2rem;'>{f_a}</h3></div>", unsafe_allow_html=True)
-        with col_vs: st.markdown("<h1 style='text-align:center; color:#D4AF37; margin-top: 30px; font-size: 3rem;'>VS</h1>", unsafe_allow_html=True)
-        with col_img2: st.markdown(f"<div style='text-align:center;'><img src='{get_fighter_img(f_b)}' class='fighter-img' style='width:140px; height:140px; border-color:#333;'><h3 style='color:white; margin-top:10px; font-size: 2rem;'>{f_b}</h3></div>", unsafe_allow_html=True)
+        with col_img1: st.markdown(f"<div style='text-align:center;'><img src='{get_fighter_img(f_a)}' class='fighter-img' style='width:160px; height:160px; border-color:#333;'><h3 style='color:white; margin-top:10px; font-size: 2.5rem;'>{f_a}</h3></div>", unsafe_allow_html=True)
+        with col_vs: st.markdown("<h1 style='text-align:center; color:#D4AF37; margin-top: 40px; font-size: 4rem;'>VS</h1>", unsafe_allow_html=True)
+        with col_img2: st.markdown(f"<div style='text-align:center;'><img src='{get_fighter_img(f_b)}' class='fighter-img' style='width:160px; height:160px; border-color:#333;'><h3 style='color:white; margin-top:10px; font-size: 2.5rem;'>{f_b}</h3></div>", unsafe_allow_html=True)
         
         st.markdown("<br>", unsafe_allow_html=True)
         
         st.markdown(f"""
         <table style="width:100%; text-align:center; background: rgba(20,20,20,0.8); border-radius:12px; overflow:hidden; border: 1px solid #333;">
             <tr style="background-color:#111; color:#D4AF37; font-family:'Bebas Neue', sans-serif;">
-                <td style="padding:15px; width:33%; font-size:1.8rem;">{get_stat(f_a, 'record')}</td>
-                <td style="padding:15px; width:33%; font-size:1.4rem; letter-spacing:1px;">RÉCORD</td>
-                <td style="padding:15px; width:33%; font-size:1.8rem;">{get_stat(f_b, 'record')}</td>
+                <td style="padding:15px; width:33%; font-size:2rem;">{get_stat(f_a, 'record')}</td>
+                <td style="padding:15px; width:33%; font-size:1.6rem; letter-spacing:1px;">RÉCORD</td>
+                <td style="padding:15px; width:33%; font-size:2rem;">{get_stat(f_b, 'record')}</td>
             </tr>
             <tr>
-                <td style="padding:12px; border-bottom:1px solid #222; font-weight:600; font-size:1.1rem;">{get_stat(f_a, 'altura')}</td>
-                <td style="padding:12px; border-bottom:1px solid #222; color:#A1A1AA; font-family:'Bebas Neue', sans-serif; font-size:1.4rem;">ESTATURA</td>
-                <td style="padding:12px; border-bottom:1px solid #222; font-weight:600; font-size:1.1rem;">{get_stat(f_b, 'altura')}</td>
+                <td style="padding:15px; border-bottom:1px solid #222; font-weight:600; font-size:1.2rem;">{get_stat(f_a, 'altura')}</td>
+                <td style="padding:15px; border-bottom:1px solid #222; color:#A1A1AA; font-family:'Bebas Neue', sans-serif; font-size:1.6rem;">ESTATURA</td>
+                <td style="padding:15px; border-bottom:1px solid #222; font-weight:600; font-size:1.2rem;">{get_stat(f_b, 'altura')}</td>
             </tr>
             <tr>
-                <td style="padding:12px; font-weight:600; font-size:1.1rem;">{get_stat(f_a, 'alcance')}</td>
-                <td style="padding:12px; color:#A1A1AA; font-family:'Bebas Neue', sans-serif; font-size:1.4rem;">ALCANCE</td>
-                <td style="padding:12px; font-weight:600; font-size:1.1rem;">{get_stat(f_b, 'alcance')}</td>
+                <td style="padding:15px; font-weight:600; font-size:1.2rem;">{get_stat(f_a, 'alcance')}</td>
+                <td style="padding:15px; color:#A1A1AA; font-family:'Bebas Neue', sans-serif; font-size:1.6rem;">ALCANCE</td>
+                <td style="padding:15px; font-weight:600; font-size:1.2rem;">{get_stat(f_b, 'alcance')}</td>
             </tr>
         </table>
         """, unsafe_allow_html=True)
@@ -750,13 +773,13 @@ with t_momios:
         st.markdown("<br>", unsafe_allow_html=True)
         col_odds1, col_odds2 = st.columns(2)
         with col_odds1:
-            st.markdown(f"<div class='odds-box'><p style='color:#A1A1AA; margin:0; font-weight:600; text-transform:uppercase;'>{f_a}</p><p class='{color_a}' style='margin:0; font-size:2.5rem;'>{odds_a}</p></div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='odds-box'><p style='color:#A1A1AA; margin:0; font-weight:600; font-size:1.2rem; text-transform:uppercase;'>{f_a}</p><p class='{color_a}' style='margin:0; font-size:3rem;'>{odds_a}</p></div>", unsafe_allow_html=True)
         with col_odds2:
-            st.markdown(f"<div class='odds-box'><p style='color:#A1A1AA; margin:0; font-weight:600; text-transform:uppercase;'>{f_b}</p><p class='{color_b}' style='margin:0; font-size:2.5rem;'>{odds_b}</p></div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='odds-box'><p style='color:#A1A1AA; margin:0; font-weight:600; font-size:1.2rem; text-transform:uppercase;'>{f_b}</p><p class='{color_b}' style='margin:0; font-size:3rem;'>{odds_b}</p></div>", unsafe_allow_html=True)
 
 # --- PESTAÑA 5: ADMIN ---
 with t_admin:
-    st.markdown("<h2 style='color: #DC2626; font-size: 3rem;'>🔒 MESA DE CONTROL (OFFICIALS ONLY)</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color: #DC2626; font-size: 3.5rem;'>🔒 MESA DE CONTROL (OFFICIALS ONLY)</h2>", unsafe_allow_html=True)
     if st.text_input("Ingresa la credencial de acceso:", type="password") == PASSWORD_ADMIN:
         with st.form("admin_form"):
             for idx, row in df_peleas.iterrows():
@@ -779,6 +802,6 @@ with t_admin:
 # --- PIE DE PÁGINA ---
 st.markdown("""
 <div style="text-align: center; margin-top: 60px; padding: 25px; border-top: 1px solid #333;">
-    <p style="color: #666; font-size: 1rem; font-weight:600;">UFC Freedom 250 Predictions © 2026 | Desarrollado por <a href="https://tiktok.com/@martincampos.mma" target="_blank" style="color:#D4AF37; text-decoration:none; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px;">@martincampos.mma</a></p>
+    <p style="color: #666; font-size: 1.1rem; font-weight:600;">UFC Freedom 250 Predictions © 2026 | Desarrollado por <a href="https://tiktok.com/@martincampos.mma" target="_blank" style="color:#D4AF37; text-decoration:none; font-family:'Bebas Neue', sans-serif; font-size:1.8rem; letter-spacing:1px;">@martincampos.mma</a></p>
 </div>
 """, unsafe_allow_html=True)
