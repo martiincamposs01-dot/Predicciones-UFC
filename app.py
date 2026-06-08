@@ -9,7 +9,7 @@ st.set_page_config(page_title="UFC Freedom 250 | Cokemma Edition", page_icon="�
 
 # --- 📸 DICCIONARIO DE IMÁGENES Y DATOS OFICIALES ---
 TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd"
-# 🔥 BANNER REGRESADO A LA IMAGEN URBANA
+# 🔥 BANNER DE DAZN APLICADO
 BANNER_PRINCIPAL = "https://images.daznservices.com/di/library/DAZN_News/38/dc/ufc-casa-blanca-ilia-topuria-vs-justin-gaethje_1lpqgt419yykc17egde0t8b3g1.jpg?t=-828957604"
 URL_APP = "https://predicciones-ufc-87c5opnpg9pmnfjm9qqrkr.streamlit.app"
 
@@ -85,9 +85,7 @@ footer {visibility: hidden;}
     text-transform: uppercase;
 }
 
-/* ---------------------------------------------------
-   Pestañas (Tabs) ULTRA VISIBLES PARA PC
---------------------------------------------------- */
+/* Pestañas (Tabs) ULTRA VISIBLES PARA PC */
 div[data-baseweb="tab-list"] {
     gap: 12px;
     border-bottom: 3px solid #DC2626; 
@@ -253,7 +251,7 @@ button[data-baseweb="tab"]:hover {
     font-size: 1.1rem !important;
 }
 
-/* 🥊 BANNER ENCUADRE TOP 🥊 */
+/* 🥊 BANNER ENCUADRE TOP PARA DAZN 🥊 */
 .banner-container {
     background-size: cover; 
     background-position: center top; 
@@ -284,7 +282,7 @@ button[data-baseweb="tab"]:hover {
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
-/* Responsivo para celulares (Mantiene compatibilidad) */
+/* Responsivo para celulares */
 @media (max-width: 768px) {
     .fighter-img { width: 110px; height: 110px; }
     .fighter-name { font-size: 1.8rem; }
@@ -295,7 +293,6 @@ button[data-baseweb="tab"]:hover {
     .banner-container { min-height: 300px; background-position: top center; justify-content: flex-end; padding-bottom: 20px; }
     .banner-h1 { font-size: 3.5rem !important; }
     .banner-h2 { font-size: 1.8rem !important; }
-    .banner-sub { font-size: 1.2rem !important; }
 }
 </style>
 """, unsafe_allow_html=True)
@@ -385,7 +382,7 @@ def get_stat(name, stat_key):
     return "N/A"
 
 # ---------------------------------------------------------
-# ⬅️ PANEL LATERAL (SIDEBAR)
+# ⬅️ PANEL LATERAL (SIDEBAR LIMPIA)
 # ---------------------------------------------------------
 with st.sidebar:
     st.markdown("""
@@ -429,7 +426,7 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# --- TICKER DE NOTICIAS (ESTILO ESPN) ---
+# --- TICKER DE NOTICIAS ---
 st.markdown("""
 <div class="ticker-wrap">
     <marquee scrollamount="12">🚨 EN VIVO: DIRECTO ESPECIAL COKEMMA | 🥊 ÚLTIMA HORA: Topuria promete un KO brutal en el 1er Round... 💰 MOMIOS: Gaethje paga +450 en Las Vegas, ¿habrá sorpresa hoy?... 🏆 Alex Pereira busca hacer historia en su debut en Peso Pesado... 📊 ¡Sella tu cartilla ahora mismo y compite contra el chat en el Ránking Global!</marquee>
@@ -442,25 +439,39 @@ t_lobby, t_jugar, t_stats, t_rankings, t_momios, t_admin = st.tabs(["🏠 LOBBY 
 # --- PESTAÑA 0: LOBBY ---
 with t_lobby:
     
-    # 🔥 SECCIÓN DE COMPARTIR JUSTA Y NECESARIA AL INICIO DEL LOBBY
+    # 🔥 SECCIÓN DE COMPARTIR RENOMBRADA Y MÁS BONITA
     url_whatsapp = f"https://api.whatsapp.com/send?text={urllib.parse.quote('🥊 Únete al directo de Cokemma y compite en el UFC Freedom 250: ' + URL_APP)}"
     st.markdown(f"""
-    <div style="background: linear-gradient(135deg, #111 0%, #1a1a1a 100%); border-radius: 12px; padding: 20px; border: 1px solid #333; border-top: 3px solid #25D366; margin-bottom: 30px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
-        <div>
-            <h3 style="color: #25D366; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; font-size: 1.8rem; margin:0;">🔗 INVITA A TU GIMNASIO</h3>
-            <p style="color: #aaa; margin: 0; font-size: 1rem;">Copia el enlace o comparte directo en redes.</p>
-        </div>
-        <div style="display: flex; gap: 15px; align-items: center;">
-            <a href="{url_whatsapp}" target="_blank" style="text-decoration:none;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35" style="transition: transform 0.2s;">
-            </a>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" width="35" style="cursor:pointer;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg" width="35" style="background: white; border-radius: 8px; padding: 4px; cursor:pointer;">
+    <div style="background: linear-gradient(90deg, #D4AF37 0%, #b8962e 100%); padding: 2px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);">
+        <div style="background-color: #111111; padding: 20px 25px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+            <div style="flex: 1;">
+                <h3 style="color: #D4AF37; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1.5px; font-size: 2.2rem; margin:0; text-transform: uppercase;">
+                    🌍 INVITA A LA COMUNIDAD
+                </h3>
+                <p style="color: #a1a1aa; margin: 5px 0 0 0; font-size: 1rem;">Copia el enlace de abajo o comparte directamente en tus redes para retar al chat.</p>
+            </div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <a href="{url_whatsapp}" target="_blank" style="text-decoration:none;">
+                    <div style="background-color: #25D366; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4); transition: transform 0.2s;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="25">
+                    </div>
+                </a>
+                <a href="#" style="text-decoration:none;">
+                    <div style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%); width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(214, 36, 159, 0.4);">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" width="25" style="filter: brightness(0) invert(1);">
+                    </div>
+                </a>
+                <a href="#" style="text-decoration:none;">
+                    <div style="background-color: #ffffff; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg" width="22">
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
     """, unsafe_allow_html=True)
     st.code(URL_APP, language="text")
-    st.markdown("<hr style='border-color: #333;'>", unsafe_allow_html=True)
+    st.markdown("<br><hr style='border-color: #333;'><br>", unsafe_allow_html=True)
 
     st.markdown("""
     <div class="custom-box">
@@ -471,13 +482,13 @@ with t_lobby:
     </div>
     """, unsafe_allow_html=True)
 
-    # 📰 PORTADA DE NOTICIAS
+    # 📰 PORTADA DE NOTICIAS (CON LA IMAGEN NEGRA ARREGLADA)
     st.markdown("<h2 style='color: #ffffff; margin-top:40px; margin-bottom: 25px; font-size: 3rem;'><span style='color:#DC2626;'>📰</span> RUMBO A LA CASA BLANCA</h2>", unsafe_allow_html=True)
     
     col_n1, col_n2, col_n3 = st.columns(3)
     with col_n1:
         st.markdown(f"""
-        <a href="https://www.mma.es/2026/02/25/ufc-white-house-mas-caro/" target="_blank" class="news-card" style="background-image: url('https://www.mma.es/wp-content/uploads/2026/02/UFC-Casa- Blanca.png');">
+        <a href="https://www.mma.es/2026/02/25/ufc-white-house-mas-caro/" target="_blank" class="news-card" style="background-image: url('https://dmxg5wxfqgb4u.cloudfront.net/styles/background_image_xl/s3/2024-02/021724-ufc-298-topuria-post-hero.jpg');">
             <div class="news-overlay">
                 <p class="news-title">El evento más caro de la historia de UFC</p>
             </div>
