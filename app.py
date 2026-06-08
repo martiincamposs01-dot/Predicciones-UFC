@@ -10,7 +10,7 @@ st.set_page_config(page_title="UFC Freedom 250 | Cokemma Edition", page_icon="�
 # --- 📸 DICCIONARIO DE IMÁGENES Y DATOS OFICIALES ---
 TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd"
 # 🔥 BANNER REGRESADO A LA IMAGEN URBANA
-BANNER_PRINCIPAL = "https://objetos-xlk.estaticos-marca.com/uploads/2026/04/12/69daeaf5a9090.jpeg"
+BANNER_PRINCIPAL = "https://images.daznservices.com/di/library/DAZN_News/38/dc/ufc-casa-blanca-ilia-topuria-vs-justin-gaethje_1lpqgt419yykc17egde0t8b3g1.jpg?t=-828957604"
 URL_APP = "https://predicciones-ufc-87c5opnpg9pmnfjm9qqrkr.streamlit.app"
 
 FIGHTER_IMAGES = {
@@ -284,7 +284,7 @@ button[data-baseweb="tab"]:hover {
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
-/* Responsivo para celulares */
+/* Responsivo para celulares (Mantiene compatibilidad) */
 @media (max-width: 768px) {
     .fighter-img { width: 110px; height: 110px; }
     .fighter-name { font-size: 1.8rem; }
@@ -295,6 +295,7 @@ button[data-baseweb="tab"]:hover {
     .banner-container { min-height: 300px; background-position: top center; justify-content: flex-end; padding-bottom: 20px; }
     .banner-h1 { font-size: 3.5rem !important; }
     .banner-h2 { font-size: 1.8rem !important; }
+    .banner-sub { font-size: 1.2rem !important; }
 }
 </style>
 """, unsafe_allow_html=True)
@@ -384,7 +385,7 @@ def get_stat(name, stat_key):
     return "N/A"
 
 # ---------------------------------------------------------
-# ⬅️ PANEL LATERAL (SIDEBAR LIMPIA)
+# ⬅️ PANEL LATERAL (SIDEBAR)
 # ---------------------------------------------------------
 with st.sidebar:
     st.markdown("""
@@ -419,7 +420,7 @@ with st.sidebar:
         </style>
         """, unsafe_allow_html=True)
 
-# --- BANNER PRINCIPAL ANIMADO ---
+# --- BANNER PRINCIPAL ANIMADO Y CORREGIDO PARA PC ---
 st.markdown(f"""
 <div class="banner-container" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(5, 5, 5, 0.95) 100%), url('{BANNER_PRINCIPAL}');">
     <h3 class="banner-sub" style="color: #D4AF37; margin:0; text-transform: uppercase; letter-spacing: 4px; font-family: 'Bebas Neue', sans-serif; text-shadow: 2px 2px 10px black; z-index: 2; font-size: 1.8rem;">🎙️ TRANSMISIÓN OFICIAL - COKEMMA DIRECTO</h3>
@@ -428,7 +429,7 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# --- TICKER DE NOTICIAS ---
+# --- TICKER DE NOTICIAS (ESTILO ESPN) ---
 st.markdown("""
 <div class="ticker-wrap">
     <marquee scrollamount="12">🚨 EN VIVO: DIRECTO ESPECIAL COKEMMA | 🥊 ÚLTIMA HORA: Topuria promete un KO brutal en el 1er Round... 💰 MOMIOS: Gaethje paga +450 en Las Vegas, ¿habrá sorpresa hoy?... 🏆 Alex Pereira busca hacer historia en su debut en Peso Pesado... 📊 ¡Sella tu cartilla ahora mismo y compite contra el chat en el Ránking Global!</marquee>
@@ -476,7 +477,7 @@ with t_lobby:
     col_n1, col_n2, col_n3 = st.columns(3)
     with col_n1:
         st.markdown(f"""
-        <a href="https://www.mma.es/2026/02/25/ufc-white-house-mas-caro/" target="_blank" class="news-card" style="background-image: url('https://www.mma.es/wp-content/uploads/2026/02/UFC-Casa-Blanca.png');">
+        <a href="https://www.mma.es/2026/02/25/ufc-white-house-mas-caro/" target="_blank" class="news-card" style="background-image: url('https://www.mma.es/wp-content/uploads/2026/02/UFC-Casa- Blanca.png');">
             <div class="news-overlay">
                 <p class="news-title">El evento más caro de la historia de UFC</p>
             </div>
@@ -523,7 +524,7 @@ with t_lobby:
         
     st.markdown("<br><hr style='border-color: #333;'><br>", unsafe_allow_html=True)
     
-    # HYPE ROOM
+    # HYPE ROOM (DECLARACIONES Y DATOS)
     st.markdown("<h2 style='color: #ffffff; font-size: 3rem;'><span style='color:#D4AF37;'>🎙️</span> HYPE ROOM: LA PREVIA</h2>", unsafe_allow_html=True)
     col_h1, col_h2 = st.columns(2)
     with col_h1:
