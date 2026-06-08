@@ -9,8 +9,8 @@ st.set_page_config(page_title="UFC Freedom 250 | Cokemma Edition", page_icon="�
 
 # --- 📸 DICCIONARIO DE IMÁGENES Y DATOS OFICIALES ---
 TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd"
-# 🔥 BANNER DEFINITIVO CON LA NUEVA IMAGEN URBANA
-BANNER_PRINCIPAL = "https://www.projectxparis.com/cdn/shop/articles/UFC_Freedom_250-event_ad808bc8-981a-4c3d-8a67-42ac4f0012da.png?v=1778595392"
+# 🔥 BANNER REGRESADO A LA IMAGEN URBANA
+BANNER_PRINCIPAL = "https://objetos-xlk.estaticos-marca.com/uploads/2026/04/12/69daeaf5a9090.jpeg"
 URL_APP = "https://predicciones-ufc-87c5opnpg9pmnfjm9qqrkr.streamlit.app"
 
 FIGHTER_IMAGES = {
@@ -253,7 +253,7 @@ button[data-baseweb="tab"]:hover {
     font-size: 1.1rem !important;
 }
 
-/* 🥊 BANNER ENCUADRE TOP PARA DAZN 🥊 */
+/* 🥊 BANNER ENCUADRE TOP 🥊 */
 .banner-container {
     background-size: cover; 
     background-position: center top; 
@@ -284,7 +284,7 @@ button[data-baseweb="tab"]:hover {
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
-/* Responsivo para celulares (Mantiene compatibilidad) */
+/* Responsivo para celulares */
 @media (max-width: 768px) {
     .fighter-img { width: 110px; height: 110px; }
     .fighter-name { font-size: 1.8rem; }
@@ -295,7 +295,6 @@ button[data-baseweb="tab"]:hover {
     .banner-container { min-height: 300px; background-position: top center; justify-content: flex-end; padding-bottom: 20px; }
     .banner-h1 { font-size: 3.5rem !important; }
     .banner-h2 { font-size: 1.8rem !important; }
-    .banner-sub { font-size: 1.2rem !important; }
 }
 </style>
 """, unsafe_allow_html=True)
@@ -385,52 +384,30 @@ def get_stat(name, stat_key):
     return "N/A"
 
 # ---------------------------------------------------------
-# ⬅️ PANEL LATERAL MAESTRO (SIDEBAR) ⬅️
+# ⬅️ PANEL LATERAL (SIDEBAR LIMPIA)
 # ---------------------------------------------------------
 with st.sidebar:
     st.markdown("""
     <div style="text-align: center; padding: 10px;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/UFC_logo.svg/1024px-UFC_logo.svg.png" width="130" style="margin-bottom:5px; filter: drop-shadow(0px 0px 10px rgba(220,38,38,0.8));">
-        <p style="color: #aaa; margin-top: 0px; font-size: 0.9rem;">UFC 250 | JUN 07 | ANGOL | 23:30 (GMT-4)</p>
-        <p style="color: #fff; margin-top: 5px; font-size: 1rem; font-weight: bold;">🤑 ¡DANA, DAME UN BONO!</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/UFC_logo.svg/1024px-UFC_logo.svg.png" width="130" style="margin-bottom:15px; filter: drop-shadow(0px 0px 10px rgba(220,38,38,0.8));">
+        <h2 style="color: #DC2626; margin-top: 0px; text-transform: uppercase; letter-spacing: 2px;">FIGHT WEEK</h2>
     </div>
     """, unsafe_allow_html=True)
-    
-    st.markdown("---")
-    
-    # 🔗 SECCIÓN DE COMPARTIR JUSTA Y NECESARIA
-    st.markdown("<h3 style='color: white; font-family: Bebas Neue, sans-serif; letter-spacing: 1px; font-size: 1.3rem; margin-bottom: 5px;'>🔗 COMPARTIR PÁGINA</h3>", unsafe_allow_html=True)
-    url_whatsapp = f"https://api.whatsapp.com/send?text={urllib.parse.quote('🥊 Únete al directo de Cokemma y compite en el UFC Freedom 250: ' + URL_APP)}"
-    
-    st.markdown(f"""
-    <div style="display: flex; gap: 12px; margin-bottom: 15px; justify-content: flex-start;">
-        <a href="{url_whatsapp}" target="_blank" style="text-decoration:none;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="32" style="transition: transform 0.2s;">
-        </a>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" width="32" style="cursor:pointer;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg" width="32" style="background: white; border-radius: 6px; padding: 3px; cursor:pointer;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" width="32" style="cursor:pointer;">
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Botón nativo de Streamlit para copiar el enlace
-    st.code(URL_APP, language="text")
     
     st.markdown("---")
     
     # 📱 TIKTOK BADGE
     st.markdown("""
-    <div style="display:flex; align-items:center; gap: 10px; padding: 12px; border-radius: 8px; background-color: #111; border: 1px solid #333;">
-        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" width="24" style="filter: invert(1);">
-        <a href="https://tiktok.com/@martincampos.mma" target="_blank" style="color: #fff; text-decoration: none; font-weight: bold; font-size: 0.95rem;">
-            @martincampos.mma
+    <div style="text-align:center; padding: 15px; border-radius: 12px; background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);">
+        <p style="color: #000; font-weight: 800; margin: 0; font-size: 0.9rem; text-transform: uppercase;">Desarrollador Oficial</p>
+        <a href="https://tiktok.com/@martincampos.mma" target="_blank" style="color: #000; text-decoration: none; font-family: 'Bebas Neue', sans-serif; font-size: 2rem; display: block; margin-top: 5px; text-shadow: 1px 1px 2px rgba(255,255,255,0.5);">
+            @martincampos.mma <span style="font-size:1.2rem;">🎵</span>
         </a>
     </div>
     """, unsafe_allow_html=True)
     
     st.markdown("<br>", unsafe_allow_html=True)
     
-    # MODO STREAMER
     modo_directo = st.checkbox("🎥 Activar Modo Transmisión (OBS)", value=False)
     if modo_directo:
         st.markdown("""
@@ -442,11 +419,7 @@ with st.sidebar:
         </style>
         """, unsafe_allow_html=True)
 
-# ---------------------------------------------------------
-# ⬆️ FIN PANEL LATERAL ⬆️
-# ---------------------------------------------------------
-
-# --- BANNER PRINCIPAL ANIMADO Y CORREGIDO PARA PC ---
+# --- BANNER PRINCIPAL ANIMADO ---
 st.markdown(f"""
 <div class="banner-container" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(5, 5, 5, 0.95) 100%), url('{BANNER_PRINCIPAL}');">
     <h3 class="banner-sub" style="color: #D4AF37; margin:0; text-transform: uppercase; letter-spacing: 4px; font-family: 'Bebas Neue', sans-serif; text-shadow: 2px 2px 10px black; z-index: 2; font-size: 1.8rem;">🎙️ TRANSMISIÓN OFICIAL - COKEMMA DIRECTO</h3>
@@ -468,6 +441,26 @@ t_lobby, t_jugar, t_stats, t_rankings, t_momios, t_admin = st.tabs(["🏠 LOBBY 
 # --- PESTAÑA 0: LOBBY ---
 with t_lobby:
     
+    # 🔥 SECCIÓN DE COMPARTIR JUSTA Y NECESARIA AL INICIO DEL LOBBY
+    url_whatsapp = f"https://api.whatsapp.com/send?text={urllib.parse.quote('🥊 Únete al directo de Cokemma y compite en el UFC Freedom 250: ' + URL_APP)}"
+    st.markdown(f"""
+    <div style="background: linear-gradient(135deg, #111 0%, #1a1a1a 100%); border-radius: 12px; padding: 20px; border: 1px solid #333; border-top: 3px solid #25D366; margin-bottom: 30px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+        <div>
+            <h3 style="color: #25D366; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; font-size: 1.8rem; margin:0;">🔗 INVITA A TU GIMNASIO</h3>
+            <p style="color: #aaa; margin: 0; font-size: 1rem;">Copia el enlace o comparte directo en redes.</p>
+        </div>
+        <div style="display: flex; gap: 15px; align-items: center;">
+            <a href="{url_whatsapp}" target="_blank" style="text-decoration:none;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35" style="transition: transform 0.2s;">
+            </a>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" width="35" style="cursor:pointer;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg" width="35" style="background: white; border-radius: 8px; padding: 4px; cursor:pointer;">
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    st.code(URL_APP, language="text")
+    st.markdown("<hr style='border-color: #333;'>", unsafe_allow_html=True)
+
     st.markdown("""
     <div class="custom-box">
         <h2 style="margin: 0; color: #D4AF37; font-size: 2.8rem;">¿CÓMO FUNCIONA ESTO? 🌍</h2>
@@ -530,7 +523,7 @@ with t_lobby:
         
     st.markdown("<br><hr style='border-color: #333;'><br>", unsafe_allow_html=True)
     
-    # HYPE ROOM (DECLARACIONES Y DATOS)
+    # HYPE ROOM
     st.markdown("<h2 style='color: #ffffff; font-size: 3rem;'><span style='color:#D4AF37;'>🎙️</span> HYPE ROOM: LA PREVIA</h2>", unsafe_allow_html=True)
     col_h1, col_h2 = st.columns(2)
     with col_h1:
