@@ -9,8 +9,8 @@ st.set_page_config(page_title="UFC Freedom 250 | Cokemma Edition", page_icon="�
 
 # --- 📸 DICCIONARIO DE IMÁGENES Y DATOS OFICIALES ---
 TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd"
-# 🔥 NUEVA IMAGEN DE BANNER SELECCIONADA APLICADA AQUÍ
-BANNER_PRINCIPAL = "https://cms-images.acc.indazn.com/di/library/DAZN_News/75/aa/ufc-freedom-250-topuria-vs-gaethje_rarhj63rmuf114nwefy7rmf0v.jpg?t=-2004902675&quality=80&w=750&h=422"
+# 🔥 BANNER DE DAZN APLICADO
+BANNER_PRINCIPAL = "https://images.daznservices.com/di/library/DAZN_News/38/dc/ufc-casa-blanca-ilia-topuria-vs-justin-gaethje_1lpqgt419yykc17egde0t8b3g1.jpg?t=-828957604"
 URL_APP = "https://predicciones-ufc-87c5opnpg9pmnfjm9qqrkr.streamlit.app"
 
 FIGHTER_IMAGES = {
@@ -85,7 +85,9 @@ footer {visibility: hidden;}
     text-transform: uppercase;
 }
 
-/* Pestañas (Tabs) ULTRA VISIBLES PARA PC */
+/* ---------------------------------------------------
+   Pestañas (Tabs) ULTRA VISIBLES PARA PC
+--------------------------------------------------- */
 div[data-baseweb="tab-list"] {
     gap: 12px;
     border-bottom: 3px solid #DC2626; 
@@ -121,7 +123,7 @@ button[data-baseweb="tab"]:hover {
     color: #ffffff !important;
 }
 
-/* Botones de Acción */
+/* Botones de Acción (Guardar, etc) */
 .stButton > button {
     background: linear-gradient(90deg, #DC2626 0%, #991B1B 100%); 
     color: #ffffff; 
@@ -219,7 +221,7 @@ button[data-baseweb="tab"]:hover {
 .vs-text { font-size: 4.5rem; color: #DC2626; font-weight: 400; font-style: italic; text-shadow: 0 0 15px rgba(220,38,38,0.6); margin-top: 50px; }
 .weight-class { color: #A1A1AA; font-size: 1.3rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 25px; font-weight: 600; font-family: 'Montserrat', sans-serif;}
 
-/* Cajas personalizadas */
+/* Cajas personalizadas (Reglas, Datos) */
 .custom-box { 
     background: rgba(20, 20, 20, 0.8); 
     border-radius: 12px; 
@@ -235,8 +237,19 @@ button[data-baseweb="tab"]:hover {
     border-radius: 8px;
     height: 100%;
 }
-.quote-text { font-style: italic; font-size: 1.2rem; color: #ddd; margin-bottom: 15px; }
-.quote-author { color: #D4AF37; font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 1px; margin: 0; }
+.quote-text {
+    font-style: italic;
+    font-size: 1.2rem;
+    color: #ddd;
+    margin-bottom: 15px;
+}
+.quote-author {
+    color: #D4AF37;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    margin: 0;
+}
 
 /* Tablas y Momios */
 .odds-box { background-color: #111; border: 2px solid #333; border-radius: 10px; padding: 20px; text-align: center; }
@@ -251,11 +264,11 @@ button[data-baseweb="tab"]:hover {
     font-size: 1.1rem !important;
 }
 
-/* 🥊 AJUSTE DE ENCUADRE DE BANNER MAESTRO PARA PC 🥊 */
+/* 🥊 BANNER ENCUADRE TOP PARA DAZN 🥊 */
 .banner-container {
     background-size: cover; 
-    background-position: center center; 
-    min-height: 460px; /* Ajustado para dar un tamaño ideal en PC sin verse gigante */
+    background-position: center top; 
+    min-height: 520px; 
     display: flex; 
     flex-direction: column; 
     justify-content: flex-end; 
@@ -267,7 +280,22 @@ button[data-baseweb="tab"]:hover {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
 }
 
-/* Responsivo para celulares */
+/* Animación de vibración para el BOOM */
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+/* Responsivo para celulares (Mantiene compatibilidad) */
 @media (max-width: 768px) {
     .fighter-img { width: 110px; height: 110px; }
     .fighter-name { font-size: 1.8rem; }
@@ -275,7 +303,7 @@ button[data-baseweb="tab"]:hover {
     .weight-class { font-size: 0.9rem; }
     .fight-card { padding: 15px; }
     button[data-baseweb="tab"] { font-size: 1.1rem !important; padding: 10px 5px !important; }
-    .banner-container { min-height: 280px; background-position: center center; justify-content: flex-end; padding-bottom: 20px; }
+    .banner-container { min-height: 300px; background-position: top center; justify-content: flex-end; padding-bottom: 20px; }
     .banner-h1 { font-size: 3.5rem !important; }
     .banner-h2 { font-size: 1.8rem !important; }
     .banner-sub { font-size: 1.2rem !important; }
@@ -309,7 +337,7 @@ df_peleas = pd.read_csv(PELEAS_FILE)
 df_predicciones = pd.read_csv(PREDICCONES_FILE)
 df_ligas = pd.read_csv(LIGAS_FILE)
 
-# --- Funciones auxiliares comunes ---
+OPCIONES_METODO = ["KO/TKO", "Sumisión", "Decisión"]
 def get_opciones_round(rondas_max): return [str(i) for i in range(1, rondas_max + 1)] + ["Tarjetas (Decisión)"]
 
 def calcular_tabla_ufc(df_p, df_preds, liga_filtro=None):
@@ -324,9 +352,9 @@ def calcular_tabla_ufc(df_p, df_preds, liga_filtro=None):
     for _, pred in df_preds.iterrows():
         user = pred["usuario"]
         p_id = int(pred["pelea_id"])
-        pelea_real_list = peleas_jugadas[peleas_jugadas["id"] == p_id].to_dict(orient="records")
-        if not pelea_real_list: continue
-        p_real = pelea_real_list[0]
+        pelea_real = list(peleas_jugadas[peleas_jugadas["id"] == p_id].to_dict(orient="index").values())
+        if not pelea_real: continue
+        p_real = pelea_real[0]
         
         real_w, real_m, real_r = p_real["res_winner"], p_real["res_method"], str(p_real["res_round"])
         pred_w, pred_m, pred_r = pred["pred_winner"], pred["pred_method"], str(pred["pred_round"])
@@ -354,6 +382,7 @@ def calcular_tabla_ufc(df_p, df_preds, liga_filtro=None):
     df_tabla = pd.DataFrame(tabla_data, columns=["Peleador", "Cinturón 🎖️", "Puntos Totales", "Plenos (25pts)", "Aciertos Ganador"])
     return df_tabla.sort_values(by=["Puntos Totales", "Plenos (25pts)"], ascending=[False, False]).reset_index(drop=True)
 
+# 🛠️ SISTEMA DE BYPASS PROXY PARA IMÁGENES UFC
 def get_fighter_img(name):
     if name in FIGHTER_IMAGES: 
         url = FIGHTER_IMAGES[name]
@@ -375,19 +404,22 @@ with st.sidebar:
         <h2 style="color: #DC2626; margin-top: 0px; text-transform: uppercase; letter-spacing: 2px;">FIGHT WEEK</h2>
     </div>
     """, unsafe_allow_html=True)
+    
     st.markdown("---")
     
-    modo_directo = st.checkbox("🎥 Activar Modo Transmisión (OBS)", value=False)
-    if modo_directo:
-        st.markdown("""
-        <style>
-            header, #MainMenu, footer {visibility: hidden;}
-            .block-container {padding-top: 1rem; padding-bottom: 0rem; max-width: 95%;}
-        </style>
-        """, unsafe_allow_html=True)
-        
+    # NUEVA SECCIÓN: INFO DEL EVENTO
+    st.markdown("<h3 style='color: white; font-family: Bebas Neue, sans-serif; letter-spacing: 1px;'>INFO DEL EVENTO</h3>", unsafe_allow_html=True)
+    st.markdown("""
+    <div style="background-color: #111; padding: 15px; border-radius: 8px; border-left: 4px solid #DC2626; margin-bottom: 20px;">
+        <p style="margin: 5px 0; font-size: 0.95rem;">📅 <strong>Fecha:</strong> Dom, Jun 07, 2026</p>
+        <p style="margin: 5px 0; font-size: 0.95rem;">📍 <strong>Lugar:</strong> Casa Blanca Arena (DC)</p>
+        <p style="margin: 5px 0; font-size: 0.95rem;">📺 <strong>Transmisión:</strong> ESPN+, PPV</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
     st.markdown("---")
-    st.markdown("<h3 style='text-align: center; color: white;'>🔗 Invita a tus amigos</h3>", unsafe_allow_html=True)
+    
+    st.markdown("<h3 style='text-align: center; color: white; font-family: Bebas Neue, sans-serif; letter-spacing: 1px;'>🔗 COMPARTIR PÁGINA</h3>", unsafe_allow_html=True)
     st.code(URL_APP, language="text")
     mensaje_whatsapp = f"🥊 ¡Únete al directo y compite en la liga de pronósticos para UFC FREEDOM 250! Deja tus predicciones aquí: {URL_APP}"
     url_whatsapp = f"https://api.whatsapp.com/send?text={urllib.parse.quote(mensaje_whatsapp)}"
@@ -395,9 +427,10 @@ with st.sidebar:
         <div style="background-color: #25D366; color: white; text-align: center; padding: 12px; border-radius: 8px; font-weight: bold; margin-top: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
             📲 Compartir en WhatsApp
         </div></a>""", unsafe_allow_html=True)
-    st.markdown("<br><br>", unsafe_allow_html=True)
+        
+    st.markdown("<br>", unsafe_allow_html=True)
     
-    # Badge de TikTok
+    # 📱 TIKTOK BADGE
     st.markdown("""
     <div style="text-align:center; padding: 15px; border-radius: 12px; background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);">
         <p style="color: #000; font-weight: 800; margin: 0; font-size: 0.9rem; text-transform: uppercase;">Desarrollador Oficial</p>
@@ -406,8 +439,20 @@ with st.sidebar:
         </a>
     </div>
     """, unsafe_allow_html=True)
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    modo_directo = st.checkbox("🎥 Activar Modo Transmisión (OBS)", value=False)
+    if modo_directo:
+        st.markdown("""
+        <style>
+            header {visibility: hidden;}
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            .block-container {padding-top: 1rem; padding-bottom: 0rem; max-width: 95%;}
+        </style>
+        """, unsafe_allow_html=True)
 
-# --- BANNER PRINCIPAL ENCUADRADO PERFECTAMENTE ---
+# --- BANNER PRINCIPAL ANIMADO Y CORREGIDO PARA PC ---
 st.markdown(f"""
 <div class="banner-container" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(5, 5, 5, 0.95) 100%), url('{BANNER_PRINCIPAL}');">
     <h3 class="banner-sub" style="color: #D4AF37; margin:0; text-transform: uppercase; letter-spacing: 4px; font-family: 'Bebas Neue', sans-serif; text-shadow: 2px 2px 10px black; z-index: 2; font-size: 1.8rem;">🎙️ TRANSMISIÓN OFICIAL - COKEMMA DIRECTO</h3>
@@ -416,18 +461,19 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# --- TICKER DE NOTICIAS ---
+# --- TICKER DE NOTICIAS (ESTILO ESPN) ---
 st.markdown("""
 <div class="ticker-wrap">
     <marquee scrollamount="12">🚨 EN VIVO: DIRECTO ESPECIAL COKEMMA | 🥊 ÚLTIMA HORA: Topuria promete un KO brutal en el 1er Round... 💰 MOMIOS: Gaethje paga +450 en Las Vegas, ¿habrá sorpresa hoy?... 🏆 Alex Pereira busca hacer historia en su debut en Peso Pesado... 📊 ¡Sella tu cartilla ahora mismo y compite contra el chat en el Ránking Global!</marquee>
 </div>
 """, unsafe_allow_html=True)
 
-# --- PESTAÑAS NOMBRADAS (PREDICCIONES ACTIVADA) ---
+# --- PESTAÑAS NOMBRADAS EXPLÍCITAMENTE ---
 t_lobby, t_jugar, t_stats, t_rankings, t_momios, t_admin = st.tabs(["🏠 LOBBY PRINCIPAL", "📝 PREDICCIONES 🥊", "📊 STATS EN VIVO", "🏆 RÁNKINGS", "🎲 MOMIOS & ANÁLISIS", "🔒 PANEL ADMIN"])
 
 # --- PESTAÑA 0: LOBBY ---
 with t_lobby:
+    
     st.markdown("""
     <div class="custom-box">
         <h2 style="margin: 0; color: #D4AF37; font-size: 2.8rem;">¿CÓMO FUNCIONA ESTO? 🌍</h2>
@@ -437,14 +483,34 @@ with t_lobby:
     </div>
     """, unsafe_allow_html=True)
 
+    # 📰 PORTADA DE NOTICIAS
     st.markdown("<h2 style='color: #ffffff; margin-top:40px; margin-bottom: 25px; font-size: 3rem;'><span style='color:#DC2626;'>📰</span> RUMBO A LA CASA BLANCA</h2>", unsafe_allow_html=True)
+    
     col_n1, col_n2, col_n3 = st.columns(3)
     with col_n1:
-        st.markdown("""<a href="https://www.mma.es/2026/02/25/ufc-white-house-mas-caro/" target="_blank" class="news-card" style="background-image: url('https://www.mma.es/wp-content/uploads/2026/02/UFC-Casa-Blanca.png');"><div class="news-overlay"><p class="news-title">El evento más caro de la historia de UFC</p></div></a>""", unsafe_allow_html=True)
+        st.markdown(f"""
+        <a href="https://www.mma.es/2026/02/25/ufc-white-house-mas-caro/" target="_blank" class="news-card" style="background-image: url('https://www.mma.es/wp-content/uploads/2026/02/UFC-Casa-Blanca.png');">
+            <div class="news-overlay">
+                <p class="news-title">El evento más caro de la historia de UFC</p>
+            </div>
+        </a>
+        """, unsafe_allow_html=True)
     with col_n2:
-        st.markdown("""<a href="https://www.diariodesantiago.es/deportes/ilia-topuria-peleara-en-la-casa-blanca-contra-justin-gaethje-por-el-titulo-ligero-de-la-ufc-en-una-cartelera-historica/" target="_blank" class="news-card" style="background-image: url('https://www.diariodesantiago.es/wp-content/uploads/2026/03/ilia-topuria-encabeza-la-historica-cartelera-de-ufc-en-la-casa-blanca-vs-justin-gaethje-2026-03-08-ilia-topuria-encabeza-la-historica-cartelera-de-ufc-en-la-casa-blanca-vs-justin-gaethje.jpg');"><div class="news-overlay"><p class="news-title">Topuria vs Gaethje: Choque de Titanes por el Oro</p></div></a>""", unsafe_allow_html=True)
+        st.markdown(f"""
+        <a href="https://www.diariodesantiago.es/deportes/ilia-topuria-peleara-en-la-casa-blanca-contra-justin-gaethje-por-el-titulo-ligero-de-la-ufc-en-una-cartelera-historica/" target="_blank" class="news-card" style="background-image: url('https://www.diariodesantiago.es/wp-content/uploads/2026/03/ilia-topuria-encabeza-la-historica-cartelera-de-ufc-en-la-casa-blanca-vs-justin-gaethje-2026-03-08-ilia-topuria-encabeza-la-historica-cartelera-de-ufc-en-la-casa-blanca-vs-justin-gaethje.jpg');">
+            <div class="news-overlay">
+                <p class="news-title">Topuria vs Gaethje: Choque de Titanes por el Oro</p>
+            </div>
+        </a>
+        """, unsafe_allow_html=True)
     with col_n3:
-        st.markdown("""<a href="https://www.dazn.com/es-MX/news/mma/la-casa-blanca-ya-huele-a-ufc-arranca-la-construccion-de-la-jaula-del-freedom-250/1tph2u2jt7z7nzu48cs89688b" target="_blank" class="news-card" style="background-image: url('https://cms-images.acc.indazn.com/di/library/DAZN_News/75/aa/ufc-freedom-250-topuria-vs-gaethje_rarhj63rmuf114nwefy7rmf0v.jpg?t=-2004902675&quality=80&w=750&h=422');"><div class="news-overlay"><p class="news-title">Inicia la construcción del Octágono en la Casa Blanca</p></div></a>""", unsafe_allow_html=True)
+        st.markdown(f"""
+        <a href="https://www.dazn.com/es-MX/news/mma/la-casa-blanca-ya-huele-a-ufc-arranca-la-construccion-de-la-jaula-del-freedom-250/1tph2u2jt7z7nzu48cs89688b" target="_blank" class="news-card" style="background-image: url('https://cms-images.acc.indazn.com/di/library/DAZN_News/75/aa/ufc-freedom-250-topuria-vs-gaethje_rarhj63rmuf114nwefy7rmf0v.jpg?t=-2004902675&quality=80&w=750&h=422');">
+            <div class="news-overlay">
+                <p class="news-title">Inicia la construcción del Octágono en la Casa Blanca</p>
+            </div>
+        </a>
+        """, unsafe_allow_html=True)
 
     st.markdown("<br><hr style='border-color: #333;'><br>", unsafe_allow_html=True)
     
@@ -470,6 +536,7 @@ with t_lobby:
         
     st.markdown("<br><hr style='border-color: #333;'><br>", unsafe_allow_html=True)
     
+    # HYPE ROOM (DECLARACIONES Y DATOS)
     st.markdown("<h2 style='color: #ffffff; font-size: 3rem;'><span style='color:#D4AF37;'>🎙️</span> HYPE ROOM: LA PREVIA</h2>", unsafe_allow_html=True)
     col_h1, col_h2 = st.columns(2)
     with col_h1:
@@ -497,7 +564,7 @@ with t_lobby:
         </div>
         """, unsafe_allow_html=True)
 
-# --- PESTAÑA 1: PREDICCIONES (SISTEMA INTEGRAL) ---
+# --- PESTAÑA 1: JUGAR ---
 with t_jugar:
     st.markdown("<h2 style='color: #ffffff; text-align:center; font-size: 3.5rem;'>🔥 PREDICCIONES OFICIALES</h2>", unsafe_allow_html=True)
     
@@ -524,7 +591,7 @@ with t_jugar:
     if usuario_limpio:
         st.markdown("---")
         
-        # --- COMPARTIR PRONÓSTICO EN WHATSAPP ---
+        # --- BOTÓN DE ALARDEAR (WHATSAPP) ---
         pred_main = df_predicciones[(df_predicciones["usuario"] == usuario_limpio) & (df_predicciones["pelea_id"] == 1)]
         if not pred_main.empty:
             w_main = pred_main.iloc[0]["pred_winner"]
@@ -546,8 +613,7 @@ with t_jugar:
         
         with st.form("form_preds_ufc"):
             for _, row in df_peleas.iterrows():
-                p_id_f = int(row["id"])
-                pred_existente = df_predicciones[(df_predicciones["usuario"] == usuario_limpio) & (df_predicciones["pelea_id"] == p_id_f)]
+                pred_existente = df_predicciones[(df_predicciones["usuario"] == usuario_limpio) & (df_predicciones["pelea_id"] == row["id"])]
                 def_w, def_m, def_r = row["fighter_a"], "Decisión", "Tarjetas (Decisión)"
                 if not pred_existente.empty:
                     def_w, def_m, def_r = pred_existente.iloc[0]["pred_winner"], pred_existente.iloc[0]["pred_method"], str(pred_existente.iloc[0]["pred_round"])
@@ -582,9 +648,9 @@ with t_jugar:
                 if esta_bloqueado: st.markdown("<p style='text-align:center; color:#DC2626; font-weight:bold; font-size:1.2rem;'>🛑 PELEA FINALIZADA</p>", unsafe_allow_html=True)
                 
                 col1, col2, col3 = st.columns(3)
-                with col1: st.selectbox("GANADOR", ops_w, index=idx_w, key=f"w_{p_id_f}", disabled=esta_bloqueado)
-                with col2: st.selectbox("MÉTODO", OPCIONES_METODO, index=idx_m, key=f"m_{p_id_f}", disabled=esta_bloqueado)
-                with col3: st.selectbox("ROUND", ops_r, index=idx_r, key=f"r_{p_id_f}", disabled=esta_bloqueado)
+                with col1: st.selectbox("GANADOR", ops_w, index=idx_w, key=f"w_{row['id']}", disabled=esta_bloqueado)
+                with col2: st.selectbox("MÉTODO", OPCIONES_METODO, index=idx_m, key=f"m_{row['id']}", disabled=esta_bloqueado)
+                with col3: st.selectbox("ROUND", ops_r, index=idx_r, key=f"r_{row['id']}", disabled=esta_bloqueado)
                 st.markdown("<br><hr style='border-color: #333;'><br>", unsafe_allow_html=True)
                 
             if st.form_submit_button("🔒 CONFIRMAR MIS PREDICCIONES"):
@@ -600,12 +666,13 @@ with t_jugar:
 
                 if acceso:
                     for _, row in df_peleas.iterrows():
-                        p_id_s = int(row["id"])
+                        p_id = row["id"]
                         if row["jugado"]: continue
-                        df_predicciones = df_predicciones[~((df_predicciones["usuario"] == usuario_limpio) & (df_predicciones["pelea_id"] == p_id_s))]
-                        df_predicciones = pd.concat([df_predicciones, pd.DataFrame([{"usuario": usuario_limpio, "liga": liga_limpia, "pelea_id": p_id_s, "pred_winner": st.session_state[f"w_{p_id_s}"], "pred_method": st.session_state[f"m_{p_id_s}"], "pred_round": st.session_state[f"r_{p_id_s}"]}])], ignore_index=True)
+                        df_predicciones = df_predicciones[~((df_predicciones["usuario"] == usuario_limpio) & (df_predicciones["pelea_id"] == p_id))]
+                        df_predicciones = pd.concat([df_predicciones, pd.DataFrame([{"usuario": usuario_limpio, "liga": liga_limpia, "pelea_id": p_id, "pred_winner": st.session_state[f"w_{p_id}"], "pred_method": st.session_state[f"m_{p_id}"], "pred_round": st.session_state[f"r_{p_id}"]}])], ignore_index=True)
                     df_predicciones.to_csv(PREDICCONES_FILE, index=False)
                     
+                    # 💥 EFECTO BOOM Y LLUVIA PARA LA SUMISIÓN DEL FORMULARIO
                     st.toast('¡Cartilla asegurada en la base de datos!', icon='🏆')
                     st.markdown("""
                     <div style="text-align:center; animation: shake 0.5s;">
@@ -720,7 +787,7 @@ with t_momios:
         with col_odds2:
             st.markdown(f"<div class='odds-box'><p style='color:#A1A1AA; margin:0; font-weight:600; font-size:1.2rem; text-transform:uppercase;'>{f_b}</p><p class='{color_b}' style='margin:0; font-size:3rem;'>{odds_b}</p></div>", unsafe_allow_html=True)
 
-# --- PESTAÑA 5: PANEL ADMIN ---
+# --- PESTAÑA 5: ADMIN ---
 with t_admin:
     st.markdown("<h2 style='color: #DC2626; font-size: 3.5rem;'>🔒 MESA DE CONTROL (OFFICIALS ONLY)</h2>", unsafe_allow_html=True)
     if st.text_input("Ingresa la credencial de acceso:", type="password") == PASSWORD_ADMIN:
