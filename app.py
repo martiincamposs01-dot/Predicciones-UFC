@@ -9,8 +9,8 @@ st.set_page_config(page_title="UFC Freedom 250 | Cokemma Edition", page_icon="�
 
 # --- 📸 DICCIONARIO DE IMÁGENES Y DATOS OFICIALES ---
 TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd"
-# 🔥 BANNER DE DAZN APLICADO
-BANNER_PRINCIPAL = "https://images.daznservices.com/di/library/DAZN_News/38/dc/ufc-casa-blanca-ilia-topuria-vs-justin-gaethje_1lpqgt419yykc17egde0t8b3g1.jpg?t=-828957604"
+# 🔥 BANNER DEFINITIVO CON LA NUEVA IMAGEN URBANA
+BANNER_PRINCIPAL = "https://www.projectxparis.com/cdn/shop/articles/UFC_Freedom_250-event_ad808bc8-981a-4c3d-8a67-42ac4f0012da.png?v=1778595392"
 URL_APP = "https://predicciones-ufc-87c5opnpg9pmnfjm9qqrkr.streamlit.app"
 
 FIGHTER_IMAGES = {
@@ -123,7 +123,7 @@ button[data-baseweb="tab"]:hover {
     color: #ffffff !important;
 }
 
-/* Botones de Acción (Guardar, etc) */
+/* Botones de Acción */
 .stButton > button {
     background: linear-gradient(90deg, #DC2626 0%, #991B1B 100%); 
     color: #ffffff; 
@@ -237,19 +237,8 @@ button[data-baseweb="tab"]:hover {
     border-radius: 8px;
     height: 100%;
 }
-.quote-text {
-    font-style: italic;
-    font-size: 1.2rem;
-    color: #ddd;
-    margin-bottom: 15px;
-}
-.quote-author {
-    color: #D4AF37;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.8rem;
-    letter-spacing: 1px;
-    margin: 0;
-}
+.quote-text { font-style: italic; font-size: 1.2rem; color: #ddd; margin-bottom: 15px; }
+.quote-author { color: #D4AF37; font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 1px; margin: 0; }
 
 /* Tablas y Momios */
 .odds-box { background-color: #111; border: 2px solid #333; border-radius: 10px; padding: 20px; text-align: center; }
@@ -264,10 +253,10 @@ button[data-baseweb="tab"]:hover {
     font-size: 1.1rem !important;
 }
 
-/* 🥊 BANNER ENCUADRE TOP PARA DAZN 🥊 */
+/* 🥊 BANNER CONTAINER FIX PARA QUE NO RECORTE CARAS 🥊 */
 .banner-container {
     background-size: cover; 
-    background-position: center top; 
+    background-position: center top; /* Evita que se corten las cabezas */
     min-height: 520px; 
     display: flex; 
     flex-direction: column; 
@@ -352,9 +341,9 @@ def calcular_tabla_ufc(df_p, df_preds, liga_filtro=None):
     for _, pred in df_preds.iterrows():
         user = pred["usuario"]
         p_id = int(pred["pelea_id"])
-        pelea_real = list(peleas_jugadas[peleas_jugadas["id"] == p_id].to_dict(orient="index").values())
-        if not pelea_real: continue
-        p_real = pelea_real[0]
+        pelea_real_list = peleas_jugadas[peleas_jugadas["id"] == p_id].to_dict(orient="records")
+        if not pelea_real_list: continue
+        p_real = pelea_real_list[0]
         
         real_w, real_m, real_r = p_real["res_winner"], p_real["res_method"], str(p_real["res_round"])
         pred_w, pred_m, pred_r = pred["pred_winner"], pred["pred_method"], str(pred["pred_round"])
@@ -396,7 +385,7 @@ def get_stat(name, stat_key):
     if name in FIGHTER_STATS: return FIGHTER_STATS[name].get(stat_key, "N/A")
     return "N/A"
 
-# --- PANEL LATERAL ---
+# --- PANEL LATERAL CON INFO DEL EVENTO ---
 with st.sidebar:
     st.markdown("""
     <div style="text-align: center; padding: 10px;">
@@ -407,7 +396,7 @@ with st.sidebar:
     
     st.markdown("---")
     
-    # NUEVA SECCIÓN: INFO DEL EVENTO
+    # NUEVA SECCIÓN: INFO DEL EVENTO EN LA BARRA LATERAL
     st.markdown("<h3 style='color: white; font-family: Bebas Neue, sans-serif; letter-spacing: 1px;'>INFO DEL EVENTO</h3>", unsafe_allow_html=True)
     st.markdown("""
     <div style="background-color: #111; padding: 15px; border-radius: 8px; border-left: 4px solid #DC2626; margin-bottom: 20px;">
@@ -419,6 +408,7 @@ with st.sidebar:
     
     st.markdown("---")
     
+    # SECCIÓN DE COMPARTIR
     st.markdown("<h3 style='text-align: center; color: white; font-family: Bebas Neue, sans-serif; letter-spacing: 1px;'>🔗 COMPARTIR PÁGINA</h3>", unsafe_allow_html=True)
     st.code(URL_APP, language="text")
     mensaje_whatsapp = f"🥊 ¡Únete al directo y compite en la liga de pronósticos para UFC FREEDOM 250! Deja tus predicciones aquí: {URL_APP}"
@@ -441,6 +431,7 @@ with st.sidebar:
     """, unsafe_allow_html=True)
     
     st.markdown("<br>", unsafe_allow_html=True)
+    
     modo_directo = st.checkbox("🎥 Activar Modo Transmisión (OBS)", value=False)
     if modo_directo:
         st.markdown("""
@@ -468,7 +459,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# --- PESTAÑAS NOMBRADAS EXPLÍCITAMENTE ---
+# --- PESTAÑAS NOMBRADAS EXPLÍCITAMENTE (CON PREDICCIONES) ---
 t_lobby, t_jugar, t_stats, t_rankings, t_momios, t_admin = st.tabs(["🏠 LOBBY PRINCIPAL", "📝 PREDICCIONES 🥊", "📊 STATS EN VIVO", "🏆 RÁNKINGS", "🎲 MOMIOS & ANÁLISIS", "🔒 PANEL ADMIN"])
 
 # --- PESTAÑA 0: LOBBY ---
@@ -564,7 +555,7 @@ with t_lobby:
         </div>
         """, unsafe_allow_html=True)
 
-# --- PESTAÑA 1: JUGAR ---
+# --- PESTAÑA 1: JUGAR (PREDICCIONES) ---
 with t_jugar:
     st.markdown("<h2 style='color: #ffffff; text-align:center; font-size: 3.5rem;'>🔥 PREDICCIONES OFICIALES</h2>", unsafe_allow_html=True)
     
@@ -613,7 +604,8 @@ with t_jugar:
         
         with st.form("form_preds_ufc"):
             for _, row in df_peleas.iterrows():
-                pred_existente = df_predicciones[(df_predicciones["usuario"] == usuario_limpio) & (df_predicciones["pelea_id"] == row["id"])]
+                p_id_f = int(row["id"])
+                pred_existente = df_predicciones[(df_predicciones["usuario"] == usuario_limpio) & (df_predicciones["pelea_id"] == p_id_f)]
                 def_w, def_m, def_r = row["fighter_a"], "Decisión", "Tarjetas (Decisión)"
                 if not pred_existente.empty:
                     def_w, def_m, def_r = pred_existente.iloc[0]["pred_winner"], pred_existente.iloc[0]["pred_method"], str(pred_existente.iloc[0]["pred_round"])
@@ -648,9 +640,9 @@ with t_jugar:
                 if esta_bloqueado: st.markdown("<p style='text-align:center; color:#DC2626; font-weight:bold; font-size:1.2rem;'>🛑 PELEA FINALIZADA</p>", unsafe_allow_html=True)
                 
                 col1, col2, col3 = st.columns(3)
-                with col1: st.selectbox("GANADOR", ops_w, index=idx_w, key=f"w_{row['id']}", disabled=esta_bloqueado)
-                with col2: st.selectbox("MÉTODO", OPCIONES_METODO, index=idx_m, key=f"m_{row['id']}", disabled=esta_bloqueado)
-                with col3: st.selectbox("ROUND", ops_r, index=idx_r, key=f"r_{row['id']}", disabled=esta_bloqueado)
+                with col1: st.selectbox("GANADOR", ops_w, index=idx_w, key=f"w_{p_id_f}", disabled=esta_bloqueado)
+                with col2: st.selectbox("MÉTODO", OPCIONES_METODO, index=idx_m, key=f"m_{p_id_f}", disabled=esta_bloqueado)
+                with col3: st.selectbox("ROUND", ops_r, index=idx_r, key=f"r_{p_id_f}", disabled=esta_bloqueado)
                 st.markdown("<br><hr style='border-color: #333;'><br>", unsafe_allow_html=True)
                 
             if st.form_submit_button("🔒 CONFIRMAR MIS PREDICCIONES"):
@@ -666,13 +658,12 @@ with t_jugar:
 
                 if acceso:
                     for _, row in df_peleas.iterrows():
-                        p_id = row["id"]
+                        p_id_s = int(row["id"])
                         if row["jugado"]: continue
-                        df_predicciones = df_predicciones[~((df_predicciones["usuario"] == usuario_limpio) & (df_predicciones["pelea_id"] == p_id))]
-                        df_predicciones = pd.concat([df_predicciones, pd.DataFrame([{"usuario": usuario_limpio, "liga": liga_limpia, "pelea_id": p_id, "pred_winner": st.session_state[f"w_{p_id}"], "pred_method": st.session_state[f"m_{p_id}"], "pred_round": st.session_state[f"r_{p_id}"]}])], ignore_index=True)
+                        df_predicciones = df_predicciones[~((df_predicciones["usuario"] == usuario_limpio) & (df_predicciones["pelea_id"] == p_id_s))]
+                        df_predicciones = pd.concat([df_predicciones, pd.DataFrame([{"usuario": usuario_limpio, "liga": liga_limpia, "pelea_id": p_id_s, "pred_winner": st.session_state[f"w_{p_id_s}"], "pred_method": st.session_state[f"m_{p_id_s}"], "pred_round": st.session_state[f"r_{p_id_s}"]}])], ignore_index=True)
                     df_predicciones.to_csv(PREDICCONES_FILE, index=False)
                     
-                    # 💥 EFECTO BOOM Y LLUVIA PARA LA SUMISIÓN DEL FORMULARIO
                     st.toast('¡Cartilla asegurada en la base de datos!', icon='🏆')
                     st.markdown("""
                     <div style="text-align:center; animation: shake 0.5s;">
