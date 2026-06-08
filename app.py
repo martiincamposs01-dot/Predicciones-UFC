@@ -9,8 +9,8 @@ st.set_page_config(page_title="UFC Freedom 250 | Cokemma Edition", page_icon="�
 
 # --- 📸 DICCIONARIO DE IMÁGENES Y DATOS OFICIALES ---
 TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd"
-# 🔥 BANNER DEFINITIVO CON LA IMAGEN FINAL
-BANNER_PRINCIPAL = "https://objetos-xlk.estaticos-marca.com/uploads/2026/04/12/69daeaf5a9090.jpeg"
+# 🔥 BANNER DEFINITIVO ACTUALIZADO
+BANNER_PRINCIPAL = "https://www.projectxparis.com/cdn/shop/articles/UFC_Freedom_250-event_ad808bc8-981a-4c3d-8a67-42ac4f0012da.png?v=1778595392"
 URL_APP = "https://predicciones-ufc-87c5opnpg9pmnfjm9qqrkr.streamlit.app"
 
 FIGHTER_IMAGES = {
@@ -295,7 +295,7 @@ button[data-baseweb="tab"]:hover {
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
-/* Responsivo para celulares */
+/* Responsivo para celulares (Mantiene compatibilidad) */
 @media (max-width: 768px) {
     .fighter-img { width: 110px; height: 110px; }
     .fighter-name { font-size: 1.8rem; }
@@ -552,9 +552,9 @@ with t_lobby:
         </div>
         """, unsafe_allow_html=True)
 
-# --- PESTAÑA 1: JUGAR (PREDICCIONES) ---
+# --- PESTAÑA 1: JUGAR ---
 with t_jugar:
-    st.markdown("<h2 style='color: #ffffff; text-align:center; font-size: 3.5rem;'>🔥 PREDICCIONES OFICIALES</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color: #ffffff; text-align:center; font-size: 3.5rem;'>🔥 SELLA TU CARTILLA OFICIAL</h2>", unsafe_allow_html=True)
     
     usuario_input = st.text_input("👤 INGRESA TU APODO PARA EL STREAM:", placeholder="Ej. El Especialista")
     usuario_limpio = usuario_input.strip().title()
@@ -667,12 +667,27 @@ with t_jugar:
                         <h1 style="color: #DC2626; font-size: 6rem; font-family: 'Bebas Neue', sans-serif;">¡BOOM! 💥</h1>
                         <p style="font-size: 1.8rem; color:white; font-family:'Bebas Neue', sans-serif; letter-spacing:2px;">¡CARTILLA OFICIAL EN LA JAULA!</p>
                     </div>
+                    <style>
+                        @keyframes shake {
+                            0% { transform: translate(1px, 1px) rotate(0deg); }
+                            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+                            20% { transform: translate(-3px, 0px) rotate(1deg); }
+                            30% { transform: translate(3px, 2px) rotate(0deg); }
+                            40% { transform: translate(1px, -1px) rotate(1deg); }
+                            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+                            60% { transform: translate(-3px, 1px) rotate(0deg); }
+                            70% { transform: translate(3px, 1px) rotate(-1deg); }
+                            80% { transform: translate(-1px, -1px) rotate(1deg); }
+                            90% { transform: translate(1px, 2px) rotate(0deg); }
+                            100% { transform: translate(1px, -2px) rotate(-1deg); }
+                        }
+                    </style>
                     """, unsafe_allow_html=True)
                     st.snow()
                     time.sleep(2)
                     st.rerun()
 
-# --- PESTAÑA 2: STATS EN VIVO ---
+# --- PESTAÑA 2: STATS EN VIVO (BARÓMETRO DEL DIRECTO) ---
 with t_stats:
     st.markdown("<h2 class='stat-title' style='font-size: 3.5rem;'>📊 EL TERMÓMETRO DEL DIRECTO</h2>", unsafe_allow_html=True)
     st.markdown("<p style='font-size: 1.2rem; color: #ddd;'>Así se están inclinando las predicciones de todos los jugadores en vivo. ¡Perfecto para debatir en el stream!</p>", unsafe_allow_html=True)
