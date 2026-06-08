@@ -9,7 +9,6 @@ st.set_page_config(page_title="UFC Freedom 250 | Cokemma Edition", page_icon="�
 
 # --- 📸 DICCIONARIO DE IMÁGENES Y DATOS OFICIALES ---
 TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd"
-# 🔥 BANNER DEFINITIVO CON LA NUEVA IMAGEN URBANA
 BANNER_PRINCIPAL = "https://www.projectxparis.com/cdn/shop/articles/UFC_Freedom_250-event_ad808bc8-981a-4c3d-8a67-42ac4f0012da.png?v=1778595392"
 URL_APP = "https://predicciones-ufc-87c5opnpg9pmnfjm9qqrkr.streamlit.app"
 
@@ -221,7 +220,7 @@ button[data-baseweb="tab"]:hover {
 .vs-text { font-size: 4.5rem; color: #DC2626; font-weight: 400; font-style: italic; text-shadow: 0 0 15px rgba(220,38,38,0.6); margin-top: 50px; }
 .weight-class { color: #A1A1AA; font-size: 1.3rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 25px; font-weight: 600; font-family: 'Montserrat', sans-serif;}
 
-/* Cajas personalizadas (Reglas, Datos) */
+/* Cajas personalizadas */
 .custom-box { 
     background: rgba(20, 20, 20, 0.8); 
     border-radius: 12px; 
@@ -253,10 +252,10 @@ button[data-baseweb="tab"]:hover {
     font-size: 1.1rem !important;
 }
 
-/* 🥊 BANNER CONTAINER FIX PARA QUE NO RECORTE CARAS 🥊 */
+/* 🥊 BANNER ENCUADRE TOP 🥊 */
 .banner-container {
     background-size: cover; 
-    background-position: center top; /* Evita que se corten las cabezas */
+    background-position: center top; 
     min-height: 520px; 
     display: flex; 
     flex-direction: column; 
@@ -284,7 +283,7 @@ button[data-baseweb="tab"]:hover {
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
-/* Responsivo para celulares (Mantiene compatibilidad) */
+/* Responsivo para celulares */
 @media (max-width: 768px) {
     .fighter-img { width: 110px; height: 110px; }
     .fighter-name { font-size: 1.8rem; }
@@ -385,7 +384,9 @@ def get_stat(name, stat_key):
     if name in FIGHTER_STATS: return FIGHTER_STATS[name].get(stat_key, "N/A")
     return "N/A"
 
-# --- PANEL LATERAL CON INFO DEL EVENTO ---
+# ---------------------------------------------------------
+# ⬅️ PANEL LATERAL (SIDEBAR) ⬅️
+# ---------------------------------------------------------
 with st.sidebar:
     st.markdown("""
     <div style="text-align: center; padding: 10px;">
@@ -397,7 +398,7 @@ with st.sidebar:
     st.markdown("---")
     
     # NUEVA SECCIÓN: INFO DEL EVENTO EN LA BARRA LATERAL
-    st.markdown("<h3 style='color: white; font-family: Bebas Neue, sans-serif; letter-spacing: 1px;'>INFO DEL EVENTO</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: white; font-family: Bebas Neue, sans-serif; letter-spacing: 1px;'>ℹ️ INFO DEL EVENTO</h3>", unsafe_allow_html=True)
     st.markdown("""
     <div style="background-color: #111; padding: 15px; border-radius: 8px; border-left: 4px solid #DC2626; margin-bottom: 20px;">
         <p style="margin: 5px 0; font-size: 0.95rem;">📅 <strong>Fecha:</strong> Dom, Jun 07, 2026</p>
@@ -443,6 +444,10 @@ with st.sidebar:
         </style>
         """, unsafe_allow_html=True)
 
+# ---------------------------------------------------------
+# ⬆️ FIN PANEL LATERAL ⬆️
+# ---------------------------------------------------------
+
 # --- BANNER PRINCIPAL ANIMADO Y CORREGIDO PARA PC ---
 st.markdown(f"""
 <div class="banner-container" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(5, 5, 5, 0.95) 100%), url('{BANNER_PRINCIPAL}');">
@@ -452,14 +457,14 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# --- TICKER DE NOTICIAS (ESTILO ESPN) ---
+# --- TICKER DE NOTICIAS ---
 st.markdown("""
 <div class="ticker-wrap">
     <marquee scrollamount="12">🚨 EN VIVO: DIRECTO ESPECIAL COKEMMA | 🥊 ÚLTIMA HORA: Topuria promete un KO brutal en el 1er Round... 💰 MOMIOS: Gaethje paga +450 en Las Vegas, ¿habrá sorpresa hoy?... 🏆 Alex Pereira busca hacer historia en su debut en Peso Pesado... 📊 ¡Sella tu cartilla ahora mismo y compite contra el chat en el Ránking Global!</marquee>
 </div>
 """, unsafe_allow_html=True)
 
-# --- PESTAÑAS NOMBRADAS EXPLÍCITAMENTE (CON PREDICCIONES) ---
+# --- PESTAÑAS NOMBRADAS EXPLÍCITAMENTE ---
 t_lobby, t_jugar, t_stats, t_rankings, t_momios, t_admin = st.tabs(["🏠 LOBBY PRINCIPAL", "📝 PREDICCIONES 🥊", "📊 STATS EN VIVO", "🏆 RÁNKINGS", "🎲 MOMIOS & ANÁLISIS", "🔒 PANEL ADMIN"])
 
 # --- PESTAÑA 0: LOBBY ---
