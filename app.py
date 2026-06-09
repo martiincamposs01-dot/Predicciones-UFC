@@ -441,7 +441,7 @@ t_lobby, t_jugar, t_stats, t_rankings, t_momios, t_admin = st.tabs(["🏠 LOBBY 
 # --- PESTAÑA 0: LOBBY ---
 with t_lobby:
     
-    # 🔥 SECCIÓN DE COMPARTIR (INVITA A LA COMUNIDAD)
+    # 🔥 SECCIÓN DE COMPARTIR JUSTA Y NECESARIA (AQUÍ ESTÁ LO DE "INVITA A LA COMUNIDAD")
     url_whatsapp = f"https://api.whatsapp.com/send?text={urllib.parse.quote('🥊 Únete al directo de Cokemma y compite en el UFC Freedom 250: ' + URL_APP)}"
     st.markdown(f"""
     <div style="background: linear-gradient(90deg, #D4AF37 0%, #b8962e 100%); padding: 2px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);">
@@ -484,19 +484,18 @@ with t_lobby:
     </div>
     """, unsafe_allow_html=True)
 
-    # 📰 PORTADA DE NOTICIAS (CON LA IMAGEN SEGURA Y EL LINK QUE PEDISTE)
+    # 📰 PORTADA DE NOTICIAS (CON LA IDEA DEL BANNER PEQUEÑO Y 2 NOTICIAS)
     st.markdown("<h2 style='color: #ffffff; margin-top:40px; margin-bottom: 25px; font-size: 3rem;'><span style='color:#DC2626;'>📰</span> RUMBO A LA CASA BLANCA</h2>", unsafe_allow_html=True)
     
-    col_n1, col_n2, col_n3 = st.columns(3)
+    # BANNER PEQUEÑO DE LA CARTELERA (Reemplaza a la primera noticia conflictiva)
+    st.markdown(f"""
+    <div style="background-image: url('https://www.mma.es/wp-content/uploads/2026/06/ufc-freedom-250-favoritos.png'); background-size: cover; background-position: center 25%; height: 250px; border-radius: 12px; border: 2px solid #333; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # LAS 2 NOTICIAS RESTANTES EN COLUMNAS
+    col_n1, col_n2 = st.columns(2)
     with col_n1:
-        st.markdown(f"""
-        <a href="https://www.mma.es/2026/02/25/ufc-white-house-mas-caro/" target="_blank" class="news-card" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/e0/Ilia_Topuria_2024.jpg');">
-            <div class="news-overlay">
-                <p class="news-title">UFC Casa Blanca: El evento más caro de la historia</p>
-            </div>
-        </a>
-        """, unsafe_allow_html=True)
-    with col_n2:
         st.markdown(f"""
         <a href="https://www.diariodesantiago.es/deportes/ilia-topuria-peleara-en-la-casa-blanca-contra-justin-gaethje-por-el-titulo-ligero-de-la-ufc-en-una-cartelera-historica/" target="_blank" class="news-card" style="background-image: url('https://www.diariodesantiago.es/wp-content/uploads/2026/03/ilia-topuria-encabeza-la-historica-cartelera-de-ufc-en-la-casa-blanca-vs-justin-gaethje-2026-03-08-ilia-topuria-encabeza-la-historica-cartelera-de-ufc-en-la-casa-blanca-vs-justin-gaethje.jpg');">
             <div class="news-overlay">
@@ -504,7 +503,7 @@ with t_lobby:
             </div>
         </a>
         """, unsafe_allow_html=True)
-    with col_n3:
+    with col_n2:
         st.markdown(f"""
         <a href="https://www.dazn.com/es-MX/news/mma/la-casa-blanca-ya-huele-a-ufc-arranca-la-construccion-de-la-jaula-del-freedom-250/1tph2u2jt7z7nzu48cs89688b" target="_blank" class="news-card" style="background-image: url('https://cms-images.acc.indazn.com/di/library/DAZN_News/75/aa/ufc-freedom-250-topuria-vs-gaethje_rarhj63rmuf114nwefy7rmf0v.jpg?t=-2004902675&quality=80&w=750&h=422');">
             <div class="news-overlay">
