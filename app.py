@@ -484,12 +484,12 @@ with t_lobby:
     </div>
     """, unsafe_allow_html=True)
 
-    # 📰 PORTADA DE NOTICIAS (CON LA IDEA DEL BANNER PEQUEÑO Y 2 NOTICIAS)
+    # 📰 PORTADA DE NOTICIAS 
     st.markdown("<h2 style='color: #ffffff; margin-top:40px; margin-bottom: 25px; font-size: 3rem;'><span style='color:#DC2626;'>📰</span> RUMBO A LA CASA BLANCA</h2>", unsafe_allow_html=True)
     
-    # BANNER PEQUEÑO DE LA CARTELERA (Reemplaza a la primera noticia conflictiva)
+    # 🔥 BANNER PEQUEÑO DE LA CARTELERA (CON AJUSTE DE POSICIÓN)
     st.markdown(f"""
-    <div style="background-image: url('https://www.mma.es/wp-content/uploads/2026/06/ufc-freedom-250-favoritos.png'); background-size: cover; background-position: center 25%; height: 250px; border-radius: 12px; border: 2px solid #333; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
+    <div style="background-image: url('https://www.mma.es/wp-content/uploads/2026/06/ufc-freedom-250-favoritos.png'); background-size: cover; background-position: center 5%; height: 250px; border-radius: 12px; border: 2px solid #333; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
     </div>
     """, unsafe_allow_html=True)
     
