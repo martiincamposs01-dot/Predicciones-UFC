@@ -383,6 +383,42 @@ def get_stat(name, stat_key):
     if name in FIGHTER_STATS: return FIGHTER_STATS[name].get(stat_key, "N/A")
     return "N/A"
 
+# ---------------------------------------------------------
+# ⬅️ PANEL LATERAL (SIDEBAR LIMPIA)
+# ---------------------------------------------------------
+with st.sidebar:
+    st.markdown("""
+    <div style="text-align: center; padding: 10px;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/UFC_logo.svg/1024px-UFC_logo.svg.png" width="130" style="margin-bottom:15px; filter: drop-shadow(0px 0px 10px rgba(220,38,38,0.8));">
+        <h2 style="color: #DC2626; margin-top: 0px; text-transform: uppercase; letter-spacing: 2px;">FIGHT WEEK</h2>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("---")
+    
+    # 📱 TIKTOK BADGE
+    st.markdown("""
+    <div style="text-align:center; padding: 15px; border-radius: 12px; background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);">
+        <p style="color: #000; font-weight: 800; margin: 0; font-size: 0.9rem; text-transform: uppercase;">Desarrollador Oficial</p>
+        <a href="https://tiktok.com/@martincampos.mma" target="_blank" style="color: #000; text-decoration: none; font-family: 'Bebas Neue', sans-serif; font-size: 2rem; display: block; margin-top: 5px; text-shadow: 1px 1px 2px rgba(255,255,255,0.5);">
+            @martincampos.mma <span style="font-size:1.2rem;">🎵</span>
+        </a>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    modo_directo = st.checkbox("🎥 Activar Modo Transmisión (OBS)", value=False)
+    if modo_directo:
+        st.markdown("""
+        <style>
+            header {visibility: hidden;}
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            .block-container {padding-top: 1rem; padding-bottom: 0rem; max-width: 95%;}
+        </style>
+        """, unsafe_allow_html=True)
+
 # --- BANNER PRINCIPAL ANIMADO Y CORREGIDO PARA PC ---
 st.markdown(f"""
 <div class="banner-container" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(5, 5, 5, 0.95) 100%), url('{BANNER_PRINCIPAL}');">
@@ -405,7 +441,7 @@ t_lobby, t_jugar, t_stats, t_rankings, t_momios, t_admin = st.tabs(["🏠 LOBBY 
 # --- PESTAÑA 0: LOBBY ---
 with t_lobby:
     
-    # 🔥 SECCIÓN DE COMPARTIR JUSTA Y NECESARIA (AQUÍ ESTÁ LO DE "INVITA A LA COMUNIDAD")
+    # 🔥 SECCIÓN DE COMPARTIR (INVITA A LA COMUNIDAD)
     url_whatsapp = f"https://api.whatsapp.com/send?text={urllib.parse.quote('🥊 Únete al directo de Cokemma y compite en el UFC Freedom 250: ' + URL_APP)}"
     st.markdown(f"""
     <div style="background: linear-gradient(90deg, #D4AF37 0%, #b8962e 100%); padding: 2px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);">
@@ -448,16 +484,15 @@ with t_lobby:
     </div>
     """, unsafe_allow_html=True)
 
-    # 📰 PORTADA DE NOTICIAS (CON EL FIX PARA QUE LA IMAGEN DE MARCA NO SALGA NEGRA)
+    # 📰 PORTADA DE NOTICIAS (CON LA IMAGEN SEGURA Y EL LINK QUE PEDISTE)
     st.markdown("<h2 style='color: #ffffff; margin-top:40px; margin-bottom: 25px; font-size: 3rem;'><span style='color:#DC2626;'>📰</span> RUMBO A LA CASA BLANCA</h2>", unsafe_allow_html=True)
     
     col_n1, col_n2, col_n3 = st.columns(3)
     with col_n1:
-        # Aquí pasamos la imagen original a través de wsrv.nl para evitar el bloqueo (error de imagen negra)
         st.markdown(f"""
-        <a href="https://www.mma.es/2026/02/25/ufc-white-house-mas-caro/" target="_blank" class="news-card" style="background-image: url('https://wsrv.nl/?url=e00-marca.uecdn.es/assets/multimedia/imagenes/2024/02/18/17082379374087.jpg');">
+        <a href="https://www.mma.es/2026/02/25/ufc-white-house-mas-caro/" target="_blank" class="news-card" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/e0/Ilia_Topuria_2024.jpg');">
             <div class="news-overlay">
-                <p class="news-title">UFC en la Casa Blanca: Imágenes Espectaculares</p>
+                <p class="news-title">UFC Casa Blanca: El evento más caro de la historia</p>
             </div>
         </a>
         """, unsafe_allow_html=True)
