@@ -9,7 +9,7 @@ st.set_page_config(page_title="UFC Freedom 250 | Cokemma Edition", page_icon="�
 
 # --- 📸 DICCIONARIO DE IMÁGENES Y DATOS OFICIALES ---
 TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd"
-# 🔥 BANNER REGRESADO A DAZN
+# 🔥 BANNER DEFINITIVO DE DAZN
 BANNER_PRINCIPAL = "https://images.daznservices.com/di/library/DAZN_News/38/dc/ufc-casa-blanca-ilia-topuria-vs-justin-gaethje_1lpqgt419yykc17egde0t8b3g1.jpg?t=-828957604"
 URL_APP = "https://predicciones-ufc-87c5opnpg9pmnfjm9qqrkr.streamlit.app"
 
@@ -392,7 +392,7 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# --- TICKER DE NOTICIAS (ESTILO ESPN) ---
+# --- TICKER DE NOTICIAS ---
 st.markdown("""
 <div class="ticker-wrap">
     <marquee scrollamount="12">🚨 EN VIVO: DIRECTO ESPECIAL COKEMMA | 🥊 ÚLTIMA HORA: Topuria promete un KO brutal en el 1er Round... 💰 MOMIOS: Gaethje paga +450 en Las Vegas, ¿habrá sorpresa hoy?... 🏆 Alex Pereira busca hacer historia en su debut en Peso Pesado... 📊 ¡Sella tu cartilla ahora mismo y compite contra el chat en el Ránking Global!</marquee>
@@ -405,7 +405,7 @@ t_lobby, t_jugar, t_stats, t_rankings, t_momios, t_admin = st.tabs(["🏠 LOBBY 
 # --- PESTAÑA 0: LOBBY ---
 with t_lobby:
     
-    # 🔥 SECCIÓN DE COMPARTIR (INVITA A LA COMUNIDAD)
+    # 🔥 SECCIÓN DE COMPARTIR JUSTA Y NECESARIA (AQUÍ ESTÁ LO DE "INVITA A LA COMUNIDAD")
     url_whatsapp = f"https://api.whatsapp.com/send?text={urllib.parse.quote('🥊 Únete al directo de Cokemma y compite en el UFC Freedom 250: ' + URL_APP)}"
     st.markdown(f"""
     <div style="background: linear-gradient(90deg, #D4AF37 0%, #b8962e 100%); padding: 2px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);">
@@ -448,14 +448,14 @@ with t_lobby:
     </div>
     """, unsafe_allow_html=True)
 
-    # 📰 PORTADA DE NOTICIAS (CON LA IMAGEN DE MARCA ARREGLADA)
+    # 📰 PORTADA DE NOTICIAS (CON EL FIX PARA QUE LA IMAGEN DE MARCA NO SALGA NEGRA)
     st.markdown("<h2 style='color: #ffffff; margin-top:40px; margin-bottom: 25px; font-size: 3rem;'><span style='color:#DC2626;'>📰</span> RUMBO A LA CASA BLANCA</h2>", unsafe_allow_html=True)
     
     col_n1, col_n2, col_n3 = st.columns(3)
     with col_n1:
-        # Aquí se integró una imagen .jpg directa y funcional junto con el enlace al artículo que pasaste
+        # Aquí pasamos la imagen original a través de wsrv.nl para evitar el bloqueo (error de imagen negra)
         st.markdown(f"""
-        <a href="https://www.marca.com/combates-ufc/2025/09/20/asi-seria-super-evento-ufc-casa-blanca-primeras-imagenes-espectaculares.html" target="_blank" class="news-card" style="background-image: url('https://e00-marca.uecdn.es/assets/multimedia/imagenes/2024/02/18/17082379374087.jpg');">
+        <a href="https://www.marca.com/combates-ufc/2025/09/20/asi-seria-super-evento-ufc-casa-blanca-primeras-imagenes-espectaculares.html" target="_blank" class="news-card" style="background-image: url('https://wsrv.nl/?url=e00-marca.uecdn.es/assets/multimedia/imagenes/2024/02/18/17082379374087.jpg');">
             <div class="news-overlay">
                 <p class="news-title">UFC en la Casa Blanca: Imágenes Espectaculares</p>
             </div>
