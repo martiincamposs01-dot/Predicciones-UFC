@@ -455,7 +455,7 @@ with t_lobby:
     with col_n1:
         # Aquí pasamos la imagen original a través de wsrv.nl para evitar el bloqueo (error de imagen negra)
         st.markdown(f"""
-        <a href="https://www.mma.es/2026/02/25/ufc-white-house-mas-caro/ target="_blank" class="news-card" style="background-image: url('https://wsrv.nl/?url=e00-marca.uecdn.es/assets/multimedia/imagenes/2024/02/18/17082379374087.jpg');">
+        <a href="https://www.mma.es/2026/02/25/ufc-white-house-mas-caro/" target="_blank" class="news-card" style="background-image: url('https://wsrv.nl/?url=e00-marca.uecdn.es/assets/multimedia/imagenes/2024/02/18/17082379374087.jpg');">
             <div class="news-overlay">
                 <p class="news-title">UFC en la Casa Blanca: Imágenes Espectaculares</p>
             </div>
