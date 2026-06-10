@@ -517,7 +517,7 @@ with t_lobby:
     # 📰 PORTADA DE NOTICIAS 
     st.markdown("<h2 style='color: #ffffff; margin-top:40px; margin-bottom: 25px; font-size: 3rem;'><span style='color:#DC2626;'>📰</span> RUMBO A LA CASA BLANCA</h2>", unsafe_allow_html=True)
     
-    # 🔥 BANNER PEQUEÑO DE LA CARTELERA
+    # 🔥 BANNER PEQUEÑO DE LA CARTELERA (CON AJUSTE DE POSICIÓN)
     st.markdown(f"""
     <div style="background-image: url('https://www.mma.es/wp-content/uploads/2026/06/ufc-freedom-250-favoritos.png'); background-size: cover; background-position: center 25%; height: 250px; border-radius: 12px; border: 2px solid #333; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
     </div>
@@ -622,29 +622,37 @@ with t_jugar:
     if usuario_limpio:
         st.markdown("---")
         
-        # 🔥 SEGURIDAD: VERIFICAR SI HAY PALABRAS BANEADAS
-        if contiene_palabras_baneadas(usuario_limpio):
+        es_baneado = contiene_palabras_baneadas(usuario_limpio)
+        ya_registrado = usuario_limpio in df_predicciones["usuario"].unique()
+        acaba_de_guardar = st.session_state.get("usuario_registrado") == usuario_limpio
+        
+        # 🔥 SEGURIDAD: VERIFICAR BANEOS O DUPLICADOS ARRIBA
+        if es_baneado:
             st.error("🚨 ¡Epa! Ese apodo contiene palabras no permitidas. Por favor, usa otro para el stream.")
-        else:
+        elif ya_registrado and not acaba_de_guardar:
+            st.error(f"🚨 ¡NOMBRE OCUPADO! El apodo '{usuario_limpio}' ya envió sus predicciones. ¡Cambia tu nombre arriba antes de llenar la cartilla o no podrás guardarla!")
+        
+        if not es_baneado:
             # --- BOTÓN DE ALARDEAR (WHATSAPP) ---
-            pred_main = df_predicciones[(df_predicciones["usuario"] == usuario_limpio) & (df_predicciones["pelea_id"] == 1)]
-            if not pred_main.empty:
-                w_main = pred_main.iloc[0]["pred_winner"]
-                m_main = pred_main.iloc[0]["pred_method"]
-                r_main = pred_main.iloc[0]["pred_round"]
-                
-                texto_wa = f"🥊 ¡Sellé mi cartilla para el UFC Freedom 250! Mi pronóstico estelar: {w_main} gana por {m_main} (Round {r_main}). 🔥 ¿Crees que sabes más que yo? Entra al directo de Cokemma y supérame aquí: {URL_APP}"
-                link_wa = f"https://api.whatsapp.com/send?text={urllib.parse.quote(texto_wa)}"
-                
-                st.markdown(f"""
-                <div style="background: linear-gradient(135deg, #10B981 0%, #047857 100%); padding: 25px; border-radius: 12px; text-align: center; margin-bottom: 30px; border: 2px solid #34D399; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);">
-                    <h3 style="color: white; margin-top: 0; font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; letter-spacing: 1px;">✅ ¡CARTILLA GUARDADA CON ÉXITO!</h3>
-                    <p style="color: #ecfdf5; font-size: 1.2rem; margin-bottom: 20px; font-family: 'Montserrat', sans-serif;">Tus predicciones ya están en el sistema. ¡Desafía a tus amigos por WhatsApp y que arda el chat!</p>
-                    <a href="{link_wa}" target="_blank" style="text-decoration: none; display: inline-block; background-color: #ffffff; color: #047857; padding: 15px 30px; border-radius: 8px; font-weight: 800; font-family: 'Montserrat', sans-serif; font-size: 1.1rem; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.2s;">
-                        📲 ALARDEAR MI PRONÓSTICO EN WHATSAPP
-                    </a>
-                </div>
-                """, unsafe_allow_html=True)
+            if acaba_de_guardar:
+                pred_main = df_predicciones[(df_predicciones["usuario"] == usuario_limpio) & (df_predicciones["pelea_id"] == 1)]
+                if not pred_main.empty:
+                    w_main = pred_main.iloc[0]["pred_winner"]
+                    m_main = pred_main.iloc[0]["pred_method"]
+                    r_main = pred_main.iloc[0]["pred_round"]
+                    
+                    texto_wa = f"🥊 ¡Sellé mi cartilla para el UFC Freedom 250! Mi pronóstico estelar: {w_main} gana por {m_main} (Round {r_main}). 🔥 ¿Crees que sabes más que yo? Entra al directo de Cokemma y supérame aquí: {URL_APP}"
+                    link_wa = f"https://api.whatsapp.com/send?text={urllib.parse.quote(texto_wa)}"
+                    
+                    st.markdown(f"""
+                    <div style="background: linear-gradient(135deg, #10B981 0%, #047857 100%); padding: 25px; border-radius: 12px; text-align: center; margin-bottom: 30px; border: 2px solid #34D399; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);">
+                        <h3 style="color: white; margin-top: 0; font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; letter-spacing: 1px;">✅ ¡CARTILLA GUARDADA CON ÉXITO!</h3>
+                        <p style="color: #ecfdf5; font-size: 1.2rem; margin-bottom: 20px; font-family: 'Montserrat', sans-serif;">Tus predicciones ya están en el sistema. ¡Desafía a tus amigos por WhatsApp y que arda el chat!</p>
+                        <a href="{link_wa}" target="_blank" style="text-decoration: none; display: inline-block; background-color: #ffffff; color: #047857; padding: 15px 30px; border-radius: 8px; font-weight: 800; font-family: 'Montserrat', sans-serif; font-size: 1.1rem; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.2s;">
+                            📲 ALARDEAR MI PRONÓSTICO EN WHATSAPP
+                        </a>
+                    </div>
+                    """, unsafe_allow_html=True)
             
             with st.form("form_preds_ufc"):
                 for _, row in df_peleas.iterrows():
@@ -689,15 +697,9 @@ with t_jugar:
                     with col3: st.selectbox("ROUND", ops_r, index=idx_r, key=f"r_{p_id_f}", disabled=esta_bloqueado)
                     st.markdown("<br><hr style='border-color: #333;'><br>", unsafe_allow_html=True)
                     
-                if st.form_submit_button("🔒 CONFIRMAR MIS PREDICCIONES"):
+                # 🔥 DESHABILITAR BOTÓN SI ESTÁ REGISTRADO (Para evitar doble envío)
+                if st.form_submit_button("🔒 CONFIRMAR MIS PREDICCIONES", disabled=ya_registrado):
                     acceso = True
-                    
-                    # 🔥 SEGURIDAD: VALIDACIÓN DE DUPLICADOS PARA NO SOBREESCRIBIR A OTRO USUARIO
-                    pred_previa = df_predicciones[df_predicciones["usuario"] == usuario_limpio]
-                    if not pred_previa.empty:
-                        st.error(f"⚠️ El apodo '{usuario_limpio}' ya está registrado en la jaula. Si eres tú y quieres actualizar, pide al Admin que borre tu cartilla anterior.")
-                        acceso = False
-                    
                     if opcion_liga == "➕ Crear Liga Privada":
                         if not liga_nueva or not clave_creada: st.error("Faltan datos de la liga."); acceso = False
                         else:
@@ -714,6 +716,8 @@ with t_jugar:
                             df_predicciones = df_predicciones[~((df_predicciones["usuario"] == usuario_limpio) & (df_predicciones["pelea_id"] == p_id_s))]
                             df_predicciones = pd.concat([df_predicciones, pd.DataFrame([{"usuario": usuario_limpio, "liga": liga_limpia, "pelea_id": p_id_s, "pred_winner": st.session_state[f"w_{p_id_s}"], "pred_method": st.session_state[f"m_{p_id_s}"], "pred_round": st.session_state[f"r_{p_id_s}"]}])], ignore_index=True)
                         df_predicciones.to_csv(PREDICCONES_FILE, index=False)
+                        
+                        st.session_state["usuario_registrado"] = usuario_limpio
                         
                         st.toast('¡Cartilla asegurada en la base de datos!', icon='🏆')
                         st.markdown("""
