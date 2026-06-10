@@ -9,6 +9,7 @@ st.set_page_config(page_title="UFC Freedom 250 | Cokemma Edition", page_icon="�
 
 # --- 📸 DICCIONARIO DE IMÁGENES Y DATOS OFICIALES ---
 TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd"
+# 🔥 BANNER DEFINITIVO DE DAZN
 BANNER_PRINCIPAL = "https://images.daznservices.com/di/library/DAZN_News/38/dc/ufc-casa-blanca-ilia-topuria-vs-justin-gaethje_1lpqgt419yykc17egde0t8b3g1.jpg?t=-828957604"
 URL_APP = "https://predicciones-ufc-87c5opnpg9pmnfjm9qqrkr.streamlit.app"
 
@@ -494,6 +495,16 @@ with t_lobby:
     st.code(URL_APP, language="text")
     st.markdown("<br><hr style='border-color: #333;'><br>", unsafe_allow_html=True)
 
+    # 🔥 CONTADOR DE PELEADORES
+    total_peleadores = df_predicciones["usuario"].nunique() if not df_predicciones.empty else 0
+    st.markdown(f"""
+    <div style="background: linear-gradient(90deg, #DC2626 0%, #991B1B 100%); padding: 15px; border-radius: 12px; text-align: center; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4); border: 1px solid #ff4d4d;">
+        <h2 style="color: white; margin: 0; font-family: 'Bebas Neue', sans-serif; letter-spacing: 2px; font-size: 2.2rem;">
+            🥊 {total_peleadores} PELEADORES YA ESTÁN EN LA JAULA
+        </h2>
+    </div>
+    """, unsafe_allow_html=True)
+
     st.markdown("""
     <div class="custom-box">
         <h2 style="margin: 0; color: #D4AF37; font-size: 2.8rem;">¿CÓMO FUNCIONA ESTO? 🌍</h2>
@@ -503,7 +514,7 @@ with t_lobby:
     </div>
     """, unsafe_allow_html=True)
 
-    # 📰 PORTADA DE NOTICIAS 
+    # 📰 PORTADA DE NOTICIAS (CON LA IDEA DEL BANNER PEQUEÑO Y 2 NOTICIAS)
     st.markdown("<h2 style='color: #ffffff; margin-top:40px; margin-bottom: 25px; font-size: 3rem;'><span style='color:#DC2626;'>📰</span> RUMBO A LA CASA BLANCA</h2>", unsafe_allow_html=True)
     
     # 🔥 BANNER PEQUEÑO DE LA CARTELERA (CON AJUSTE DE POSICIÓN)
