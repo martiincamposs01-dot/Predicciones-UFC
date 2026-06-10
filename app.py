@@ -514,10 +514,10 @@ with t_lobby:
     </div>
     """, unsafe_allow_html=True)
 
-    # 📰 PORTADA DE NOTICIAS (CON LA IDEA DEL BANNER PEQUEÑO Y 2 NOTICIAS)
+    # 📰 PORTADA DE NOTICIAS 
     st.markdown("<h2 style='color: #ffffff; margin-top:40px; margin-bottom: 25px; font-size: 3rem;'><span style='color:#DC2626;'>📰</span> RUMBO A LA CASA BLANCA</h2>", unsafe_allow_html=True)
     
-    # 🔥 BANNER PEQUEÑO DE LA CARTELERA (CON AJUSTE DE POSICIÓN)
+    # 🔥 BANNER PEQUEÑO DE LA CARTELERA
     st.markdown(f"""
     <div style="background-image: url('https://www.mma.es/wp-content/uploads/2026/06/ufc-freedom-250-favoritos.png'); background-size: cover; background-position: center 25%; height: 250px; border-radius: 12px; border: 2px solid #333; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
     </div>
@@ -691,6 +691,13 @@ with t_jugar:
                     
                 if st.form_submit_button("🔒 CONFIRMAR MIS PREDICCIONES"):
                     acceso = True
+                    
+                    # 🔥 SEGURIDAD: VALIDACIÓN DE DUPLICADOS PARA NO SOBREESCRIBIR A OTRO USUARIO
+                    pred_previa = df_predicciones[df_predicciones["usuario"] == usuario_limpio]
+                    if not pred_previa.empty:
+                        st.error(f"⚠️ El apodo '{usuario_limpio}' ya está registrado en la jaula. Si eres tú y quieres actualizar, pide al Admin que borre tu cartilla anterior.")
+                        acceso = False
+                    
                     if opcion_liga == "➕ Crear Liga Privada":
                         if not liga_nueva or not clave_creada: st.error("Faltan datos de la liga."); acceso = False
                         else:
@@ -761,15 +768,27 @@ with t_stats:
 # --- PESTAÑA 3: RÁNKINGS ---
 with t_rankings:
     st.markdown("<h2 style='color: #D4AF37; font-size: 3.5rem;'>🏅 TABLA DE POSICIONES OFICIAL</h2>", unsafe_allow_html=True)
+    
     opciones_ligas = ["GLOBAL"]
     if not df_ligas.empty: opciones_ligas.extend(sorted(df_ligas["nombre_liga"].unique().tolist()))
-    liga_busqueda = st.selectbox("🔍 Filtrar por Gimnasio (Liga):", opciones_ligas).strip().upper()
+    
+    # 🔥 BÚSQUEDA Y FILTRO
+    col_filtro1, col_filtro2 = st.columns(2)
+    with col_filtro1:
+        liga_busqueda = st.selectbox("🔍 Filtrar por Gimnasio (Liga):", opciones_ligas).strip().upper()
+    with col_filtro2:
+        busqueda_usuario = st.text_input("🔍 Buscar mi apodo:")
     
     df_ranking = calcular_tabla_ufc(df_peleas, df_predicciones, liga_busqueda)
+    
+    if busqueda_usuario:
+        df_ranking = df_ranking[df_ranking["Peleador"].str.contains(busqueda_usuario, case=False, na=False)]
+        
     if not df_ranking.empty: 
-        st.dataframe(df_ranking, use_container_width=True, hide_index=True)
+        # 🔥 SCROLL: height=400 limita la tabla para que no sea infinita
+        st.dataframe(df_ranking, use_container_width=True, hide_index=True, height=400)
     else: 
-        st.info("Aún no hay peleadores registrados en esta categoría.")
+        st.info("Aún no hay peleadores registrados o no se encontraron resultados.")
 
 # --- PESTAÑA 4: MOMIOS Y TALE OF THE TAPE ---
 with t_momios:
