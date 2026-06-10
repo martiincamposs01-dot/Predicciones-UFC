@@ -9,7 +9,6 @@ st.set_page_config(page_title="UFC Freedom 250 | Cokemma Edition", page_icon="�
 
 # --- 📸 DICCIONARIO DE IMÁGENES Y DATOS OFICIALES ---
 TRAILER_OFICIAL = "https://youtu.be/iNJIs5bXoAE?si=Lbes9bQDegv6vocd"
-# 🔥 BANNER DEFINITIVO DE DAZN
 BANNER_PRINCIPAL = "https://images.daznservices.com/di/library/DAZN_News/38/dc/ufc-casa-blanca-ilia-topuria-vs-justin-gaethje_1lpqgt419yykc17egde0t8b3g1.jpg?t=-828957604"
 URL_APP = "https://predicciones-ufc-87c5opnpg9pmnfjm9qqrkr.streamlit.app"
 
@@ -299,11 +298,31 @@ button[data-baseweb="tab"]:hover {
 </style>
 """, unsafe_allow_html=True)
 
+# --- 🔒 SISTEMA DE SEGURIDAD Y MODERACIÓN ---
+PASSWORD_ADMIN = "CokemmaAdmin_250!"
+
+BANNED_WORDS = [
+    # Generales y contenido explícito
+    "puta", "puto", "mierda", "pene", "verga", "pito", "culo", "zorra", 
+    "cabron", "maricon", "porno", "sexo",
+    # Chilenismos
+    "conchetumare", "weon", "aweonao", "culiao", "ctm", 
+    # Temas sensibles, nombres y política
+    "nazi", "hitler", "epstein", "charlie klirck", "charlie kirk", "klirck",
+    # Cultura Narco
+    "narco", "chapo", "escobar", "mencho", "cartel",
+    # Mexicanismos baneables
+    "pendejo", "pinche", "chinga", "chinga tu madre", "joto", "puñetas", "culero", "mamada"
+]
+
+def contiene_palabras_baneadas(texto):
+    texto_lower = texto.lower()
+    return any(palabra in texto_lower for palabra in BANNED_WORDS)
+
 # --- BASES DE DATOS ---
 PELEAS_FILE = "ufc_peleas_broadcast.csv"
 PREDICCONES_FILE = "ufc_preds_broadcast.csv"
 LIGAS_FILE = "ufc_ligas_broadcast.csv" 
-PASSWORD_ADMIN = "dana2050"
 
 # --- INICIALIZACIÓN ---
 if not os.path.exists(PELEAS_FILE):
@@ -489,7 +508,7 @@ with t_lobby:
     
     # 🔥 BANNER PEQUEÑO DE LA CARTELERA (CON AJUSTE DE POSICIÓN)
     st.markdown(f"""
-    <div style="background-image: url('https://www.mma.es/wp-content/uploads/2026/06/ufc-freedom-250-favoritos.png'); background-size: cover; background-position: center 5%; height: 250px; border-radius: 12px; border: 2px solid #333; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
+    <div style="background-image: url('https://www.mma.es/wp-content/uploads/2026/06/ufc-freedom-250-favoritos.png'); background-size: cover; background-position: center 25%; height: 250px; border-radius: 12px; border: 2px solid #333; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
     </div>
     """, unsafe_allow_html=True)
     
@@ -568,7 +587,8 @@ with t_lobby:
 with t_jugar:
     st.markdown("<h2 style='color: #ffffff; text-align:center; font-size: 3.5rem;'>🔥 PREDICCIONES OFICIALES</h2>", unsafe_allow_html=True)
     
-    usuario_input = st.text_input("👤 INGRESA TU APODO PARA EL STREAM:", placeholder="Ej. El Especialista")
+    # 🔥 SEGURIDAD: LÍMITE DE CARACTERES EN EL APODO
+    usuario_input = st.text_input("👤 INGRESA TU APODO PARA EL STREAM:", placeholder="Ej. El Especialista", max_chars=20)
     usuario_limpio = usuario_input.strip().title()
     
     opcion_liga = st.selectbox("🤝 ¿DÓNDE QUIERES COMPETIR?", ["🌍 Ranking Global (Recomendado para el Directo)", "➕ Crear Liga Privada", "🔐 Unirse a Liga Existente"])
@@ -591,98 +611,102 @@ with t_jugar:
     if usuario_limpio:
         st.markdown("---")
         
-        # --- BOTÓN DE ALARDEAR (WHATSAPP) ---
-        pred_main = df_predicciones[(df_predicciones["usuario"] == usuario_limpio) & (df_predicciones["pelea_id"] == 1)]
-        if not pred_main.empty:
-            w_main = pred_main.iloc[0]["pred_winner"]
-            m_main = pred_main.iloc[0]["pred_method"]
-            r_main = pred_main.iloc[0]["pred_round"]
-            
-            texto_wa = f"🥊 ¡Sellé mi cartilla para el UFC Freedom 250! Mi pronóstico estelar: {w_main} gana por {m_main} (Round {r_main}). 🔥 ¿Crees que sabes más que yo? Entra al directo de Cokemma y supérame aquí: {URL_APP}"
-            link_wa = f"https://api.whatsapp.com/send?text={urllib.parse.quote(texto_wa)}"
-            
-            st.markdown(f"""
-            <div style="background: linear-gradient(135deg, #10B981 0%, #047857 100%); padding: 25px; border-radius: 12px; text-align: center; margin-bottom: 30px; border: 2px solid #34D399; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);">
-                <h3 style="color: white; margin-top: 0; font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; letter-spacing: 1px;">✅ ¡CARTILLA GUARDADA CON ÉXITO!</h3>
-                <p style="color: #ecfdf5; font-size: 1.2rem; margin-bottom: 20px; font-family: 'Montserrat', sans-serif;">Tus predicciones ya están en el sistema. ¡Desafía a tus amigos por WhatsApp y que arda el chat!</p>
-                <a href="{link_wa}" target="_blank" style="text-decoration: none; display: inline-block; background-color: #ffffff; color: #047857; padding: 15px 30px; border-radius: 8px; font-weight: 800; font-family: 'Montserrat', sans-serif; font-size: 1.1rem; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.2s;">
-                    📲 ALARDEAR MI PRONÓSTICO EN WHATSAPP
-                </a>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        with st.form("form_preds_ufc"):
-            for _, row in df_peleas.iterrows():
-                p_id_f = int(row["id"])
-                pred_existente = df_predicciones[(df_predicciones["usuario"] == usuario_limpio) & (df_predicciones["pelea_id"] == p_id_f)]
-                def_w, def_m, def_r = row["fighter_a"], "Decisión", "Tarjetas (Decisión)"
-                if not pred_existente.empty:
-                    def_w, def_m, def_r = pred_existente.iloc[0]["pred_winner"], pred_existente.iloc[0]["pred_method"], str(pred_existente.iloc[0]["pred_round"])
-
-                ops_w = [row["fighter_a"], row["fighter_b"]]
-                idx_w = ops_w.index(def_w) if def_w in ops_w else 0
-                idx_m = OPCIONES_METODO.index(def_m) if def_m in OPCIONES_METODO else 2
-                ops_r = get_opciones_round(row["rondas_max"])
-                idx_r = ops_r.index(def_r) if def_r in ops_r else len(ops_r)-1
+        # 🔥 SEGURIDAD: VERIFICAR SI HAY PALABRAS BANEADAS
+        if contiene_palabras_baneadas(usuario_limpio):
+            st.error("🚨 ¡Epa! Ese apodo contiene palabras no permitidas. Por favor, usa otro para el stream.")
+        else:
+            # --- BOTÓN DE ALARDEAR (WHATSAPP) ---
+            pred_main = df_predicciones[(df_predicciones["usuario"] == usuario_limpio) & (df_predicciones["pelea_id"] == 1)]
+            if not pred_main.empty:
+                w_main = pred_main.iloc[0]["pred_winner"]
+                m_main = pred_main.iloc[0]["pred_method"]
+                r_main = pred_main.iloc[0]["pred_round"]
                 
-                img_a = get_fighter_img(row["fighter_a"])
-                img_b = get_fighter_img(row["fighter_b"])
-
+                texto_wa = f"🥊 ¡Sellé mi cartilla para el UFC Freedom 250! Mi pronóstico estelar: {w_main} gana por {m_main} (Round {r_main}). 🔥 ¿Crees que sabes más que yo? Entra al directo de Cokemma y supérame aquí: {URL_APP}"
+                link_wa = f"https://api.whatsapp.com/send?text={urllib.parse.quote(texto_wa)}"
+                
                 st.markdown(f"""
-                <div class='fight-card'>
-                    <div class='weight-class'>{row['orden']} | {row['peso']}</div>
-                    <div style='display:flex; justify-content:space-around; align-items:center;'>
-                        <div style='width:35%;'>
-                            <img src='{img_a}' class='fighter-img'>
-                            <div class='fighter-name'>{row['fighter_a']}</div>
-                        </div>
-                        <div style='width:30%;' class='vs-text'>VS</div>
-                        <div style='width:35%;'>
-                            <img src='{img_b}' class='fighter-img'>
-                            <div class='fighter-name'>{row['fighter_b']}</div>
-                        </div>
-                    </div>
+                <div style="background: linear-gradient(135deg, #10B981 0%, #047857 100%); padding: 25px; border-radius: 12px; text-align: center; margin-bottom: 30px; border: 2px solid #34D399; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);">
+                    <h3 style="color: white; margin-top: 0; font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; letter-spacing: 1px;">✅ ¡CARTILLA GUARDADA CON ÉXITO!</h3>
+                    <p style="color: #ecfdf5; font-size: 1.2rem; margin-bottom: 20px; font-family: 'Montserrat', sans-serif;">Tus predicciones ya están en el sistema. ¡Desafía a tus amigos por WhatsApp y que arda el chat!</p>
+                    <a href="{link_wa}" target="_blank" style="text-decoration: none; display: inline-block; background-color: #ffffff; color: #047857; padding: 15px 30px; border-radius: 8px; font-weight: 800; font-family: 'Montserrat', sans-serif; font-size: 1.1rem; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.2s;">
+                        📲 ALARDEAR MI PRONÓSTICO EN WHATSAPP
+                    </a>
                 </div>
                 """, unsafe_allow_html=True)
-                
-                esta_bloqueado = bool(row["jugado"])
-                if esta_bloqueado: st.markdown("<p style='text-align:center; color:#DC2626; font-weight:bold; font-size:1.2rem;'>🛑 PELEA FINALIZADA</p>", unsafe_allow_html=True)
-                
-                col1, col2, col3 = st.columns(3)
-                with col1: st.selectbox("GANADOR", ops_w, index=idx_w, key=f"w_{p_id_f}", disabled=esta_bloqueado)
-                with col2: st.selectbox("MÉTODO", OPCIONES_METODO, index=idx_m, key=f"m_{p_id_f}", disabled=esta_bloqueado)
-                with col3: st.selectbox("ROUND", ops_r, index=idx_r, key=f"r_{p_id_f}", disabled=esta_bloqueado)
-                st.markdown("<br><hr style='border-color: #333;'><br>", unsafe_allow_html=True)
-                
-            if st.form_submit_button("🔒 CONFIRMAR MIS PREDICCIONES"):
-                acceso = True
-                if opcion_liga == "➕ Crear Liga Privada":
-                    if not liga_nueva or not clave_creada: st.error("Faltan datos de la liga."); acceso = False
-                    else:
-                        df_ligas = pd.concat([df_ligas, pd.DataFrame([{"nombre_liga": liga_limpia, "clave_liga": clave_creada, "creador": usuario_limpio}])], ignore_index=True)
-                        df_ligas.to_csv(LIGAS_FILE, index=False)
-                elif opcion_liga == "🔐 Unirse a Liga Existente" and ligas_disp:
-                    if str(clave_ingresada) != str(df_ligas[df_ligas["nombre_liga"] == liga_limpia]["clave_liga"].values[0]):
-                        st.error("Contraseña incorrecta."); acceso = False
+            
+            with st.form("form_preds_ufc"):
+                for _, row in df_peleas.iterrows():
+                    p_id_f = int(row["id"])
+                    pred_existente = df_predicciones[(df_predicciones["usuario"] == usuario_limpio) & (df_predicciones["pelea_id"] == p_id_f)]
+                    def_w, def_m, def_r = row["fighter_a"], "Decisión", "Tarjetas (Decisión)"
+                    if not pred_existente.empty:
+                        def_w, def_m, def_r = pred_existente.iloc[0]["pred_winner"], pred_existente.iloc[0]["pred_method"], str(pred_existente.iloc[0]["pred_round"])
 
-                if acceso:
-                    for _, row in df_peleas.iterrows():
-                        p_id_s = int(row["id"])
-                        if row["jugado"]: continue
-                        df_predicciones = df_predicciones[~((df_predicciones["usuario"] == usuario_limpio) & (df_predicciones["pelea_id"] == p_id_s))]
-                        df_predicciones = pd.concat([df_predicciones, pd.DataFrame([{"usuario": usuario_limpio, "liga": liga_limpia, "pelea_id": p_id_s, "pred_winner": st.session_state[f"w_{p_id_s}"], "pred_method": st.session_state[f"m_{p_id_s}"], "pred_round": st.session_state[f"r_{p_id_s}"]}])], ignore_index=True)
-                    df_predicciones.to_csv(PREDICCONES_FILE, index=False)
+                    ops_w = [row["fighter_a"], row["fighter_b"]]
+                    idx_w = ops_w.index(def_w) if def_w in ops_w else 0
+                    idx_m = OPCIONES_METODO.index(def_m) if def_m in OPCIONES_METODO else 2
+                    ops_r = get_opciones_round(row["rondas_max"])
+                    idx_r = ops_r.index(def_r) if def_r in ops_r else len(ops_r)-1
                     
-                    st.toast('¡Cartilla asegurada en la base de datos!', icon='🏆')
-                    st.markdown("""
-                    <div style="text-align:center; animation: shake 0.5s;">
-                        <h1 style="color: #DC2626; font-size: 6rem; font-family: 'Bebas Neue', sans-serif;">¡BOOM! 💥</h1>
-                        <p style="font-size: 1.8rem; color:white; font-family:'Bebas Neue', sans-serif; letter-spacing:2px;">¡CARTILLA OFICIAL EN LA JAULA!</p>
+                    img_a = get_fighter_img(row["fighter_a"])
+                    img_b = get_fighter_img(row["fighter_b"])
+
+                    st.markdown(f"""
+                    <div class='fight-card'>
+                        <div class='weight-class'>{row['orden']} | {row['peso']}</div>
+                        <div style='display:flex; justify-content:space-around; align-items:center;'>
+                            <div style='width:35%;'>
+                                <img src='{img_a}' class='fighter-img'>
+                                <div class='fighter-name'>{row['fighter_a']}</div>
+                            </div>
+                            <div style='width:30%;' class='vs-text'>VS</div>
+                            <div style='width:35%;'>
+                                <img src='{img_b}' class='fighter-img'>
+                                <div class='fighter-name'>{row['fighter_b']}</div>
+                            </div>
+                        </div>
                     </div>
                     """, unsafe_allow_html=True)
-                    st.snow()
-                    time.sleep(2)
-                    st.rerun()
+                    
+                    esta_bloqueado = bool(row["jugado"])
+                    if esta_bloqueado: st.markdown("<p style='text-align:center; color:#DC2626; font-weight:bold; font-size:1.2rem;'>🛑 PELEA FINALIZADA</p>", unsafe_allow_html=True)
+                    
+                    col1, col2, col3 = st.columns(3)
+                    with col1: st.selectbox("GANADOR", ops_w, index=idx_w, key=f"w_{p_id_f}", disabled=esta_bloqueado)
+                    with col2: st.selectbox("MÉTODO", OPCIONES_METODO, index=idx_m, key=f"m_{p_id_f}", disabled=esta_bloqueado)
+                    with col3: st.selectbox("ROUND", ops_r, index=idx_r, key=f"r_{p_id_f}", disabled=esta_bloqueado)
+                    st.markdown("<br><hr style='border-color: #333;'><br>", unsafe_allow_html=True)
+                    
+                if st.form_submit_button("🔒 CONFIRMAR MIS PREDICCIONES"):
+                    acceso = True
+                    if opcion_liga == "➕ Crear Liga Privada":
+                        if not liga_nueva or not clave_creada: st.error("Faltan datos de la liga."); acceso = False
+                        else:
+                            df_ligas = pd.concat([df_ligas, pd.DataFrame([{"nombre_liga": liga_limpia, "clave_liga": clave_creada, "creador": usuario_limpio}])], ignore_index=True)
+                            df_ligas.to_csv(LIGAS_FILE, index=False)
+                    elif opcion_liga == "🔐 Unirse a Liga Existente" and ligas_disp:
+                        if str(clave_ingresada) != str(df_ligas[df_ligas["nombre_liga"] == liga_limpia]["clave_liga"].values[0]):
+                            st.error("Contraseña incorrecta."); acceso = False
+
+                    if acceso:
+                        for _, row in df_peleas.iterrows():
+                            p_id_s = int(row["id"])
+                            if row["jugado"]: continue
+                            df_predicciones = df_predicciones[~((df_predicciones["usuario"] == usuario_limpio) & (df_predicciones["pelea_id"] == p_id_s))]
+                            df_predicciones = pd.concat([df_predicciones, pd.DataFrame([{"usuario": usuario_limpio, "liga": liga_limpia, "pelea_id": p_id_s, "pred_winner": st.session_state[f"w_{p_id_s}"], "pred_method": st.session_state[f"m_{p_id_s}"], "pred_round": st.session_state[f"r_{p_id_s}"]}])], ignore_index=True)
+                        df_predicciones.to_csv(PREDICCONES_FILE, index=False)
+                        
+                        st.toast('¡Cartilla asegurada en la base de datos!', icon='🏆')
+                        st.markdown("""
+                        <div style="text-align:center; animation: shake 0.5s;">
+                            <h1 style="color: #DC2626; font-size: 6rem; font-family: 'Bebas Neue', sans-serif;">¡BOOM! 💥</h1>
+                            <p style="font-size: 1.8rem; color:white; font-family:'Bebas Neue', sans-serif; letter-spacing:2px;">¡CARTILLA OFICIAL EN LA JAULA!</p>
+                        </div>
+                        """, unsafe_allow_html=True)
+                        st.snow()
+                        time.sleep(2)
+                        st.rerun()
 
 # --- PESTAÑA 2: STATS EN VIVO (BARÓMETRO DEL DIRECTO) ---
 with t_stats:
